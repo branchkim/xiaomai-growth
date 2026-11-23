@@ -1,3 +1,4 @@
+import { Checkins, setupCheckins } from "./checkins.js";
 import { Notebook } from "./notes.js";
 import {
   ageWindow,
@@ -66,6 +67,9 @@ try {
 } catch {
   storage = null;
 }
+const checkins = new Checkins(storage);
+const refreshCheckins = setupCheckins(checkins);
+
 function stageHash(id) {
   return "#time/" + id;
 }
@@ -442,6 +446,7 @@ function displayRoute(hash) {
   else {
     const id = name.startsWith("time/") ? name.slice(5) : activeStage;
     drawTimeline(stages.has(id) ? id : data.stages[0].id);
+    if (name === "checkin") $("checkin").scrollIntoView({ block: "start" });
   }
 }
 function route() {
@@ -552,7 +557,8 @@ async function init() {
     } catch {}
     setupTimeline();
     setupIndex();
-    setupDeviceTools(book, cards, () => {
+    setupDeviceTools(book, cards, checkins, () => {
+      refreshCheckins();
       renderNotes();
       if (!$("index").hidden) drawIndex();
     });

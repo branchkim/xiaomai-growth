@@ -32,7 +32,7 @@
           /><span>小麦的成长计划</span></a
         >
         <nav aria-label="主导航">
-          <a href="#home" data-view="home"><i data-icon="path"></i>成长时间线</a
+          <a href="#home" data-view="home"><i data-icon="path"></i>首页</a
           ><a href="#index" data-view="index"
             ><i data-icon="index"></i>知识索引</a
           ><a href="#notes" data-view="notes"
@@ -65,6 +65,62 @@
           </div>
           <b class="seed" aria-hidden="true"></b>
         </header>
+        <section
+          id="checkin"
+          class="checkin-panel"
+          aria-labelledby="checkin-title"
+        >
+          <div class="checkin-heading">
+            <h2 id="checkin-title">今日打卡</h2>
+            <input id="checkin-day" aria-label="选择打卡日期" type="date" />
+          </div>
+          <div id="checkin-controls">
+            <div
+              id="quick-checkins"
+              class="quick-checkins"
+              aria-label="一键照护打卡"
+            >
+              <button type="button" data-kind="feed" data-title="喂养">
+                <i data-icon="food"></i>记喂养
+              </button>
+              <button type="button" data-kind="sleep" data-title="入睡">
+                <i data-icon="sleep"></i>记入睡
+              </button>
+              <button type="button" data-kind="diaper" data-title="换尿布">
+                <i data-icon="sprout"></i>记尿布
+              </button>
+            </div>
+            <form id="task-form">
+              <input
+                id="new-task"
+                type="text"
+                required
+                maxlength="100"
+                aria-label="新增待办事项"
+                placeholder="写个待办，如准备儿保手册"
+                autocomplete="off"
+              />
+              <button type="submit" class="solid">添加事项</button>
+            </form>
+          </div>
+          <button type="button" class="quiet" id="checkin-today" hidden>
+            回到今天
+          </button>
+          <p class="checkin-summary" id="task-count"></p>
+          <ul
+            class="checkin-list"
+            id="checkin-tasks"
+            aria-label="待办事项"
+          ></ul>
+          <details id="log-history" hidden>
+            <summary id="log-count">查看照护记录</summary>
+            <ul class="checkin-list" id="checkin-logs"></ul>
+          </details>
+          <div class="checkin-footer">
+            <small>仅存本机</small
+            ><span role="status" id="checkin-status"></span>
+          </div>
+        </section>
         <section class="timeline" aria-labelledby="timeline-title">
           <div class="section-head">
             <h2 id="timeline-title">成长时间线</h2>
@@ -184,10 +240,12 @@
         <button id="install" class="solid" hidden>安装手账</button>
         <p id="offline-status" class="muted"></p>
         <hr />
-        <h3>我家的经验</h3>
-        <p>换手机、换浏览器或清理数据前，可先导出备份。导入会合并记录。</p>
+        <h3>本机手账备份</h3>
+        <p>
+          打卡、收藏和经验会一同导出。换手机、换浏览器或清理数据前，可先导出备份。导入会合并记录。
+        </p>
         <div class="actions">
-          <button id="export" class="solid">导出经验</button
+          <button id="export" class="solid">导出备份</button
           ><button id="import" class="tools">导入备份</button
           ><input
             id="import-file"

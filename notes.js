@@ -1,3 +1,5 @@
+import { readCheckinBackup } from "./checkins.js";
+
 // Keys use permanent card IDs so renaming or reordering cards preserves the family's entries.
 const prefix = "xiaomai/notes/v1/";
 export const conflictDivider = "\n\n—— 另一份记录 ——\n\n";
@@ -27,7 +29,11 @@ export function parseNotebookBackup(text, knownIds) {
   const favorites = data.favorites ?? [];
   if (!Array.isArray(favorites) || !favorites.every((id) => knownIds.has(id)))
     throw new Error("收藏编号有误，请检查备份。");
-  return { entries: data.entries, favorites: [...new Set(favorites)] };
+  return {
+    entries: data.entries,
+    favorites: [...new Set(favorites)],
+    checkins: readCheckinBackup(data.checkins),
+  };
 }
 export function parseBackup(text, knownIds) {
   return parseNotebookBackup(text, knownIds).entries;

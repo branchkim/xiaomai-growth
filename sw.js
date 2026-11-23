@@ -1,6 +1,6 @@
-const CACHE = "xiaomai-growth-909ba1c4f36efd";
+const CACHE = "xiaomai-growth-bd4aea8494967c";
 const base = self.registration.scope;
-const resources = new Set(["app.js","assets/icon-180.png","assets/icon-192.png","assets/icon-512.png","assets/stage-m1.webp","assets/stage-m2.webp","assets/stage-m3.webp","assets/stage-m4.webp","assets/stage-m5.webp","assets/stage-m6.webp","assets/stage-m7.webp","assets/wheat-field.webp","cards.json","device-tools.js","index.html","library.js","manifest.webmanifest","notes.js","styles.css"].map((name) => new URL(name, base).href));
+const resources = new Set(["app.js","assets/icon-180.png","assets/icon-192.png","assets/icon-512.png","assets/stage-m1.webp","assets/stage-m2.webp","assets/stage-m3.webp","assets/stage-m4.webp","assets/stage-m5.webp","assets/stage-m6.webp","assets/stage-m7.webp","assets/wheat-field.webp","cards.json","checkins.js","device-tools.js","index.html","library.js","manifest.webmanifest","notes.js","styles.css"].map((name) => new URL(name, base).href));
 self.addEventListener("install", (event) => {
   event.waitUntil(
     (async () => {
@@ -15,11 +15,26 @@ self.addEventListener("install", (event) => {
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     (async () => {
-      for (const key of await caches.keys()) {
-        if (key.startsWith("xiaomai-growth-") && key !== CACHE)
-          await caches.delete(key);
+      const oldCaches = (await caches.keys()).filter(
+        (key) => key.startsWith("xiaomai-growth-") && key !== CACHE,
+      );
+      for (const key of oldCaches) {
+        await caches.delete(key);
       }
       await self.clients.claim();
+      // A parent following the update link may have received the old cached homepage.
+      if (oldCaches.length) {
+        for (const client of await self.clients.matchAll({ type: "window" })) {
+          const url = new URL(client.url);
+          if (
+            url.pathname === new URL(base).pathname &&
+            url.searchParams.get("open") === "checkin"
+          ) {
+            // Navigation fetches are released once activation completes.
+            void client.navigate(client.url).catch(() => {});
+          }
+        }
+      }
     })(),
   );
 });

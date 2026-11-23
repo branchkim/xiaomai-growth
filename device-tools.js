@@ -2,7 +2,7 @@ import { parseNotebookBackup, mergeEntry } from "./notes.js";
 
 const $ = (id) => document.getElementById(id);
 
-export function setupDeviceTools(book, cards, onImport) {
+export function setupDeviceTools(book, cards, checkins, onImport) {
   let installPrompt;
   let offlineReady = false;
   function installInfo() {
@@ -53,12 +53,21 @@ export function setupDeviceTools(book, cards, onImport) {
     $("tools-dialog").showModal();
   };
   $("export").onclick = () => {
-    const blob = new Blob([JSON.stringify(book.backup(), null, 2)], {
-      type: "application/json",
-    });
+    const blob = new Blob(
+      [
+        JSON.stringify(
+          { ...book.backup(), checkins: checkins.backup() },
+          null,
+          2,
+        ),
+      ],
+      {
+        type: "application/json",
+      },
+    );
     const link = document.createElement("a");
     link.download =
-      "小麦成长经验-" + new Date().toISOString().slice(0, 10) + ".json";
+      "小麦成长手账-" + new Date().toISOString().slice(0, 10) + ".json";
     link.href = URL.createObjectURL(blob);
     document.body.append(link);
     link.click();
@@ -72,10 +81,11 @@ export function setupDeviceTools(book, cards, onImport) {
       file = input.files[0];
     if (!file) return;
     try {
-      const { entries, favorites } = parseNotebookBackup(
-        await file.text(),
-        new Set(cards.keys()),
-      );
+      const {
+        entries,
+        favorites,
+        checkins: importedCheckins,
+      } = parseNotebookBackup(await file.text(), new Set(cards.keys()));
       book.read();
       let durable = true;
       for (const item of entries) {
@@ -84,13 +94,16 @@ export function setupDeviceTools(book, cards, onImport) {
       }
       for (const id of favorites)
         if (!book.setFavorite(id, true)) durable = false;
+      if (!checkins.merge(importedCheckins)) durable = false;
       onImport();
       $("backup-message").textContent = durable
         ? "已合并 " +
           entries.length +
           " 条经验、" +
           favorites.length +
-          " 张收藏。"
+          " 张收藏、" +
+          importedCheckins.length +
+          " 条打卡。"
         : "已读入本页，设备保存失败，请导出备份。";
     } catch (error) {
       $("backup-message").textContent =
@@ -103,7 +116,7 @@ export function setupDeviceTools(book, cards, onImport) {
   };
   if ("serviceWorker" in navigator && window.isSecureContext) {
     navigator.serviceWorker
-      .register("./sw.js")
+      .register("./sw.js", { updateViaCache: "none" })
       .then(() => navigator.serviceWorker.ready)
       .then(() => {
         offlineReady = true;

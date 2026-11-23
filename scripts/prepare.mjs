@@ -60,6 +60,7 @@ for (const c of data.cards) {
 const shell = [
   "index.html",
   "app.js",
+  "checkins.js",
   "styles.css",
   "notes.js",
   "library.js",

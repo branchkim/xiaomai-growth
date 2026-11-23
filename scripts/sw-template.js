@@ -15,11 +15,26 @@ self.addEventListener("install", (event) => {
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     (async () => {
-      for (const key of await caches.keys()) {
-        if (key.startsWith("xiaomai-growth-") && key !== CACHE)
-          await caches.delete(key);
+      const oldCaches = (await caches.keys()).filter(
+        (key) => key.startsWith("xiaomai-growth-") && key !== CACHE,
+      );
+      for (const key of oldCaches) {
+        await caches.delete(key);
       }
       await self.clients.claim();
+      // A parent following the update link may have received the old cached homepage.
+      if (oldCaches.length) {
+        for (const client of await self.clients.matchAll({ type: "window" })) {
+          const url = new URL(client.url);
+          if (
+            url.pathname === new URL(base).pathname &&
+            url.searchParams.get("open") === "checkin"
+          ) {
+            // Navigation fetches are released once activation completes.
+            void client.navigate(client.url).catch(() => {});
+          }
+        }
+      }
     })(),
   );
 });
