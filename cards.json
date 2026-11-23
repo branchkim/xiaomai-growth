@@ -3,37 +3,86 @@
     {
       "id": "m1",
       "label": "第1个月（新生儿）",
-      "name": "初见小麦"
+      "name": "初见小麦",
+      "short": "新生儿",
+      "focus": "先熟悉小麦吃奶、醒来和需要安抚时的信号。",
+      "featured": [
+        "card-04",
+        "card-02",
+        "edu-diaper-talk"
+      ]
     },
     {
       "id": "m2",
       "label": "第2个月",
-      "name": "慢慢熟悉"
+      "name": "慢慢熟悉",
+      "short": "第2个月",
+      "focus": "白天留意光线和声音，把清醒的一小会儿留给面对面交流。",
+      "featured": [
+        "card-12",
+        "card-14",
+        "edu-dress"
+      ]
     },
     {
       "id": "m3",
       "label": "第3个月",
-      "name": "抬头看世界"
+      "name": "抬头看世界",
+      "short": "第3个月",
+      "focus": "趴玩时面对面；小麦发出声音，就应一句，等他接话。",
+      "featured": [
+        "card-19",
+        "card-21",
+        "card-20"
+      ]
     },
     {
       "id": "m4",
       "label": "第4个月",
-      "name": "翻身的日子"
+      "name": "翻身的日子",
+      "short": "第4个月",
+      "focus": "清出一块安全的地面，让小麦有机会自己摸、够、转身。",
+      "featured": [
+        "card-23",
+        "card-24",
+        "card-22"
+      ]
     },
     {
       "id": "m5",
       "label": "第5个月",
-      "name": "伸手去探索"
+      "name": "伸手去探索",
+      "short": "第5个月",
+      "focus": "看他主动伸向什么，再决定是递过去，还是安静等一等。",
+      "featured": [
+        "edu-choose",
+        "card-28",
+        "card-27"
+      ]
     },
     {
       "id": "m6",
       "label": "第6–8个月",
-      "name": "一口一口长大"
+      "name": "围坐在一起",
+      "short": "第6–8个月",
+      "focus": "留意辅食准备信号；玩碗勺时，看看他喜欢抓、换手还是轻轻敲。",
+      "featured": [
+        "card-29",
+        "edu-spoon-sounds",
+        "edu-pass"
+      ]
     },
     {
       "id": "m7",
       "label": "第9–12个月",
-      "name": "向周岁出发"
+      "name": "向周岁出发",
+      "short": "第9–12个月",
+      "focus": "把熟悉的名字和真实的人、物连起来，也给爬和扶站腾出安全空间。",
+      "featured": [
+        "card-36",
+        "edu-doorway-words",
+        "edu-book"
+      ]
     }
   ],
   "cards": [
@@ -45,7 +94,16 @@
       "steps": [
         "留意醒来后能否有效吃奶、尿布是否逐渐增湿。每次睡觉都仰放在坚实平坦的独立婴儿床，只铺贴合的床单。大人困了先把宝宝放回床。"
       ],
-      "reference": "https://safetosleep.nichd.nih.gov/reduce-risk/reduce"
+      "reference": "https://safetosleep.nichd.nih.gov/reduce-risk/reduce",
+      "topic": "睡眠与安抚",
+      "scene": "哄睡",
+      "aliases": [
+        "落地醒",
+        "碎觉",
+        "睡一会就醒",
+        "安全睡眠"
+      ],
+      "related": []
     },
     {
       "id": "card-02",
@@ -56,7 +114,16 @@
         "出院前记下胆红素数值、单位、采样及复查时间，按约复查。别用“低于12”自行判断，也别用晒太阳替代复查。",
         "出生头24小时就黄、黄得更深或吃奶差，立即联系儿科。见灰白便，当天就医。"
       ],
-      "reference": "https://cspm.cma.org.cn/index/news?id=3832"
+      "reference": "https://cspm.cma.org.cn/index/news?id=3832",
+      "topic": "健康与安全",
+      "scene": "观察宝宝",
+      "aliases": [
+        "脸黄",
+        "眼白黄",
+        "黄疸",
+        "胆红素"
+      ],
+      "related": []
     },
     {
       "id": "card-03",
@@ -66,7 +133,15 @@
       "steps": [
         "第一次换到胎便时记下时间和颜色。足月宝宝出生满24小时仍没有胎便，马上告诉医护人员。若同时腹胀、吐绿色液体，立即去急诊。"
       ],
-      "reference": "https://www.uhsussex.nhs.uk/resources/post-natal-booklet/"
+      "reference": "https://www.uhsussex.nhs.uk/resources/post-natal-booklet/",
+      "topic": "日常照护",
+      "scene": "换尿布",
+      "aliases": [
+        "胎便",
+        "黑绿便",
+        "第一泡大便"
+      ],
+      "related": []
     },
     {
       "id": "card-04",
@@ -76,7 +151,17 @@
       "steps": [
         "出现饥饿信号就喂，听有没有吞咽，闭嘴转头可暂停。瓶喂时抱着，给宝宝留出停顿。早期母乳喂养常见每天8–12次。生后约第5天起，多数宝宝每天有约6片或更多明显湿尿布。尿量偏少、吸吮弱或增重不理想，联系儿科。"
       ],
-      "reference": "https://www.mayoclinic.org/healthy-lifestyle/infant-and-toddler-health/expert-answers/newborn/faq-20057752"
+      "reference": "https://www.mayoclinic.org/healthy-lifestyle/infant-and-toddler-health/expert-answers/newborn/faq-20057752",
+      "topic": "喂养",
+      "scene": "喂奶",
+      "aliases": [
+        "找奶",
+        "饿了",
+        "喂不饱",
+        "奶量",
+        "吞咽"
+      ],
+      "related": []
     },
     {
       "id": "card-05",
@@ -86,7 +171,15 @@
       "steps": [
         "按出院喂养计划设提醒。早期距上一餐开始接近4小时仍未醒，可轻唤、换片后喂奶，有更短医嘱按医嘱。恢复出生体重且持续增重后，再和儿科确认夜间能否等他自醒。很难唤醒或醒后吸不动要立即就医。"
       ],
-      "reference": "https://www.mayoclinic.org/healthy-lifestyle/infant-and-toddler-health/expert-answers/newborn/faq-20057752"
+      "reference": "https://www.mayoclinic.org/healthy-lifestyle/infant-and-toddler-health/expert-answers/newborn/faq-20057752",
+      "topic": "喂养",
+      "scene": "喂奶",
+      "aliases": [
+        "叫醒喂奶",
+        "错过一顿",
+        "睡过奶点"
+      ],
+      "related": []
     },
     {
       "id": "card-06",
@@ -96,7 +189,15 @@
       "steps": [
         "你先坐稳，让宝宝竖靠肩膀，托好头颈和臀部，露出口鼻，轻抚或轻拍后背。几分钟后已经舒服就可以停。即使偶有少量溢奶，睡觉仍仰卧在平床上。"
       ],
-      "reference": "https://www.nhs.uk/best-start-in-life/baby/feeding-your-baby/bottle-feeding/bottle-feeding-your-baby/how-to-burp-your-baby/"
+      "reference": "https://www.nhs.uk/best-start-in-life/baby/feeding-your-baby/bottle-feeding/bottle-feeding-your-baby/how-to-burp-your-baby/",
+      "topic": "喂养",
+      "scene": "喂奶",
+      "aliases": [
+        "拍嗝",
+        "打嗝",
+        "奶嗝"
+      ],
+      "related": []
     },
     {
       "id": "card-07",
@@ -106,7 +207,18 @@
       "steps": [
         "先摸胸口或后颈。躯干热、后颈汗湿时减一层，换掉湿衣再看。怀疑发热要用体温计。3月龄及以下宝宝肛温达到38.0°C，应立即联系儿科并就医。"
       ],
-      "reference": "https://www.healthychildren.org/English/health-issues/conditions/fever/Pages/Fever-and-Your-Baby.aspx"
+      "reference": "https://www.healthychildren.org/English/health-issues/conditions/fever/Pages/Fever-and-Your-Baby.aspx",
+      "topic": "健康与安全",
+      "scene": "穿衣",
+      "aliases": [
+        "手脚冰",
+        "凉手",
+        "穿多了",
+        "捂热"
+      ],
+      "related": [
+        "edu-dress"
+      ]
     },
     {
       "id": "card-08",
@@ -116,7 +228,17 @@
       "steps": [
         "一般足月儿按医嘱可从出生后数日开始，每天常用400国际单位（IU）。认清瓶上写的是每滴还是每毫升，使用配套滴具，喂后打勾。早产、低出生体重、吃强化配方奶，或同时用维生素AD等制剂，请儿科核定总量。"
       ],
-      "reference": "https://www.chinacdc.cn/jkyj/yyyjk2/jswj13949/201508/t20150817_296900.html"
+      "reference": "https://www.chinacdc.cn/jkyj/yyyjk2/jswj13949/201508/t20150817_296900.html",
+      "topic": "健康与安全",
+      "scene": "日常补充",
+      "aliases": [
+        "维D",
+        "VD",
+        "维生素D",
+        "滴剂",
+        "IU"
+      ],
+      "related": []
     },
     {
       "id": "card-09",
@@ -126,7 +248,17 @@
       "steps": [
         "洗手后把尿布前缘下折，露出肚脐。沾上尿便用清水清洁、轻轻拍干，不拉扯。另有出院医嘱则按医嘱。周围红肿向外扩展、流脓或有恶臭，立即就医。"
       ],
-      "reference": "https://www.uhsussex.nhs.uk/resources/post-natal-booklet/"
+      "reference": "https://www.uhsussex.nhs.uk/resources/post-natal-booklet/",
+      "topic": "日常照护",
+      "scene": "换尿布",
+      "aliases": [
+        "肚脐",
+        "脐带掉了",
+        "脐带护理"
+      ],
+      "related": [
+        "edu-diaper-talk"
+      ]
     },
     {
       "id": "card-10",
@@ -136,7 +268,18 @@
       "steps": [
         "备好温水、软布和干净尿布，在地垫上换。尿布湿了就换，有大便尽快换。从前往后清洁，女宝宝尤其注意，再轻按吸干。容易红可涂无香屏障膏，如氧化锌。破溃、化脓或持续加重请就医。"
       ],
-      "reference": "https://www.fhs.gov.hk/sc_chi/health_info/child/14851.html"
+      "reference": "https://www.fhs.gov.hk/sc_chi/health_info/child/14851.html",
+      "topic": "日常照护",
+      "scene": "换尿布",
+      "aliases": [
+        "红屁股",
+        "红屁屁",
+        "尿布疹",
+        "换尿片"
+      ],
+      "related": [
+        "edu-diaper-talk"
+      ]
     },
     {
       "id": "card-11",
@@ -146,7 +289,15 @@
       "steps": [
         "挑清醒安静的时候，把脸或黑白卡放在眼前约20–30厘米。等目光停一下，再慢慢往一侧移。转头、打哈欠就停，不必追着给他看。"
       ],
-      "reference": "https://www.healthychildren.org/English/ages-stages/baby/Pages/Developmental-Milestones-1-Month.aspx"
+      "reference": "https://www.healthychildren.org/English/ages-stages/baby/Pages/Developmental-Milestones-1-Month.aspx",
+      "topic": "亲子活动",
+      "scene": "地垫玩",
+      "aliases": [
+        "黑白卡",
+        "看图",
+        "追视"
+      ],
+      "related": []
     },
     {
       "id": "card-12",
@@ -156,7 +307,14 @@
       "steps": [
         "白天拉开窗帘，家人正常轻声活动，困了照常小睡。夜里喂奶和换片用能看清脸色的柔光，动作轻缓。别为了晚上好睡刻意撑长白天的清醒时间。"
       ],
-      "reference": "https://www.nhc.gov.cn/fys/c100078/202211/f0f764d18bbc4ddea3cf659df6ebf10d.shtml"
+      "reference": "https://www.nhc.gov.cn/fys/c100078/202211/f0f764d18bbc4ddea3cf659df6ebf10d.shtml",
+      "topic": "睡眠与安抚",
+      "scene": "哄睡",
+      "aliases": [
+        "昼夜颠倒",
+        "白天睡晚上闹"
+      ],
+      "related": []
     },
     {
       "id": "card-13",
@@ -168,7 +326,16 @@
         "① 吃得急时暂停，托好头颈竖抱轻抚背。② 清醒时可坐稳，用前臂承托宝宝趴抱，口鼻保持可见。③ 仰卧时轻轻交替屈伸双腿，可轻抚腹部。④ 哺乳妈妈照常均衡饮食，不因单纯胀气忌奶或豆类。⑤ 清醒且有人看护时短暂趴玩，困了回床仰睡。",
         "哭声异常且伴发热、呕吐、便血或精神差要就医。大人快撑不住时，让宝宝仰卧在安全的空婴儿床，请人换班，切勿摇晃。"
       ],
-      "reference": "https://www.healthychildren.org/English/ages-stages/baby/crying-colic/Pages/Colic.aspx"
+      "reference": "https://www.healthychildren.org/English/ages-stages/baby/crying-colic/Pages/Colic.aspx",
+      "topic": "睡眠与安抚",
+      "scene": "傍晚带娃",
+      "aliases": [
+        "黄昏闹",
+        "傍晚哭",
+        "哭闹",
+        "蹬腿"
+      ],
+      "related": []
     },
     {
       "id": "card-14",
@@ -178,7 +345,16 @@
       "steps": [
         "选清醒、没刚吃饱的时候，在坚实地垫上和他面对面趴着，轻声叫他或慢慢移动摇铃。累了就翻回仰卧，大人全程在伸手可及处。宝宝困了就结束，睡时始终仰放。"
       ],
-      "reference": "https://www.healthychildren.org/English/ages-stages/baby/sleep/Pages/Back-to-Sleep-Tummy-to-Play.aspx"
+      "reference": "https://www.healthychildren.org/English/ages-stages/baby/sleep/Pages/Back-to-Sleep-Tummy-to-Play.aspx",
+      "topic": "动作探索",
+      "scene": "地垫玩",
+      "aliases": [
+        "趴着",
+        "趴玩",
+        "抬头",
+        "趴一会"
+      ],
+      "related": []
     },
     {
       "id": "card-15",
@@ -188,7 +364,17 @@
       "steps": [
         "选他清醒安静的时候，分别从左右轻声叫他，停几秒看反应。不要贴着耳朵摇铃或用巨响测试。经常对声音没反应，或新生儿听筛没通过，按约做听力复查。"
       ],
-      "reference": "https://www.cdc.gov/act-early/milestones/2-months.html"
+      "reference": "https://www.cdc.gov/act-early/milestones/2-months.html",
+      "topic": "健康与安全",
+      "scene": "观察宝宝",
+      "aliases": [
+        "听不见",
+        "听力",
+        "声音反应"
+      ],
+      "related": [
+        "card-21"
+      ]
     },
     {
       "id": "card-16",
@@ -198,7 +384,15 @@
       "steps": [
         "醒来找奶就喂，吃好且精神不错时说话、看图或短暂趴玩。开始打哈欠、眼神移开就收起玩具。刚醒还困就再睡，玩到一半找奶也可以喂。"
       ],
-      "reference": "https://www.nhc.gov.cn/fys/c100078/202211/f0f764d18bbc4ddea3cf659df6ebf10d.shtml"
+      "reference": "https://www.nhc.gov.cn/fys/c100078/202211/f0f764d18bbc4ddea3cf659df6ebf10d.shtml",
+      "topic": "日常照护",
+      "scene": "在家带娃",
+      "aliases": [
+        "吃玩睡",
+        "作息",
+        "作息乱"
+      ],
+      "related": []
     },
     {
       "id": "card-17",
@@ -208,7 +402,15 @@
       "steps": [
         "选两三个每天做得到的步骤，如换尿布、拉窗帘、唱同一首歌；洗澡、轻抚可选。使用白噪声时把设备放远，调低音量，短时使用。发热或明显不舒服时先评估身体状况。"
       ],
-      "reference": "https://www.healthychildren.org/English/safety-prevention/all-around/Pages/how-noise-affects-your-child.aspx"
+      "reference": "https://www.healthychildren.org/English/safety-prevention/all-around/Pages/how-noise-affects-your-child.aspx",
+      "topic": "睡眠与安抚",
+      "scene": "哄睡",
+      "aliases": [
+        "接觉",
+        "小觉",
+        "白天睡得短"
+      ],
+      "related": []
     },
     {
       "id": "card-18",
@@ -218,7 +420,15 @@
       "steps": [
         "眼睛闭着、呼吸平稳，仅哼两声，可在床边稍看一会。睁眼找奶、明显哭泣或越哭越急时及时回应。用柔光轻声安抚，该喂就喂，该换就换，安顿后仰放回床。"
       ],
-      "reference": "https://safetosleep.nichd.nih.gov/reduce-risk/reduce"
+      "reference": "https://safetosleep.nichd.nih.gov/reduce-risk/reduce",
+      "topic": "睡眠与安抚",
+      "scene": "哄睡",
+      "aliases": [
+        "哼唧",
+        "夜醒",
+        "睡梦中哼"
+      ],
+      "related": []
     },
     {
       "id": "card-19",
@@ -228,7 +438,17 @@
       "steps": [
         "清醒趴玩时，把鲜艳的小玩具放在面前，等他抬头，再慢慢移向一侧，下次换边。抱起放下继续托好头颈。若总朝一边、两侧动作明显不同或已经会的动作消失，告诉儿保医生。"
       ],
-      "reference": "https://www.cdc.gov/act-early/digital-online-checklist/4-months.html"
+      "reference": "https://www.cdc.gov/act-early/digital-online-checklist/4-months.html",
+      "topic": "动作探索",
+      "scene": "地垫玩",
+      "aliases": [
+        "抬头",
+        "够玩具",
+        "趴玩"
+      ],
+      "related": [
+        "card-24"
+      ]
     },
     {
       "id": "card-20",
@@ -238,7 +458,17 @@
       "steps": [
         "选气温舒服、空气好时，从家附近的短路线开始。找阴凉处，遮阳并保持通风。看到出汗、脸红或烦躁，及时转到凉爽处休息。"
       ],
-      "reference": "https://www.healthychildren.org/English/ages-stages/baby/bathing-skin-care/pages/baby-sunburn-prevention.aspx"
+      "reference": "https://www.healthychildren.org/English/ages-stages/baby/bathing-skin-care/pages/baby-sunburn-prevention.aspx",
+      "topic": "日常照护",
+      "scene": "出门散步",
+      "aliases": [
+        "下楼遛娃",
+        "遛弯",
+        "小区散步"
+      ],
+      "related": [
+        "edu-doorway-words"
+      ]
     },
     {
       "id": "card-21",
@@ -248,7 +478,44 @@
       "steps": [
         "面对面说一句“你看见灯了呀”，等几秒。他发“啊”就轻轻回应，再等一等。洗澡、换片时讲正在做的事，例如“现在洗小脚”。"
       ],
-      "reference": "https://www.cdc.gov/act-early/digital-online-checklist/4-months.html"
+      "reference": "https://www.cdc.gov/act-early/digital-online-checklist/4-months.html",
+      "topic": "语言与互动",
+      "scene": "面对面说话",
+      "aliases": [
+        "咿咿呀呀",
+        "接话",
+        "学说话",
+        "宝宝啊啊叫",
+        "方言",
+        "奶奶带娃",
+        "零道具",
+        "不买教具"
+      ],
+      "activity": {
+        "title": "奶奶说方言，怎么接住小麦的一声「啊」？",
+        "window": [
+          1,
+          3
+        ],
+        "signal": "宝宝清醒，会发声或看向照护人。",
+        "scene": "面对面说话",
+        "lens": "回应性照护",
+        "reason": "大人回应后停一下，宝宝就有机会用声音、眼神或表情接下一轮。",
+        "materials": "不用准备物品",
+        "steps": [
+          "听到小麦发声，奶奶朝他轻轻应一声，用平常说得顺口的家乡话接一句，然后停下来。",
+          "他再发声就接下一轮，微笑或看你也算回应。爸爸接班时可以告诉他「刚才等一等，他还会回我一声」。"
+        ],
+        "stop": "小麦扭头、打哈欠或开始烦躁，就结束这一轮。",
+        "observe": "停下来后，小麦是看人、发声，还是转去看别的了？",
+        "sources": [
+          "nhcPlay",
+          "harvard"
+        ]
+      },
+      "related": [
+        "card-15"
+      ]
     },
     {
       "id": "card-22",
@@ -259,7 +526,15 @@
         "① 关电视，去安静、能看清脸色的地方。② 闭嘴转头就暂停，不追喂或趁熟睡塞奶瓶。③ 再次找奶就喂，不刻意把间隔从3小时拖到4小时。④ 清醒时适度趴玩，不靠消耗体力换奶量。",
         "看一整天的吃奶、尿量和精神。连续多餐拒奶、明显少尿或精神差，及时联系儿科。"
       ],
-      "reference": "https://www.cdc.gov/infant-toddler-nutrition/mealtime/signs-your-child-is-hungry-or-full.html"
+      "reference": "https://www.cdc.gov/infant-toddler-nutrition/mealtime/signs-your-child-is-hungry-or-full.html",
+      "topic": "喂养",
+      "scene": "喂奶",
+      "aliases": [
+        "吃奶东张西望",
+        "分心",
+        "厌奶"
+      ],
+      "related": []
     },
     {
       "id": "card-23",
@@ -269,7 +544,15 @@
       "steps": [
         "优先在地垫上换片，高处操作时一只手始终扶住宝宝。把玩具放在侧前方，引他自己侧身，不拉胳膊硬翻。一有尝试翻身的迹象就停止包住双臂。睡时仍仰放，床内保持空；已能自主双向翻身时，可保留自己翻到的睡姿。"
       ],
-      "reference": "https://safetosleep.nichd.nih.gov/reduce-risk/reduce"
+      "reference": "https://safetosleep.nichd.nih.gov/reduce-risk/reduce",
+      "topic": "健康与安全",
+      "scene": "睡觉或地垫玩",
+      "aliases": [
+        "翻身",
+        "防摔",
+        "坠床"
+      ],
+      "related": []
     },
     {
       "id": "card-24",
@@ -279,7 +562,48 @@
       "steps": [
         "拿一块软毛巾和一本沙沙响的布书，轻碰手背，等他张手抓。跟他说“软软的”“沙沙响”。检查松线、小零件和掉毛，玩完把物品收出婴儿床。"
       ],
-      "reference": "https://www.cdc.gov/act-early/digital-online-checklist/4-months.html"
+      "reference": "https://www.cdc.gov/act-early/digital-online-checklist/4-months.html",
+      "topic": "动作探索",
+      "scene": "地垫玩",
+      "aliases": [
+        "摸一摸",
+        "抓毛巾",
+        "触觉",
+        "伸手够",
+        "蒙氏",
+        "蒙台梭利",
+        "不买教具",
+        "小户型",
+        "够不到",
+        "地垫",
+        "毛巾"
+      ],
+      "activity": {
+        "title": "小麦伸手够毛巾，爸爸要不要递到手里？",
+        "window": [
+          3,
+          6
+        ],
+        "signal": "清醒，已经对眼前的物品伸手。",
+        "scene": "地垫玩",
+        "lens": "蒙台梭利启发",
+        "reason": "先把环境布置得容易够到，宝宝有机会自己决定要不要伸手。成人可以根据他的反应调整距离。",
+        "materials": "平整地垫、一块干净且无松线的软布",
+        "steps": [
+          "爸爸坐在旁边，把软布放在他看得见、伸手可及的位置，先看看他看向哪里。",
+          "他伸手却总差一点，就把布挪近一点；抓到后让他自己摸一会儿。全程在旁，布远离口鼻，玩完收起。"
+        ],
+        "stop": "不再看布就收起；困了便结束活动。",
+        "observe": "哪个位置更容易够到？他更爱抓边，还是搓布面？",
+        "sources": [
+          "nhcPlay",
+          "ami"
+        ]
+      },
+      "related": [
+        "card-19",
+        "card-27"
+      ]
     },
     {
       "id": "card-25",
@@ -289,7 +613,15 @@
       "steps": [
         "用婴儿小头软毛刷，配米粒大小的含氟牙膏，早晚各刷一次，轻刷到牙齿与牙龈交界。牙龈不适可用干净手指轻揉，或提供冷藏过的实心牙胶。真正发热、精神差或持续拒奶，应另找原因并咨询儿科。"
       ],
-      "reference": "https://www.healthychildren.org/English/healthy-living/oral-health/Pages/FAQ-Fluoride-and-Children.aspx"
+      "reference": "https://www.healthychildren.org/English/healthy-living/oral-health/Pages/FAQ-Fluoride-and-Children.aspx",
+      "topic": "日常照护",
+      "scene": "洗漱",
+      "aliases": [
+        "乳牙",
+        "刷牙",
+        "第一颗牙"
+      ],
+      "related": []
     },
     {
       "id": "card-26",
@@ -299,7 +631,15 @@
       "steps": [
         "用软棉巾轻按吸干，湿围兜及时换，睡前摘下。在清洁干燥的外侧皮肤可薄涂无香屏障膏，如凡士林，避开口内。若渗液、结痂或红疹扩大，请儿科评估。"
       ],
-      "reference": "https://www.healthychildren.org/English/ages-stages/baby/teething-tooth-care/Pages/Teething-Pain.aspx"
+      "reference": "https://www.healthychildren.org/English/ages-stages/baby/teething-tooth-care/Pages/Teething-Pain.aspx",
+      "topic": "日常照护",
+      "scene": "擦脸",
+      "aliases": [
+        "口水疹",
+        "下巴红",
+        "围嘴"
+      ],
+      "related": []
     },
     {
       "id": "card-27",
@@ -309,7 +649,19 @@
       "steps": [
         "选适龄、一整块且不能整个塞进口中的牙胶。硅胶看有无裂口，木质看有无毛刺或碎裂。按说明清洁、晾干，可冷藏的只冷藏、不冻硬。不要挂在脖子上或给有可拆小件的玩具。"
       ],
-      "reference": "https://www.healthychildren.org/English/ages-stages/baby/teething-tooth-care/Pages/Teething-Pain.aspx"
+      "reference": "https://www.healthychildren.org/English/ages-stages/baby/teething-tooth-care/Pages/Teething-Pain.aspx",
+      "topic": "健康与安全",
+      "scene": "地垫玩",
+      "aliases": [
+        "吃手",
+        "磨牙",
+        "牙胶",
+        "啥都往嘴里塞"
+      ],
+      "related": [
+        "card-24",
+        "edu-choose"
+      ]
     },
     {
       "id": "card-28",
@@ -319,7 +671,19 @@
       "steps": [
         "先轻摇一次，再停下来递给他。他自己摇响时回应“你摇响了”。音量轻柔，玩具远离耳边，使用前检查零件和电池盖。"
       ],
-      "reference": "https://www.healthychildren.org/English/safety-prevention/all-around/Pages/how-noise-affects-your-child.aspx"
+      "reference": "https://www.healthychildren.org/English/safety-prevention/all-around/Pages/how-noise-affects-your-child.aspx",
+      "topic": "亲子活动",
+      "scene": "地垫玩",
+      "aliases": [
+        "摇铃",
+        "摇玩具",
+        "会响的玩具"
+      ],
+      "related": [
+        "edu-spoon-sounds",
+        "edu-choose",
+        "edu-pass"
+      ]
     },
     {
       "id": "card-29",
@@ -329,7 +693,15 @@
       "steps": [
         "在有支撑的餐椅上观察：能坐直、头颈稳定，看到勺会张嘴，能把食物往后送并吞下。单凭流口水或盯着饭桌还不够。早产或有吞咽困难，先请儿科评估。"
       ],
-      "reference": "https://www.cdc.gov/infant-toddler-nutrition/foods-and-drinks/when-what-and-how-to-introduce-solid-foods.html"
+      "reference": "https://www.cdc.gov/infant-toddler-nutrition/foods-and-drinks/when-what-and-how-to-introduce-solid-foods.html",
+      "topic": "喂养",
+      "scene": "准备开饭",
+      "aliases": [
+        "加辅食",
+        "什么时候吃辅食",
+        "准备信号"
+      ],
+      "related": []
     },
     {
       "id": "card-30",
@@ -339,7 +711,16 @@
       "steps": [
         "选白天、宝宝清醒且平静时坐好，给一小勺强化铁婴儿谷物糊或熟透的细肉泥。看他吞完再给下一口，闭嘴转头就停。随后尝试南瓜、土豆或青菜泥。谷粉用勺喂，不装进奶瓶。"
       ],
-      "reference": "https://www.fhs.gov.hk/sc_chi/health_info/child/14727.html"
+      "reference": "https://www.fhs.gov.hk/sc_chi/health_info/child/14727.html",
+      "topic": "喂养",
+      "scene": "准备开饭",
+      "aliases": [
+        "第一口",
+        "米粉",
+        "铁",
+        "强化铁"
+      ],
+      "related": []
     },
     {
       "id": "card-31",
@@ -350,7 +731,15 @@
         "① 初期每次只引入一种新成分，搭配吃过的食物，可隔约3–5天再添下一种。白天少量试熟蛋、稀释调匀的花生酱；严重湿疹或已知蛋过敏者，先请医生安排花生引入。② 从泥糊到稠粥、软碎面、软颗粒。能坐稳抓食时可尝试一捏即碎的蒸软食条，全程看护。③ 保留奶餐，随辅食量逐步调整。",
         "疑似过敏就停喂并联系儿科。舌喉肿、喘鸣、呼吸困难或突然苍白瘫软，立即呼叫当地急救。"
       ],
-      "reference": "https://www.nhs.uk/best-start-in-life/baby/weaning/safe-weaning/food-allergies/"
+      "reference": "https://www.nhs.uk/best-start-in-life/baby/weaning/safe-weaning/food-allergies/",
+      "topic": "喂养",
+      "scene": "吃辅食",
+      "aliases": [
+        "加新食材",
+        "颗粒",
+        "粗细"
+      ],
+      "related": []
     },
     {
       "id": "card-32",
@@ -360,7 +749,15 @@
       "steps": [
         "每天安排富铁食物，可轮换牛肉泥、猪肉泥、强化铁谷粉、豆泥，搭配蔬果。肝脏煮熟、偶尔少量，猪肝粉并非必需。蔬菜谷物为主的一餐可加少量家用植物油。便干硬可随餐少量喝水、增加适龄蔬果。早产或担心缺铁，由儿科评估是否需铁剂。"
       ],
-      "reference": "https://www.cdc.gov/infant-toddler-nutrition/vitamins-minerals/iron.html"
+      "reference": "https://www.cdc.gov/infant-toddler-nutrition/vitamins-minerals/iron.html",
+      "topic": "喂养",
+      "scene": "厨房备餐",
+      "aliases": [
+        "补铁",
+        "辅食油",
+        "铁和油"
+      ],
+      "related": []
     },
     {
       "id": "card-33",
@@ -370,7 +767,15 @@
       "steps": [
         "周岁前不吃蜂蜜或含蜂蜜的食品，不另加盐、糖。果泥可和肉、菜轮换。用母乳或婴儿配方奶做主要奶源。生病时优先给奶和已耐受的食物；新食材安排在宝宝舒服、有人观察的白天。接种点有个别交代时按交代执行。"
       ],
-      "reference": "https://www.cdc.gov/infant-toddler-nutrition/foods-and-drinks/foods-and-drinks-to-avoid-or-limit.html"
+      "reference": "https://www.cdc.gov/infant-toddler-nutrition/foods-and-drinks/foods-and-drinks-to-avoid-or-limit.html",
+      "topic": "喂养",
+      "scene": "吃辅食",
+      "aliases": [
+        "蜂蜜",
+        "生病时怎么吃",
+        "一岁前不能吃什么"
+      ],
+      "related": []
     },
     {
       "id": "card-34",
@@ -380,7 +785,15 @@
       "steps": [
         "坐直后扣好餐椅安全带，再戴围兜。面对面陪吃，不躺着吃、爬着吃或坐移动的车吃。大人要离开拿东西，就先停餐。"
       ],
-      "reference": "https://www.fhs.gov.hk/sc_chi/health_info/child/14727.html"
+      "reference": "https://www.fhs.gov.hk/sc_chi/health_info/child/14727.html",
+      "topic": "喂养",
+      "scene": "坐餐椅",
+      "aliases": [
+        "吃饭坐不住",
+        "餐椅",
+        "姿势"
+      ],
+      "related": []
     },
     {
       "id": "card-35",
@@ -390,7 +803,20 @@
       "steps": [
         "给一个稳固碗和一把浅勺，他自己试，你用另一把递少量食物。桌面一次放一点，允许弄乱。张嘴可以再给，闭嘴转开就停。"
       ],
-      "reference": "https://www.fhs.gov.hk/sc_chi/health_info/child/14727.html"
+      "reference": "https://www.fhs.gov.hk/sc_chi/health_info/child/14727.html",
+      "topic": "喂养",
+      "scene": "吃饭",
+      "aliases": [
+        "抢勺子",
+        "抢勺",
+        "自己拿勺",
+        "总抢饭勺",
+        "宝宝抢勺",
+        "抢饭勺"
+      ],
+      "related": [
+        "edu-spoon-sounds"
+      ]
     },
     {
       "id": "card-36",
@@ -400,7 +826,16 @@
       "steps": [
         "蹲到宝宝视线高度沿常爬路线查一圈。柜子固定防倾倒，尖角安牢护角，楼梯上下装安全门，楼梯顶端用硬件固定款。药和清洁剂上锁。每学会一个新动作，再检查一次能摸到的高度。"
       ],
-      "reference": "https://www.fhs.gov.hk/sc_chi/health_info/child/16051.html"
+      "reference": "https://www.fhs.gov.hk/sc_chi/health_info/child/16051.html",
+      "topic": "健康与安全",
+      "scene": "家中活动",
+      "aliases": [
+        "扶站",
+        "爬",
+        "家具防倒",
+        "防撞"
+      ],
+      "related": []
     },
     {
       "id": "card-37",
@@ -410,7 +845,16 @@
       "steps": [
         "每天扫一眼沙发缝、茶几底、包和遥控器。硬币、纽扣、磁珠及新旧纽扣电池收高锁好，电池仓拧紧。疑似吞下纽扣电池或磁铁，无症状也立刻去急诊，不催吐；一岁以下不喂蜂蜜。如果呼吸受阻，同时呼叫急救。"
       ],
-      "reference": "https://www.healthychildren.org/English/safety-prevention/at-home/Pages/What-Parents-Need-to-Know-about-Button-and-Lithium-Coin-Batteries.aspx"
+      "reference": "https://www.healthychildren.org/English/safety-prevention/at-home/Pages/What-Parents-Need-to-Know-about-Button-and-Lithium-Coin-Batteries.aspx",
+      "topic": "健康与安全",
+      "scene": "家中活动",
+      "aliases": [
+        "小东西",
+        "纽扣电池",
+        "磁珠",
+        "异物"
+      ],
+      "related": []
     },
     {
       "id": "card-38",
@@ -420,7 +864,18 @@
       "steps": [
         "用双手遮住自己的脸，停一秒，露面说“爸爸在这儿”。也可把玩具暂时藏在手后让他找。看他有兴趣就再玩一次，害怕就马上露面抱抱。"
       ],
-      "reference": "https://www.cdc.gov/act-early/milestones/9-months.html"
+      "reference": "https://www.cdc.gov/act-early/milestones/9-months.html",
+      "topic": "情绪与陪伴",
+      "scene": "家人交接",
+      "aliases": [
+        "躲猫猫",
+        "黏人",
+        "分离焦虑",
+        "看不见就哭"
+      ],
+      "related": [
+        "edu-book"
+      ]
     },
     {
       "id": "card-39",
@@ -430,7 +885,18 @@
       "steps": [
         "让熟悉的照护者先接住宝宝，告诉他“爸爸出门了，午睡醒来后回来”，选真正能做到的时间。回来时也打招呼。先从短暂分开开始，留下的大人用熟悉的歌或游戏接上。"
       ],
-      "reference": "https://www.fhs.gov.hk/sc_chi/health_info/child/15697.html"
+      "reference": "https://www.fhs.gov.hk/sc_chi/health_info/child/15697.html",
+      "topic": "情绪与陪伴",
+      "scene": "家人交接",
+      "aliases": [
+        "爸爸上班",
+        "出门就哭",
+        "说再见",
+        "爷爷奶奶带"
+      ],
+      "related": [
+        "edu-doorway-words"
+      ]
     },
     {
       "id": "card-40",
@@ -441,7 +907,16 @@
         "坐直、有人近距离看护，给少量一捏即碎的软蔬菜或碎肉；整颗肉丸要压扁拨碎。避开整粒坚果、整颗葡萄、香肠圆片、硬苹果块和成团的花生酱。",
         "还能大声咳时让他咳，留在身边，不盲掏。若咳不出、哭不出或不能呼吸，立即呼叫急救（中国大陆120）。对仍有反应的未满周岁婴儿，托头颈、头低于胸，交替做5次拍背和5次胸部冲击。失去反应立即按调度指导做心肺复苏。"
       ],
-      "reference": "https://www.redcross.org/take-a-class/resources/learn-first-aid/infant-choking"
+      "reference": "https://www.redcross.org/take-a-class/resources/learn-first-aid/infant-choking",
+      "topic": "喂养",
+      "scene": "吃饭",
+      "aliases": [
+        "手指食物",
+        "抓着吃",
+        "自己吃",
+        "手抓食物"
+      ],
+      "related": []
     },
     {
       "id": "card-41",
@@ -451,7 +926,357 @@
       "steps": [
         "示范一次按按钮，或把放不进嘴的大积木放进稳固空盒，然后交给他。等他主动重复，再说“你放进去了，咚的一声”。检查零件和电池盖，有松动先收走。"
       ],
-      "reference": "https://www.fhs.gov.hk/sc_chi/health_info/child/15697.html"
+      "reference": "https://www.fhs.gov.hk/sc_chi/health_info/child/15697.html",
+      "topic": "亲子活动",
+      "scene": "地垫玩",
+      "aliases": [
+        "按按钮",
+        "因果",
+        "声音",
+        "探索",
+        "敲一敲"
+      ],
+      "related": [
+        "edu-spoon-sounds",
+        "edu-pass"
+      ]
+    },
+    {
+      "id": "edu-diaper-talk",
+      "title": "换尿布时，怎么让小麦知道爸爸在做什么？",
+      "reason": "换尿布本来就会发生，熟悉的脸、声音和动作给宝宝一个回应的机会。",
+      "steps": [
+        "先把尿布和清洁用品放到手边，在安全平面上照护。让宝宝看见你的脸，说「小麦，爸爸给你换尿布啦」。",
+        "宝宝望过来或动动腿，就接一句「我看见你的小脚了」。爸爸、奶奶用平时最自然的话说就好。"
+      ],
+      "topic": "语言与互动",
+      "scene": "换尿布",
+      "aliases": [
+        "换尿片",
+        "奶奶带娃",
+        "边换边说",
+        "零道具",
+        "不买教具"
+      ],
+      "stage": "m1",
+      "reference": "https://www.nhc.gov.cn/fys/c100078/202502/19c9c6dee0274d23822f313a99ae1779/files/1741749469666_88130.pdf",
+      "activity": {
+        "window": [
+          0,
+          1
+        ],
+        "signal": "宝宝清醒、愿意看你；饿了或不舒服时先照料。",
+        "lens": "回应性照护",
+        "materials": "现有换片用品",
+        "stop": "哭了或扭开时先把照护做舒服；没有对视也可以结束。",
+        "observe": "这回是听到声音转过来，还是换好、抱起后才愿意看人？",
+        "sources": [
+          "nhcPlay",
+          "nhcCare"
+        ]
+      },
+      "related": [
+        "card-09",
+        "card-10",
+        "card-21"
+      ]
+    },
+    {
+      "id": "edu-spoon-sounds",
+      "title": "饭还没好，用一只碗和一把勺能怎么玩？",
+      "reason": "熟悉的碗勺也能让宝宝比较动作和声音。让他自己再试一次，大人就能观察到他更喜欢抓、换手还是敲。",
+      "steps": [
+        "让小麦坐稳、大人在旁，桌面远离热汤、热粥。爸爸用勺轻碰一下空碗，说「咚」，然后把勺放到他够得着的地方。",
+        "他拿起或轻碰时，照着他的动作回应一次。只摸勺也可以；开饭时收起游戏用具。"
+      ],
+      "topic": "亲子活动",
+      "scene": "等饭",
+      "aliases": [
+        "等开饭",
+        "等饭",
+        "餐椅",
+        "敲碗",
+        "拍碗",
+        "不买教具",
+        "蒙氏",
+        "蒙台梭利",
+        "小户型"
+      ],
+      "stage": "m6",
+      "reference": "https://www.nhc.gov.cn/fys/c100078/202502/19c9c6dee0274d23822f313a99ae1779/files/1741749469666_88130.pdf",
+      "activity": {
+        "window": [
+          6,
+          9
+        ],
+        "signal": "能在适当支撑下稳定保持坐姿，对抓握和敲打感兴趣。",
+        "lens": "蒙台梭利启发",
+        "materials": "常温、轻便、不易碎的碗；圆钝、一体成型的大号软勺",
+        "stop": "声音让他受惊、他推开碗或坐不稳时就停。",
+        "observe": "他对声音感兴趣，还是更喜欢把勺从一只手换到另一只？",
+        "sources": [
+          "nhcPlay",
+          "ami"
+        ]
+      },
+      "related": [
+        "card-28",
+        "card-35",
+        "card-41"
+      ]
+    },
+    {
+      "id": "edu-doorway-words",
+      "title": "爷爷带小麦下楼，路上可以聊什么？",
+      "reason": "顺着小麦当下看到的东西给它起名字，比连续问他「这是什么」更容易让对话接下去。",
+      "steps": [
+        "爷爷抱稳小麦或在停稳的童车旁，发现他正看树叶，就用平时说话的方式说「树叶在动」。等一等，看他会不会再看一眼或发声。",
+        "碰见熟人时，大人挥挥手说「你好」。他看着就够了。过马路、上下楼和进出电梯时，先专心照看。"
+      ],
+      "topic": "语言与互动",
+      "scene": "出门散步",
+      "aliases": [
+        "遛娃",
+        "遛弯",
+        "小区",
+        "方言",
+        "电梯口",
+        "爷爷带娃",
+        "告别",
+        "零道具",
+        "不买教具"
+      ],
+      "stage": "m7",
+      "reference": "https://www.nhc.gov.cn/fys/c100078/202502/19c9c6dee0274d23822f313a99ae1779/files/1741749469666_88130.pdf",
+      "activity": {
+        "window": [
+          9,
+          12
+        ],
+        "signal": "小麦清醒，会留意熟悉的人或物；不要求指认、发音或独走。",
+        "lens": "回应性照护",
+        "materials": "途中已经看得到的人和物",
+        "stop": "他转头看别处，就跟着换个话题；困了直接回家。",
+        "observe": "今天是树叶、门口的车，还是熟悉的人让小麦多看了一眼？",
+        "sources": [
+          "nhcPlay",
+          "harvard"
+        ]
+      },
+      "related": [
+        "card-20",
+        "card-39"
+      ]
+    },
+    {
+      "id": "edu-dress",
+      "title": "穿袖子时，怎么让小麦也参与？",
+      "reason": "每天都会重复的穿衣动作，也是小麦看你、听你和活动手脚的机会。",
+      "steps": [
+        "在安全的平面放好衣服。让小麦看见你，把袖口拢起来，说「要穿这只手啦」。",
+        "停一小会儿，看他怎么动。轻轻托着手臂，把袖口套过去；他没伸手就照常帮忙，不拉手腕。"
+      ],
+      "topic": "日常照护",
+      "scene": "穿衣",
+      "aliases": [
+        "穿袖子",
+        "换衣服",
+        "蒙氏",
+        "蒙台梭利",
+        "不买教具"
+      ],
+      "stage": "m2",
+      "reference": "https://www.nhc.gov.cn/fys/c100078/202502/19c9c6dee0274d23822f313a99ae1779/files/1741749469666_88130.pdf",
+      "activity": {
+        "window": [
+          1,
+          3
+        ],
+        "signal": "小麦清醒、身体放松，换衣时愿意听你说话。",
+        "lens": "蒙台梭利启发",
+        "materials": "平时穿的宽松衣服",
+        "stop": "发冷、哭闹或身体绷紧时，把衣服穿好、抱稳，先让他舒服。",
+        "observe": "听到熟悉的声音时，他看过来了，还是动了动手？",
+        "sources": [
+          "nhcPlay",
+          "ami"
+        ]
+      },
+      "related": [
+        "edu-diaper-talk",
+        "card-07"
+      ]
+    },
+    {
+      "id": "edu-choose",
+      "title": "玩具摆满地，先给小麦哪一个？",
+      "reason": "把杂物先收好，家人更容易看清小麦在看什么，也能给他留出自己够物的空间。",
+      "steps": [
+        "在地垫腾出一小块空地，放一件小麦熟悉的完整玩具。大人坐旁边，先看他把目光停在哪里。",
+        "如果伸手却够不到，把玩具挪近一点。让他自己摸，不必马上换另一件。"
+      ],
+      "topic": "动作探索",
+      "scene": "地垫玩",
+      "aliases": [
+        "玩具太多",
+        "选玩具",
+        "蒙氏",
+        "蒙台梭利",
+        "不买教具",
+        "小户型"
+      ],
+      "stage": "m5",
+      "reference": "https://www.nhc.gov.cn/fys/c100078/202502/19c9c6dee0274d23822f313a99ae1779/files/1741749469666_88130.pdf",
+      "activity": {
+        "window": [
+          3,
+          6
+        ],
+        "signal": "小麦清醒，开始看向或伸手够身边的东西。",
+        "lens": "蒙台梭利启发",
+        "materials": "地垫、一件完好且不能塞入口中的婴儿玩具",
+        "stop": "他扭开头、皱眉或困了，先收起玩具，结束这次探索。",
+        "observe": "把周围的玩具收起后，他对哪一个动作最有兴趣？",
+        "sources": [
+          "nhcPlay",
+          "ami"
+        ]
+      },
+      "related": [
+        "card-24",
+        "card-28",
+        "card-27"
+      ]
+    },
+    {
+      "id": "edu-pass",
+      "title": "小麦拿住玩具，怎么陪他试着换手？",
+      "reason": "同一件物品在两只手间移动时，宝宝能看到、摸到动作带来的变化。成人留出时间，就能观察到他自己的办法。",
+      "steps": [
+        "坐在小麦身边，把握环放在身前让他自己拿。先观察他用哪只手。",
+        "你可以用自己的手慢慢示范从左手递到右手，再把环还给他。他只愿握着或摸一摸，也让他继续。"
+      ],
+      "topic": "动作探索",
+      "scene": "地垫玩",
+      "aliases": [
+        "换手",
+        "左右手",
+        "传东西",
+        "奶奶带娃",
+        "不买教具"
+      ],
+      "stage": "m6",
+      "reference": "https://www.nhc.gov.cn/fys/c100078/202502/19c9c6dee0274d23822f313a99ae1779/files/1741749469666_88130.pdf",
+      "activity": {
+        "window": [
+          6,
+          9
+        ],
+        "signal": "小麦能舒适地保持当前姿势，已经会自己抓住物品。",
+        "lens": "回应性照护",
+        "materials": "一个轻便、无裂口、无小零件的大号婴儿握环",
+        "stop": "不掰开手指、不硬塞到另一只手。小麦松手不再看时就停。",
+        "observe": "他是双手一起摸，还是把环移到了另一边？",
+        "sources": [
+          "nhcPlay",
+          "nhcCare"
+        ]
+      },
+      "related": [
+        "edu-spoon-sounds",
+        "card-28",
+        "card-41"
+      ]
+    },
+    {
+      "id": "edu-book",
+      "title": "纸板书总翻回同一页，要读完吗？",
+      "reason": "共读时，和宝宝一起留意同一幅图、回应他的兴趣，就已经有了交流的机会。",
+      "steps": [
+        "让小麦靠得舒服，挑他停留的一页。指着熟悉的图说一个名字，比如「小狗」，停一下看他的表情。",
+        "他翻回去就再陪他看；伸手拍图时，可以接一句「你摸到小狗啦」。故事可以留到下次。"
+      ],
+      "topic": "语言与互动",
+      "scene": "亲子共读",
+      "aliases": [
+        "读绘本",
+        "讲故事",
+        "亲子共读",
+        "翻书",
+        "纸板书",
+        "重复看"
+      ],
+      "stage": "m7",
+      "reference": "https://www.nhc.gov.cn/fys/c100078/202502/19c9c6dee0274d23822f313a99ae1779/files/1741749469580_51223.pdf",
+      "activity": {
+        "window": [
+          9,
+          12
+        ],
+        "signal": "小麦清醒，对图、你的声音或翻页动作感兴趣。",
+        "lens": "回应性照护",
+        "materials": "一本圆角、完好、画面简单的纸板书或布书",
+        "stop": "小麦把书推开、转身或困了，就合上书。边角破损后先收起。",
+        "observe": "他愿意在哪一页多停一会儿？谁来读时他更爱回应？",
+        "sources": [
+          "nhcCare",
+          "harvard"
+        ]
+      },
+      "related": [
+        "edu-doorway-words",
+        "card-21",
+        "card-38"
+      ]
+    }
+  ],
+  "sources": {
+    "nhc22": {
+      "title": "国家卫健委《3岁以下婴幼儿健康养育照护指南（试行）》",
+      "role": "中国养育指南",
+      "url": "https://www.nhc.gov.cn/fys/c100078/202211/f0f764d18bbc4ddea3cf659df6ebf10d.shtml"
+    },
+    "nhcPlay": {
+      "title": "国家卫健委《婴幼儿亲子交流与玩耍要点》附件3，第1页",
+      "role": "分龄活动依据",
+      "url": "https://www.nhc.gov.cn/fys/c100078/202502/19c9c6dee0274d23822f313a99ae1779/files/1741749469666_88130.pdf"
+    },
+    "nhcCare": {
+      "title": "国家卫健委《3岁以下婴幼儿养育风险咨询表》附件2",
+      "role": "回应性照护与家庭参与",
+      "url": "https://www.nhc.gov.cn/fys/c100078/202502/19c9c6dee0274d23822f313a99ae1779/files/1741749469580_51223.pdf"
+    },
+    "ami": {
+      "title": "国际蒙台梭利协会 AMI · Meeting an Infant’s Movement Needs",
+      "role": "教育理念依据",
+      "url": "https://montessori-ami.org/node/7189"
+    },
+    "harvard": {
+      "title": "哈佛大学儿童发展中心 · Serve and Return 家长手册",
+      "role": "来回互动的操作方法",
+      "url": "https://pediatrics.developingchild.harvard.edu/wp-content/uploads/2021/12/HCDC_ServeReturn_for_Parents_Caregivers_2019.pdf"
+    }
+  },
+  "resources": [
+    {
+      "name": "mrueda/montessori-virtual-room",
+      "url": "https://github.com/mrueda/montessori-virtual-room/blob/47b957476e6c7a3c594702c4d7bde14ef1d6dbec/src/content/en/environments.ts",
+      "about": "参考月龄与家庭环境的分类。"
+    },
+    {
+      "name": "pxiuqin/hands-on-dad",
+      "url": "https://github.com/pxiuqin/hands-on-dad/blob/7b8b5c8ebed0b9c5e5ded50da09d8f9ec0aede58/README.md",
+      "about": "参考中文家庭的提问方式。"
+    },
+    {
+      "name": "babybuddy/babybuddy",
+      "url": "https://github.com/babybuddy/babybuddy/blob/1638cfb02e2681c5a0c2f24fdf8d20048fda995a/core/models.py",
+      "about": "参考家庭观察的记录结构。"
+    },
+    {
+      "name": "lucaong/minisearch",
+      "url": "https://github.com/lucaong/minisearch/blob/3d239d1c3ae7aef1bf5d8945dd7b5f0709f646f5/README.md",
+      "about": "参考离线检索与字段权重。"
     }
   ]
 }
