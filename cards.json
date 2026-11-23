@@ -1,0 +1,457 @@
+{
+  "stages": [
+    {
+      "id": "m1",
+      "label": "第1个月（新生儿）",
+      "name": "初见小麦"
+    },
+    {
+      "id": "m2",
+      "label": "第2个月",
+      "name": "慢慢熟悉"
+    },
+    {
+      "id": "m3",
+      "label": "第3个月",
+      "name": "抬头看世界"
+    },
+    {
+      "id": "m4",
+      "label": "第4个月",
+      "name": "翻身的日子"
+    },
+    {
+      "id": "m5",
+      "label": "第5个月",
+      "name": "伸手去探索"
+    },
+    {
+      "id": "m6",
+      "label": "第6–8个月",
+      "name": "一口一口长大"
+    },
+    {
+      "id": "m7",
+      "label": "第9–12个月",
+      "name": "向周岁出发"
+    }
+  ],
+  "cards": [
+    {
+      "id": "card-01",
+      "stage": "m1",
+      "title": "睡一会儿就醒，正常吗？",
+      "reason": "新生儿的睡眠分散在昼夜，胃容量小，吃完睡、睡醒再吃很常见。",
+      "steps": [
+        "留意醒来后能否有效吃奶、尿布是否逐渐增湿。每次睡觉都仰放在坚实平坦的独立婴儿床，只铺贴合的床单。大人困了先把宝宝放回床。"
+      ],
+      "reference": "https://safetosleep.nichd.nih.gov/reduce-risk/reduce"
+    },
+    {
+      "id": "card-02",
+      "stage": "m1",
+      "title": "眼白或脸发黄，该做什么？",
+      "reason": "刚出生时胆红素生成较多，肝脏处理它的能力还在成熟。同一个数值，要结合出生后多少小时、胎龄和风险因素判断。",
+      "steps": [
+        "出院前记下胆红素数值、单位、采样及复查时间，按约复查。别用“低于12”自行判断，也别用晒太阳替代复查。",
+        "出生头24小时就黄、黄得更深或吃奶差，立即联系儿科。见灰白便，当天就医。"
+      ],
+      "reference": "https://cspm.cma.org.cn/index/news?id=3832"
+    },
+    {
+      "id": "card-03",
+      "stage": "m1",
+      "title": "第一泡胎便要看什么？",
+      "reason": "胎便是出生前积在肠道里的内容物，常呈黑绿色且黏稠。随着进奶，颜色会逐渐由绿褐变黄或黄褐。",
+      "steps": [
+        "第一次换到胎便时记下时间和颜色。足月宝宝出生满24小时仍没有胎便，马上告诉医护人员。若同时腹胀、吐绿色液体，立即去急诊。"
+      ],
+      "reference": "https://www.uhsussex.nhs.uk/resources/post-natal-booklet/"
+    },
+    {
+      "id": "card-04",
+      "stage": "m1",
+      "title": "什么时候喂奶？怎么知道吃进去了？",
+      "reason": "找奶、舔唇、手往嘴边送，往往比哭更早出现。吞咽、尿量和体重变化能帮助判断摄入情况。",
+      "steps": [
+        "出现饥饿信号就喂，听有没有吞咽，闭嘴转头可暂停。瓶喂时抱着，给宝宝留出停顿。早期母乳喂养常见每天8–12次。生后约第5天起，多数宝宝每天有约6片或更多明显湿尿布。尿量偏少、吸吮弱或增重不理想，联系儿科。"
+      ],
+      "reference": "https://www.mayoclinic.org/healthy-lifestyle/infant-and-toddler-health/expert-answers/newborn/faq-20057752"
+    },
+    {
+      "id": "card-05",
+      "stage": "m1",
+      "title": "宝宝睡过一餐，要叫醒吗？",
+      "reason": "尚未恢复出生体重、黄疸明显或摄入不足的宝宝，可能很困却仍需要进奶。",
+      "steps": [
+        "按出院喂养计划设提醒。早期距上一餐开始接近4小时仍未醒，可轻唤、换片后喂奶，有更短医嘱按医嘱。恢复出生体重且持续增重后，再和儿科确认夜间能否等他自醒。很难唤醒或醒后吸不动要立即就医。"
+      ],
+      "reference": "https://www.mayoclinic.org/healthy-lifestyle/infant-and-toddler-health/expert-answers/newborn/faq-20057752"
+    },
+    {
+      "id": "card-06",
+      "stage": "m1",
+      "title": "喂后扭动，怎么拍嗝？",
+      "reason": "吃奶时吞进的空气会让一些宝宝扭动、松口。有的宝宝吞气少，并非每次都打嗝。",
+      "steps": [
+        "你先坐稳，让宝宝竖靠肩膀，托好头颈和臀部，露出口鼻，轻抚或轻拍后背。几分钟后已经舒服就可以停。即使偶有少量溢奶，睡觉仍仰卧在平床上。"
+      ],
+      "reference": "https://www.nhs.uk/best-start-in-life/baby/feeding-your-baby/bottle-feeding/bottle-feeding-your-baby/how-to-burp-your-baby/"
+    },
+    {
+      "id": "card-07",
+      "stage": "m1",
+      "title": "手脚有点凉，需要加衣吗？",
+      "reason": "宝宝手脚温度有时低于躯干。只摸手脚容易多加一层，把宝宝捂热。",
+      "steps": [
+        "先摸胸口或后颈。躯干热、后颈汗湿时减一层，换掉湿衣再看。怀疑发热要用体温计。3月龄及以下宝宝肛温达到38.0°C，应立即联系儿科并就医。"
+      ],
+      "reference": "https://www.healthychildren.org/English/health-issues/conditions/fever/Pages/Fever-and-Your-Baby.aspx"
+    },
+    {
+      "id": "card-08",
+      "stage": "m1",
+      "title": "维生素D怎样避免滴错？",
+      "reason": "维生素D帮助钙吸收和骨骼发育。不同制剂的浓度不同，一滴所含的剂量可能差很多。",
+      "steps": [
+        "一般足月儿按医嘱可从出生后数日开始，每天常用400国际单位（IU）。认清瓶上写的是每滴还是每毫升，使用配套滴具，喂后打勾。早产、低出生体重、吃强化配方奶，或同时用维生素AD等制剂，请儿科核定总量。"
+      ],
+      "reference": "https://www.chinacdc.cn/jkyj/yyyjk2/jswj13949/201508/t20150817_296900.html"
+    },
+    {
+      "id": "card-09",
+      "stage": "m1",
+      "title": "脐带没掉，换片时怎么护理？",
+      "reason": "残端会逐渐干缩并自然脱落。尿便和潮湿会刺激周围皮肤。",
+      "steps": [
+        "洗手后把尿布前缘下折，露出肚脐。沾上尿便用清水清洁、轻轻拍干，不拉扯。另有出院医嘱则按医嘱。周围红肿向外扩展、流脓或有恶臭，立即就医。"
+      ],
+      "reference": "https://www.uhsussex.nhs.uk/resources/post-natal-booklet/"
+    },
+    {
+      "id": "card-10",
+      "stage": "m1",
+      "title": "换尿布怎样预防红屁屁？",
+      "reason": "潮湿、粪便和反复摩擦都可能损伤皮肤。",
+      "steps": [
+        "备好温水、软布和干净尿布，在地垫上换。尿布湿了就换，有大便尽快换。从前往后清洁，女宝宝尤其注意，再轻按吸干。容易红可涂无香屏障膏，如氧化锌。破溃、化脓或持续加重请就医。"
+      ],
+      "reference": "https://www.fhs.gov.hk/sc_chi/health_info/child/14851.html"
+    },
+    {
+      "id": "card-11",
+      "stage": "m1",
+      "title": "黑白卡放多远，玩多久？",
+      "reason": "新生儿更容易看清近处的人脸和高对比图案。能停下来看看你，就已经在互动。",
+      "steps": [
+        "挑清醒安静的时候，把脸或黑白卡放在眼前约20–30厘米。等目光停一下，再慢慢往一侧移。转头、打哈欠就停，不必追着给他看。"
+      ],
+      "reference": "https://www.healthychildren.org/English/ages-stages/baby/Pages/Developmental-Milestones-1-Month.aspx"
+    },
+    {
+      "id": "card-12",
+      "stage": "m2",
+      "title": "白天睡、晚上醒，怎样帮他分清昼夜？",
+      "reason": "宝宝的昼夜节律还在形成，每天重复的光线和活动变化能给他线索。",
+      "steps": [
+        "白天拉开窗帘，家人正常轻声活动，困了照常小睡。夜里喂奶和换片用能看清脸色的柔光，动作轻缓。别为了晚上好睡刻意撑长白天的清醒时间。"
+      ],
+      "reference": "https://www.nhc.gov.cn/fys/c100078/202211/f0f764d18bbc4ddea3cf659df6ebf10d.shtml"
+    },
+    {
+      "id": "card-13",
+      "stage": "m2",
+      "title": "傍晚哭闹、蹬腿，怎么安抚？",
+      "reason": "哭闹常在出生约6周达到高峰。哭时也会吞气，光凭蹬腿或放屁很难判断是不是肠绞痛。",
+      "steps": [
+        "先看呼吸、精神和体温，再看是否饿、困、尿布湿或穿得热。可一次试一种办法：",
+        "① 吃得急时暂停，托好头颈竖抱轻抚背。② 清醒时可坐稳，用前臂承托宝宝趴抱，口鼻保持可见。③ 仰卧时轻轻交替屈伸双腿，可轻抚腹部。④ 哺乳妈妈照常均衡饮食，不因单纯胀气忌奶或豆类。⑤ 清醒且有人看护时短暂趴玩，困了回床仰睡。",
+        "哭声异常且伴发热、呕吐、便血或精神差要就医。大人快撑不住时，让宝宝仰卧在安全的空婴儿床，请人换班，切勿摇晃。"
+      ],
+      "reference": "https://www.healthychildren.org/English/ages-stages/baby/crying-colic/Pages/Colic.aspx"
+    },
+    {
+      "id": "card-14",
+      "stage": "m2",
+      "title": "抬头练习怎么开始？",
+      "reason": "俯卧时，宝宝会用到颈肩和上背的肌肉。短时间、多次玩更容易适应。",
+      "steps": [
+        "选清醒、没刚吃饱的时候，在坚实地垫上和他面对面趴着，轻声叫他或慢慢移动摇铃。累了就翻回仰卧，大人全程在伸手可及处。宝宝困了就结束，睡时始终仰放。"
+      ],
+      "reference": "https://www.healthychildren.org/English/ages-stages/baby/sleep/Pages/Back-to-Sleep-Tummy-to-Play.aspx"
+    },
+    {
+      "id": "card-15",
+      "stage": "m2",
+      "title": "怎么观察宝宝有没有听见？",
+      "reason": "这个月的听觉反应可能只是暂停吸吮、眨眼或安静下来，未必每次都转头找声音。",
+      "steps": [
+        "选他清醒安静的时候，分别从左右轻声叫他，停几秒看反应。不要贴着耳朵摇铃或用巨响测试。经常对声音没反应，或新生儿听筛没通过，按约做听力复查。"
+      ],
+      "reference": "https://www.cdc.gov/act-early/milestones/2-months.html"
+    },
+    {
+      "id": "card-16",
+      "stage": "m3",
+      "title": "怎样安排吃、玩、睡？",
+      "reason": "每天大致重复的顺序，有助于大人识别宝宝什么时候饿、什么时候已经困了。",
+      "steps": [
+        "醒来找奶就喂，吃好且精神不错时说话、看图或短暂趴玩。开始打哈欠、眼神移开就收起玩具。刚醒还困就再睡，玩到一半找奶也可以喂。"
+      ],
+      "reference": "https://www.nhc.gov.cn/fys/c100078/202211/f0f764d18bbc4ddea3cf659df6ebf10d.shtml"
+    },
+    {
+      "id": "card-17",
+      "stage": "m3",
+      "title": "白天小觉变短，睡前做什么？",
+      "reason": "睡眠节律还在成熟，小觉变短或偶尔难入睡都可能发生。",
+      "steps": [
+        "选两三个每天做得到的步骤，如换尿布、拉窗帘、唱同一首歌；洗澡、轻抚可选。使用白噪声时把设备放远，调低音量，短时使用。发热或明显不舒服时先评估身体状况。"
+      ],
+      "reference": "https://www.healthychildren.org/English/safety-prevention/all-around/Pages/how-noise-affects-your-child.aspx"
+    },
+    {
+      "id": "card-18",
+      "stage": "m3",
+      "title": "夜里哼两声，要马上抱吗？",
+      "reason": "浅睡或睡眠转换时，宝宝有时会出声，仍可能自己接着睡。持续哭、找奶则提示他需要回应。",
+      "steps": [
+        "眼睛闭着、呼吸平稳，仅哼两声，可在床边稍看一会。睁眼找奶、明显哭泣或越哭越急时及时回应。用柔光轻声安抚，该喂就喂，该换就换，安顿后仰放回床。"
+      ],
+      "reference": "https://safetosleep.nichd.nih.gov/reduce-risk/reduce"
+    },
+    {
+      "id": "card-19",
+      "stage": "m3",
+      "title": "抬头稳了，下一步怎么玩？",
+      "reason": "抬头跟着玩具看，需要协调颈肩、上背和眼睛的动作。",
+      "steps": [
+        "清醒趴玩时，把鲜艳的小玩具放在面前，等他抬头，再慢慢移向一侧，下次换边。抱起放下继续托好头颈。若总朝一边、两侧动作明显不同或已经会的动作消失，告诉儿保医生。"
+      ],
+      "reference": "https://www.cdc.gov/act-early/digital-online-checklist/4-months.html"
+    },
+    {
+      "id": "card-20",
+      "stage": "m3",
+      "title": "带宝宝出门散步要注意什么？",
+      "reason": "树影、行人和远近的声音提供新的观察机会。小月龄宝宝容易晒伤、过热。",
+      "steps": [
+        "选气温舒服、空气好时，从家附近的短路线开始。找阴凉处，遮阳并保持通风。看到出汗、脸红或烦躁，及时转到凉爽处休息。"
+      ],
+      "reference": "https://www.healthychildren.org/English/ages-stages/baby/bathing-skin-care/pages/baby-sunburn-prevention.aspx"
+    },
+    {
+      "id": "card-21",
+      "stage": "m3",
+      "title": "宝宝只会“啊”，怎么和他聊天？",
+      "reason": "轮流发声是早期交流的一部分。有停顿，宝宝才有机会用声音、表情或动作回应。",
+      "steps": [
+        "面对面说一句“你看见灯了呀”，等几秒。他发“啊”就轻轻回应，再等一等。洗澡、换片时讲正在做的事，例如“现在洗小脚”。"
+      ],
+      "reference": "https://www.cdc.gov/act-early/digital-online-checklist/4-months.html"
+    },
+    {
+      "id": "card-22",
+      "stage": "m4",
+      "title": "吃两口就分心，还要接着喂吗？",
+      "reason": "新鲜声音和动作会吸引宝宝。鼻塞、口腔痛或生病也可能导致拒奶。",
+      "steps": [
+        "① 关电视，去安静、能看清脸色的地方。② 闭嘴转头就暂停，不追喂或趁熟睡塞奶瓶。③ 再次找奶就喂，不刻意把间隔从3小时拖到4小时。④ 清醒时适度趴玩，不靠消耗体力换奶量。",
+        "看一整天的吃奶、尿量和精神。连续多餐拒奶、明显少尿或精神差，及时联系儿科。"
+      ],
+      "reference": "https://www.cdc.gov/infant-toddler-nutrition/mealtime/signs-your-child-is-hungry-or-full.html"
+    },
+    {
+      "id": "card-23",
+      "stage": "m4",
+      "title": "开始翻身，怎样防摔和安全睡觉？",
+      "reason": "第一次翻过去常常没有预兆。包住双臂会限制宝宝翻身时调整姿势的能力。",
+      "steps": [
+        "优先在地垫上换片，高处操作时一只手始终扶住宝宝。把玩具放在侧前方，引他自己侧身，不拉胳膊硬翻。一有尝试翻身的迹象就停止包住双臂。睡时仍仰放，床内保持空；已能自主双向翻身时，可保留自己翻到的睡姿。"
+      ],
+      "reference": "https://safetosleep.nichd.nih.gov/reduce-risk/reduce"
+    },
+    {
+      "id": "card-24",
+      "stage": "m4",
+      "title": "用什么让宝宝体验不同触感？",
+      "reason": "小手抓到东西时，同时感受到质地和声音，有助于认识物品。",
+      "steps": [
+        "拿一块软毛巾和一本沙沙响的布书，轻碰手背，等他张手抓。跟他说“软软的”“沙沙响”。检查松线、小零件和掉毛，玩完把物品收出婴儿床。"
+      ],
+      "reference": "https://www.cdc.gov/act-early/digital-online-checklist/4-months.html"
+    },
+    {
+      "id": "card-25",
+      "stage": "m5",
+      "title": "第一颗牙露头，该怎么刷？",
+      "reason": "牙齿一露出就可能发生龋齿。萌牙可能令牙龈不适，出牙月龄则因人而异。",
+      "steps": [
+        "用婴儿小头软毛刷，配米粒大小的含氟牙膏，早晚各刷一次，轻刷到牙齿与牙龈交界。牙龈不适可用干净手指轻揉，或提供冷藏过的实心牙胶。真正发热、精神差或持续拒奶，应另找原因并咨询儿科。"
+      ],
+      "reference": "https://www.healthychildren.org/English/healthy-living/oral-health/Pages/FAQ-Fluoride-and-Children.aspx"
+    },
+    {
+      "id": "card-26",
+      "stage": "m5",
+      "title": "流口水，下巴和脖子红了怎么办？",
+      "reason": "唾液持续浸湿皮肤，再反复擦拭，会让下巴和颈褶更容易发红。",
+      "steps": [
+        "用软棉巾轻按吸干，湿围兜及时换，睡前摘下。在清洁干燥的外侧皮肤可薄涂无香屏障膏，如凡士林，避开口内。若渗液、结痂或红疹扩大，请儿科评估。"
+      ],
+      "reference": "https://www.healthychildren.org/English/ages-stages/baby/teething-tooth-care/Pages/Teething-Pain.aspx"
+    },
+    {
+      "id": "card-27",
+      "stage": "m5",
+      "title": "什么都想啃，哪些牙胶合适？",
+      "reason": "宝宝用嘴唇和舌头探索形状、软硬，也可能通过咬东西缓解牙龈不适。",
+      "steps": [
+        "选适龄、一整块且不能整个塞进口中的牙胶。硅胶看有无裂口，木质看有无毛刺或碎裂。按说明清洁、晾干，可冷藏的只冷藏、不冻硬。不要挂在脖子上或给有可拆小件的玩具。"
+      ],
+      "reference": "https://www.healthychildren.org/English/ages-stages/baby/teething-tooth-care/Pages/Teething-Pain.aspx"
+    },
+    {
+      "id": "card-28",
+      "stage": "m5",
+      "title": "会响的玩具怎样陪玩？",
+      "reason": "摇一下就听见声音，宝宝会逐渐把自己的动作和结果联系起来。",
+      "steps": [
+        "先轻摇一次，再停下来递给他。他自己摇响时回应“你摇响了”。音量轻柔，玩具远离耳边，使用前检查零件和电池盖。"
+      ],
+      "reference": "https://www.healthychildren.org/English/safety-prevention/all-around/Pages/how-noise-affects-your-child.aspx"
+    },
+    {
+      "id": "card-29",
+      "stage": "m6",
+      "title": "出现哪些信号，可以开始辅食？",
+      "reason": "约满6个月，宝宝需要更多营养；头颈控制和吞咽能力决定了能否安全尝试。",
+      "steps": [
+        "在有支撑的餐椅上观察：能坐直、头颈稳定，看到勺会张嘴，能把食物往后送并吞下。单凭流口水或盯着饭桌还不够。早产或有吞咽困难，先请儿科评估。"
+      ],
+      "reference": "https://www.cdc.gov/infant-toddler-nutrition/foods-and-drinks/when-what-and-how-to-introduce-solid-foods.html"
+    },
+    {
+      "id": "card-30",
+      "stage": "m6",
+      "title": "第一口辅食选什么，怎么喂？",
+      "reason": "约满6个月后，铁需求逐渐增加。富铁泥糊既补充营养，也方便初学吞咽。",
+      "steps": [
+        "选白天、宝宝清醒且平静时坐好，给一小勺强化铁婴儿谷物糊或熟透的细肉泥。看他吞完再给下一口，闭嘴转头就停。随后尝试南瓜、土豆或青菜泥。谷粉用勺喂，不装进奶瓶。"
+      ],
+      "reference": "https://www.fhs.gov.hk/sc_chi/health_info/child/14727.html"
+    },
+    {
+      "id": "card-31",
+      "stage": "m6",
+      "title": "新食材和颗粒怎样一步步加？",
+      "reason": "逐个引入便于识别过敏反应。口感要配合吞咽和抓取能力逐渐变化，一岁前奶仍是主要营养来源。",
+      "steps": [
+        "① 初期每次只引入一种新成分，搭配吃过的食物，可隔约3–5天再添下一种。白天少量试熟蛋、稀释调匀的花生酱；严重湿疹或已知蛋过敏者，先请医生安排花生引入。② 从泥糊到稠粥、软碎面、软颗粒。能坐稳抓食时可尝试一捏即碎的蒸软食条，全程看护。③ 保留奶餐，随辅食量逐步调整。",
+        "疑似过敏就停喂并联系儿科。舌喉肿、喘鸣、呼吸困难或突然苍白瘫软，立即呼叫当地急救。"
+      ],
+      "reference": "https://www.nhs.uk/best-start-in-life/baby/weaning/safe-weaning/food-allergies/"
+    },
+    {
+      "id": "card-32",
+      "stage": "m6",
+      "title": "每天怎样搭配铁和油脂？",
+      "reason": "铁参与造血和神经发育；脂肪提供能量和必需脂肪酸。",
+      "steps": [
+        "每天安排富铁食物，可轮换牛肉泥、猪肉泥、强化铁谷粉、豆泥，搭配蔬果。肝脏煮熟、偶尔少量，猪肝粉并非必需。蔬菜谷物为主的一餐可加少量家用植物油。便干硬可随餐少量喝水、增加适龄蔬果。早产或担心缺铁，由儿科评估是否需铁剂。"
+      ],
+      "reference": "https://www.cdc.gov/infant-toddler-nutrition/vitamins-minerals/iron.html"
+    },
+    {
+      "id": "card-33",
+      "stage": "m6",
+      "title": "周岁前避开什么？生病时怎么吃？",
+      "reason": "一岁以下吃蜂蜜有婴儿肉毒中毒风险。生病、刚换奶时同时引入新食物，出现反应也较难辨别。",
+      "steps": [
+        "周岁前不吃蜂蜜或含蜂蜜的食品，不另加盐、糖。果泥可和肉、菜轮换。用母乳或婴儿配方奶做主要奶源。生病时优先给奶和已耐受的食物；新食材安排在宝宝舒服、有人观察的白天。接种点有个别交代时按交代执行。"
+      ],
+      "reference": "https://www.cdc.gov/infant-toddler-nutrition/foods-and-drinks/foods-and-drinks-to-avoid-or-limit.html"
+    },
+    {
+      "id": "card-34",
+      "stage": "m6",
+      "title": "为什么每次吃饭都坐餐椅？",
+      "reason": "稳定、直立的姿势方便吞咽，也让大人能看清宝宝是否呛噎。",
+      "steps": [
+        "坐直后扣好餐椅安全带，再戴围兜。面对面陪吃，不躺着吃、爬着吃或坐移动的车吃。大人要离开拿东西，就先停餐。"
+      ],
+      "reference": "https://www.fhs.gov.hk/sc_chi/health_info/child/14727.html"
+    },
+    {
+      "id": "card-35",
+      "stage": "m6",
+      "title": "想抢勺、抓食物，怎么陪他吃？",
+      "reason": "摸食物和把勺送到嘴边，能练习手眼与口腔协调，也让宝宝表达饿了还是饱了。",
+      "steps": [
+        "给一个稳固碗和一把浅勺，他自己试，你用另一把递少量食物。桌面一次放一点，允许弄乱。张嘴可以再给，闭嘴转开就停。"
+      ],
+      "reference": "https://www.fhs.gov.hk/sc_chi/health_info/child/14727.html"
+    },
+    {
+      "id": "card-36",
+      "stage": "m7",
+      "title": "会爬扶站后，家里先查哪里？",
+      "reason": "宝宝突然能摸到过去够不着的东西，还不能预判跌落、烫伤或柜体倾倒的危险。",
+      "steps": [
+        "蹲到宝宝视线高度沿常爬路线查一圈。柜子固定防倾倒，尖角安牢护角，楼梯上下装安全门，楼梯顶端用硬件固定款。药和清洁剂上锁。每学会一个新动作，再检查一次能摸到的高度。"
+      ],
+      "reference": "https://www.fhs.gov.hk/sc_chi/health_info/child/16051.html"
+    },
+    {
+      "id": "card-37",
+      "stage": "m7",
+      "title": "地上和遥控器里，哪些小东西最危险？",
+      "reason": "拇指和食指灵活后，宝宝会拾起小东西放进嘴里。纽扣电池卡住可迅速灼伤组织。",
+      "steps": [
+        "每天扫一眼沙发缝、茶几底、包和遥控器。硬币、纽扣、磁珠及新旧纽扣电池收高锁好，电池仓拧紧。疑似吞下纽扣电池或磁铁，无症状也立刻去急诊，不催吐；一岁以下不喂蜂蜜。如果呼吸受阻，同时呼叫急救。"
+      ],
+      "reference": "https://www.healthychildren.org/English/safety-prevention/at-home/Pages/What-Parents-Need-to-Know-about-Button-and-Lithium-Coin-Batteries.aspx"
+    },
+    {
+      "id": "card-38",
+      "stage": "m7",
+      "title": "分开就焦虑，躲猫猫怎么玩？",
+      "reason": "宝宝会记得暂时离开视线的人。短暂消失又出现，让他在熟悉的大人身边体验重逢。",
+      "steps": [
+        "用双手遮住自己的脸，停一秒，露面说“爸爸在这儿”。也可把玩具暂时藏在手后让他找。看他有兴趣就再玩一次，害怕就马上露面抱抱。"
+      ],
+      "reference": "https://www.cdc.gov/act-early/milestones/9-months.html"
+    },
+    {
+      "id": "card-39",
+      "stage": "m7",
+      "title": "爸爸出门，怎么道别更安心？",
+      "reason": "熟悉的人离开会让宝宝不安。固定、简短、能兑现的告别能增加可预期感。",
+      "steps": [
+        "让熟悉的照护者先接住宝宝，告诉他“爸爸出门了，午睡醒来后回来”，选真正能做到的时间。回来时也打招呼。先从短暂分开开始，留下的大人用熟悉的歌或游戏接上。"
+      ],
+      "reference": "https://www.fhs.gov.hk/sc_chi/health_info/child/15697.html"
+    },
+    {
+      "id": "card-40",
+      "stage": "m7",
+      "title": "从软条到小块，怎样让他自己吃？",
+      "reason": "宝宝逐渐能用拇指和食指捏取软碎块。圆、硬、黏的食物更容易堵住气道。",
+      "steps": [
+        "坐直、有人近距离看护，给少量一捏即碎的软蔬菜或碎肉；整颗肉丸要压扁拨碎。避开整粒坚果、整颗葡萄、香肠圆片、硬苹果块和成团的花生酱。",
+        "还能大声咳时让他咳，留在身边，不盲掏。若咳不出、哭不出或不能呼吸，立即呼叫急救（中国大陆120）。对仍有反应的未满周岁婴儿，托头颈、头低于胸，交替做5次拍背和5次胸部冲击。失去反应立即按调度指导做心肺复苏。"
+      ],
+      "reference": "https://www.redcross.org/take-a-class/resources/learn-first-aid/infant-choking"
+    },
+    {
+      "id": "card-41",
+      "stage": "m7",
+      "title": "按一下、响一声，怎样陪他探索？",
+      "reason": "重复同一个动作并看到相同结果，能帮助宝宝理解因果关系。",
+      "steps": [
+        "示范一次按按钮，或把放不进嘴的大积木放进稳固空盒，然后交给他。等他主动重复，再说“你放进去了，咚的一声”。检查零件和电池盖，有松动先收走。"
+      ],
+      "reference": "https://www.fhs.gov.hk/sc_chi/health_info/child/15697.html"
+    }
+  ]
+}
