@@ -1,6 +1,6 @@
-const CACHE = "xiaomai-growth-bd4aea8494967c";
+const CACHE = "xiaomai-growth-7a3dadce80e476";
 const base = self.registration.scope;
-const resources = new Set(["app.js","assets/icon-180.png","assets/icon-192.png","assets/icon-512.png","assets/stage-m1.webp","assets/stage-m2.webp","assets/stage-m3.webp","assets/stage-m4.webp","assets/stage-m5.webp","assets/stage-m6.webp","assets/stage-m7.webp","assets/wheat-field.webp","cards.json","checkins.js","device-tools.js","index.html","library.js","manifest.webmanifest","notes.js","styles.css"].map((name) => new URL(name, base).href));
+const resources = new Set(["app.js","assets/icon-180.png","assets/icon-192.png","assets/icon-512.png","assets/stage-m1.webp","assets/stage-m2.webp","assets/stage-m3.webp","assets/stage-m4.webp","assets/stage-m5.webp","assets/stage-m6.webp","assets/stage-m7.webp","assets/wheat-field.webp","cards.json","care-trends.css","care-trends.js","checkins.js","device-tools.js","diary.js","growth-store.js","growth.css","growth.js","health-data.js","health-growth.js","health.css","health.js","index.html","legacy-tasks.js","library.js","manifest.webmanifest","notes.js","styles.css"].map((name) => new URL(name, base).href));
 self.addEventListener("install", (event) => {
   event.waitUntil(
     (async () => {
@@ -28,7 +28,7 @@ self.addEventListener("activate", (event) => {
           const url = new URL(client.url);
           if (
             url.pathname === new URL(base).pathname &&
-            url.searchParams.get("open") === "checkin"
+            ["checkin", "growth"].includes(url.searchParams.get("open"))
           ) {
             // Navigation fetches are released once activation completes.
             void client.navigate(client.url).catch(() => {});

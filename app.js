@@ -6,6 +6,7 @@ import {
   makeSearchIndex,
   findCards,
 } from "./library.js";
+import { setupGrowth } from "./growth.js";
 import { setupDeviceTools } from "./device-tools.js";
 
 const $ = (id) => document.getElementById(id);
@@ -53,7 +54,8 @@ const topicIcons = {
   睡眠与安抚: "sleep",
   情绪与陪伴: "talk",
 };
-let data,
+let growth,
+  data,
   cards,
   stages,
   book,
@@ -391,6 +393,7 @@ function showCard(card) {
     );
     root.append(d);
   }
+  growth.cardPractice(card, root);
   const refs = fold("参考资料");
   const urls = new Set();
   for (const id of a?.sources || []) {
@@ -433,8 +436,16 @@ function showResources() {
 }
 function displayRoute(hash) {
   const [name, query = ""] = hash.slice(1).split("?");
-  const view = name === "index" ? "index" : name === "notes" ? "notes" : "home";
-  for (const id of ["home", "index", "notes"]) $(id).hidden = id !== view;
+  const view =
+    name === "growth" || name.startsWith("growth/")
+      ? "growth"
+      : name === "index"
+        ? "index"
+        : name === "notes"
+          ? "notes"
+          : "home";
+  for (const id of ["home", "index", "notes", "growth"])
+    $(id).hidden = id !== view;
   document.querySelectorAll("[data-view]").forEach((a) => {
     if (a.dataset.view === view) a.setAttribute("aria-current", "page");
     else a.removeAttribute("aria-current");
@@ -442,6 +453,9 @@ function displayRoute(hash) {
   if (view === "index") {
     setFilterValues(new URLSearchParams(query));
     drawIndex();
+  } else if (view === "growth") {
+    growth.render(name.split("/")[1], query);
+    window.scrollTo(0, 0);
   } else if (view === "notes") renderNotes();
   else {
     const id = name.startsWith("time/") ? name.slice(5) : activeStage;
@@ -555,9 +569,12 @@ async function init() {
       const saved = storage?.getItem("xiaomai/stage");
       if (stages.has(saved)) activeStage = saved;
     } catch {}
+    growth = setupGrowth({ storage, checkins, data });
+    checkins.profile = () => growth.store.profile();
     setupTimeline();
     setupIndex();
-    setupDeviceTools(book, cards, checkins, () => {
+    setupDeviceTools(book, cards, checkins, growth, () => {
+      growth.refresh();
       refreshCheckins();
       renderNotes();
       if (!$("index").hidden) drawIndex();

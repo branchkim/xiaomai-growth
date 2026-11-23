@@ -57,17 +57,14 @@ for (const c of data.cards) {
     );
   }
 }
-const shell = [
-  "index.html",
-  "app.js",
-  "checkins.js",
-  "styles.css",
-  "notes.js",
-  "library.js",
-  "device-tools.js",
-  "cards.json",
-  "manifest.webmanifest",
-];
+const shell = (await readdir(root, { withFileTypes: true }))
+  .filter(
+    (e) =>
+      e.isFile() &&
+      e.name !== "sw.js" &&
+      /\.(js|css|html|json|webmanifest)$/.test(e.name),
+  )
+  .map((e) => e.name);
 const assets = await readdir(new URL("assets/", root), { withFileTypes: true });
 const paths = [
   ...shell,

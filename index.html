@@ -18,6 +18,9 @@
     <link rel="icon" href="./assets/icon-192.png" />
     <link rel="apple-touch-icon" href="./assets/icon-180.png" />
     <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./growth.css" />
+    <link rel="stylesheet" href="./care-trends.css" />
+    <link rel="stylesheet" href="./health.css" />
     <script type="module" src="./app.js"></script>
   </head>
   <body>
@@ -35,6 +38,8 @@
           <a href="#home" data-view="home"><i data-icon="path"></i>首页</a
           ><a href="#index" data-view="index"
             ><i data-icon="index"></i>知识索引</a
+          ><a href="#growth" data-view="growth"
+            ><i data-icon="sprout"></i>成长工具</a
           ><a href="#notes" data-view="notes"
             ><i data-icon="note"></i>我家的经验</a
           >
@@ -112,6 +117,7 @@
             id="checkin-tasks"
             aria-label="待办事项"
           ></ul>
+          <details id="legacy-tasks" class="growth-fold" hidden></details>
           <details id="log-history" hidden>
             <summary id="log-count">查看照护记录</summary>
             <ul class="checkin-list" id="checkin-logs"></ul>
@@ -119,6 +125,15 @@
           <div class="checkin-footer">
             <small>仅存本机</small
             ><span role="status" id="checkin-status"></span>
+          </div>
+        </section>
+        <section class="home-growth" aria-label="今日关注与成长工具">
+          <div id="today-focus"></div>
+          <div class="home-shortcuts">
+            <a href="#growth/stats">照护统计</a
+            ><a href="#growth/measure">生长曲线</a
+            ><a href="#growth/diary">照片日记</a
+            ><a href="#growth">全部工具 →</a>
           </div>
         </section>
         <section class="timeline" aria-labelledby="timeline-title">
@@ -179,6 +194,14 @@
         </div>
         <div class="results" id="results"></div>
       </section>
+      <section id="growth" hidden aria-labelledby="growth-title">
+        <header class="sub-head">
+          <h1 id="growth-title">成长工具</h1>
+          <a id="growth-back" href="#growth" hidden>全部工具</a>
+        </header>
+        <div id="growth-menu" class="tool-grid"></div>
+        <article id="growth-content" hidden></article>
+      </section>
       <section id="notes" hidden aria-labelledby="notes-title">
         <header class="sub-head">
           <div>
@@ -188,6 +211,7 @@
         </header>
         <div id="notes-list"></div>
       </section>
+      <div id="growth-notice" role="status" aria-live="polite"></div>
       <p id="notice" role="status"></p>
       <noscript>请启用浏览器 JavaScript 打开手账。</noscript>
     </main>
@@ -242,7 +266,7 @@
         <hr />
         <h3>本机手账备份</h3>
         <p>
-          打卡、收藏和经验会一同导出。换手机、换浏览器或清理数据前，可先导出备份。导入会合并记录。
+          备份包含本机打卡、收藏、经验、宝宝档案、健康记录和日记照片。请收好备份文件，导入时会按记录合并。
         </p>
         <div class="actions">
           <button id="export" class="solid">导出备份</button
@@ -254,6 +278,21 @@
             hidden
           />
         </div>
+        <details class="growth-fold">
+          <summary>清空本机记录</summary>
+          <p>
+            本设备内小麦的照护、待办、照片、经验和档案都会删除。需要保留时请先导出备份。
+          </p>
+          <label
+            ><input
+              type="checkbox"
+              id="confirm-clear"
+            />我已确认清空本机数据</label
+          >
+          <button type="button" class="tools" id="clear-device">
+            清空记录
+          </button>
+        </details>
         <p id="backup-message" role="status"></p>
       </article>
     </dialog>

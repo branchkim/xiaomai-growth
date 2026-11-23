@@ -1,0 +1,287 @@
+.care-action-bar,
+.care-handoff-tools,
+.care-trends-heading,
+.care-range,
+.care-handoff-date {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.care-action-bar {
+  margin-top: 10px;
+}
+.care-detail-button {
+  min-height: 42px;
+  padding: 6px 13px;
+  border-radius: 9px;
+  background: #ecf0e6;
+  color: #31563e;
+  border: 1px solid #bbcbb8;
+  font-weight: 650;
+}
+.care-detail-button:nth-child(2) {
+  background: #f1eef7;
+  color: #534870;
+  border-color: #cbc3d7;
+}
+.care-form,
+.care-form [data-fields] {
+  display: grid;
+  gap: 13px;
+}
+.care-form .dialog-top,
+.care-form .care-error {
+  margin: 0;
+}
+.care-form label,
+.care-handoff-preview {
+  display: grid;
+  gap: 5px;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+.care-form input,
+.care-form select,
+.care-handoff-date input,
+.care-handoff-preview textarea {
+  box-sizing: border-box;
+  min-width: 0;
+  max-width: 100%;
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid #bdc7b7;
+  border-radius: 9px;
+  padding: 7px 10px;
+  font: inherit;
+  color: var(--ink, #243c32);
+  background: var(--paper, #faf8ed);
+}
+.care-form input,
+.care-form select,
+.care-handoff-date input,
+.care-handoff-preview textarea {
+  font-size: 16px;
+}
+.care-form .care-error {
+  color: #873d2a;
+}
+.care-form .care-error:empty {
+  display: none;
+}
+.care-trends {
+  min-width: 0;
+  color: var(--ink, #243c32);
+}
+.care-trends h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+.care-trends-heading {
+  justify-content: space-between;
+}
+.care-range {
+  gap: 1px;
+  padding: 3px;
+  border-radius: 11px;
+  border: 1px solid #d8dfd0;
+  background: #f1f3eb;
+}
+.care-range button {
+  border: 0;
+  color: #465542;
+  border-radius: 8px;
+  background: transparent;
+  padding: 4px 11px;
+  min-height: 37px;
+  font-size: 0.88rem;
+}
+.care-range [aria-pressed="true"] {
+  background: #38553f;
+  color: white;
+}
+.care-subtle {
+  color: var(--grey, #556351);
+  font-size: 0.86rem;
+  line-height: 1.6;
+}
+.care-trends p {
+  margin: 6px 0 12px;
+}
+.care-chart-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr));
+  gap: 10px;
+}
+.care-chart {
+  --bar: #a16b26;
+  margin: 0;
+  min-width: 0;
+  background: #f7f2e6;
+  padding: 11px 13px 7px;
+  border: 1px solid #dfd8c4;
+  border-radius: 12px;
+}
+.care-chart.sleep {
+  --bar: #68638d;
+  background: #f3f1f8;
+  border-color: #ddd7e8;
+}
+.care-chart.stool {
+  --bar: #527354;
+  background: #eff4e9;
+  border-color: #d4dfcb;
+}
+.care-chart figcaption {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  font-size: 0.94rem;
+}
+.care-chart figcaption span,
+.care-chart figcaption small {
+  font-size: 0.73rem;
+  color: #546050;
+}
+.care-chart figcaption small {
+  margin-left: auto;
+}
+.care-chart-plot {
+  position: relative;
+  padding: 14px 0 3px;
+}
+.care-chart-high {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #52604f;
+  font-size: 0.65rem;
+}
+.care-bars {
+  height: 48px;
+  display: flex;
+  align-items: end;
+  gap: 2px;
+  padding: 0 1px;
+  border-top: 1px dashed #c3cbb9;
+  border-bottom: 1px solid #a3b29e;
+}
+.care-bar {
+  flex: 1 1 0;
+  min-width: 0;
+  border-radius: 2px 2px 0 0;
+  background: var(--bar);
+}
+.care-bar.missing,
+.care-bar.zero {
+  width: 0;
+  background: transparent;
+  display: grid;
+  justify-items: center;
+}
+.care-bar.missing::after {
+  content: "";
+  width: 3px;
+  height: 3px;
+  border: 1px solid #727d69;
+  border-radius: 100%;
+  margin-bottom: 2px;
+}
+.care-bar.zero::after {
+  content: "";
+  width: 80%;
+  max-width: 12px;
+  height: 2px;
+  background: var(--bar);
+}
+.care-chart-axis {
+  display: flex;
+  justify-content: space-between;
+  color: #4f5b4b;
+  font-size: 0.71rem;
+}
+.care-feeds-summary {
+  font-weight: 600;
+}
+.care-daily-table summary {
+  cursor: pointer;
+  padding: 7px 0;
+  font-weight: 600;
+  color: var(--leaf, #36593e);
+}
+.care-daily-table table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 4px 0 10px;
+  font-size: 0.82rem;
+}
+.care-daily-table td,
+.care-daily-table th {
+  border-bottom: 1px solid var(--line, #dce1d4);
+  text-align: left;
+  padding: 6px 3px;
+}
+.care-handoff {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line, #d5ddce);
+}
+.care-handoff-date {
+  margin: 10px 0 4px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.care-handoff-date input {
+  width: auto;
+  max-width: 100%;
+}
+.care-handoff-list {
+  max-height: 230px;
+  overflow: auto;
+  margin: 7px 0;
+}
+.care-handoff-list label {
+  display: flex;
+  gap: 9px;
+  min-height: 42px;
+  align-items: center;
+  border-bottom: 1px solid var(--line, #dce1d4);
+  font-size: 0.91rem;
+}
+.care-handoff-list input {
+  width: 19px;
+  height: 19px;
+  accent-color: var(--leaf, #456746);
+  flex: none;
+}
+.care-handoff-preview {
+  margin: 10px 0;
+}
+.care-handoff-preview textarea {
+  resize: vertical;
+  font-weight: 400;
+}
+.care-handoff-tools button {
+  min-height: 42px;
+}
+.care-handoff-tools button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+@media (max-width: 480px) {
+  .care-chart-grid {
+    grid-template-columns: 1fr;
+  }
+  .care-chart-plot {
+    padding-top: 13px;
+  }
+  .care-bars {
+    height: 43px;
+  }
+}
+.care-chart-average {
+  display: block;
+  margin-top: 5px;
+  color: #44523f;
+  font-size: 0.77rem;
+}
