@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="./care-trends.css" />
     <link rel="stylesheet" href="./health.css" />
     <link rel="stylesheet" href="./growth-dashboard.css" />
+    <link rel="stylesheet" href="./book-reader.css" />
     <script type="module" src="./app.js"></script>
   </head>
   <body>
@@ -141,6 +142,7 @@
         <div class="journal-segments" role="navigation" aria-label="育儿笔记栏目">
           <a href="#journal/time" data-journal="time">月龄时间线</a>
           <a href="#journal/index" data-journal="index">知识库</a>
+          <a href="#journal/reader" data-journal="reader">读原书</a>
           <a href="#journal/notes" data-journal="notes">我家的经验</a>
         </div>
       </header>
@@ -185,7 +187,7 @@
           <i class="book-entry-arrow" data-icon="right"></i>
         </a>
         <div id="book-guide" hidden>
-          <p class="guide-intro">从换一片尿布、等宝宝回应，到和家人交班。选一张小麦原创实践卡，试一试，写下你看到的反应。</p>
+          <a class="book-entry" id="open-reader-map" href="#journal/reader"><i class="book-entry-icon" data-icon="book"></i><span><strong>全书思维导图与原文</strong><small>章节介绍 · 本机阅读</small></span><i class="book-entry-arrow" data-icon="right"></i></a>
           <div class="guide-folds">
             <details id="guide-crosswalk">
               <summary>逐项对照原书</summary>
@@ -234,6 +236,41 @@
           ><button id="clear" class="quiet" hidden>清除条件</button>
         </div>
         <div class="results" id="results"></div>
+      </section>
+      <section id="reader" class="book-reader" hidden aria-label="蒙台梭利婴儿阅读器">
+        <div id="reader-map">
+          <header class="reader-cover"><h2>蒙台梭利婴儿</h2><p lang="en">Simone Davies &amp; Junnifa Uzodike</p>
+            <div class="reader-actions"><a id="reader-resume" class="reader-primary" href="#journal/reader?chapter=opening">从封面读起</a><a href="#journal/index?book=montessori-baby">实践卡与原书对照</a></div>
+          </header>
+          <nav id="reader-tree" aria-labelledby="reader-tree-title"><h3 id="reader-tree-title">全书思维导图</h3><div id="reader-groups"></div></nav>
+        </div>
+        <article id="reader-overview" hidden>
+          <a class="reader-back" href="#journal/reader">‹ 全书思维导图</a>
+          <header class="reader-intro-box"><h2 id="reader-chapter-title"></h2><h3>章节介绍</h3><p id="reader-intro"></p>
+            <div class="reader-actions"><a id="reader-start" class="reader-primary">阅读本章原文</a><a id="reader-practices">相关实践卡</a></div>
+          </header>
+          <h3>本章目录</h3><ol id="reader-chapter-parts"></ol>
+        </article>
+        <article id="reader-page" hidden>
+          <a class="reader-back" id="reader-back-chapter" href="#journal/reader">‹ 章节介绍</a>
+          <h2 id="reader-page-title"></h2>
+          <div class="reader-toolbar" id="reader-toolbar" hidden>
+            <select id="reader-part" aria-label="选择原书位置"></select>
+            <button id="reader-smaller" aria-label="缩小原文字号">A−</button><button id="reader-larger" aria-label="放大原文字号">A+</button>
+          </div>
+          <div id="reader-scroll" role="region" aria-label="英文原文" tabindex="0" hidden><div id="reader-content" lang="en"></div></div>
+          <nav class="reader-pager" id="reader-pager" aria-label="原文翻页" hidden>
+            <a id="reader-prev">‹ 上一节</a><span id="reader-page-count"></span><a id="reader-next">下一节 ›</a>
+          </nav>
+        </article>
+        <p id="reader-state" role="status" aria-live="polite"></p>
+        <div id="reader-import" hidden>
+          <p>从手机或电脑选择自己的《The Montessori Baby》英文 EPUB，原书只保存在这台设备。</p>
+          <label class="reader-primary reader-file-label">选择本机 EPUB<input id="reader-file" type="file" accept=".epub,application/epub+zip"></label>
+        </div>
+        <details id="reader-management" hidden><summary>管理本机电子书</summary>
+          <button id="reader-replace" type="button">更换 EPUB</button><button id="reader-remove" type="button">移除本机原书</button>
+        </details>
       </section>
       <section id="growth" hidden aria-labelledby="growth-title">
         <header class="sub-head">

@@ -11,6 +11,7 @@ import { setupGrowth } from "./growth.js";
 import { setupDeviceTools } from "./device-tools.js";
 import { guideCardIds, guideHash, guideId, guideTitle, readGuide, setupGuide } from "./book-guide.js";
 import { setupCrosswalk, appendBookSource } from "./book-review.js";
+import { setupBookReader } from "./book-reader.js";
 
 const $ = (id) => document.getElementById(id);
 const native = window.xiaomaiNative;
@@ -80,7 +81,7 @@ const checkins = new Checkins(storage);
 const refreshCheckins = setupCheckins(checkins);
 
 let journalPath = native?.surface === "journal";
-let currentGuide, updateGuide, guideSearchIndex, lastLibraryHash;
+let currentGuide, updateGuide, guideSearchIndex, lastLibraryHash, reader;
 function libraryHash(path) {
   return (journalPath ? "#journal/" : "#") + path;
 }
@@ -485,19 +486,20 @@ function displayRoute(hash, scroll = true) {
   journalPath = raw === "journal" || raw.startsWith("journal/");
   const name = journalPath ? raw.slice("journal/".length) || "time" : raw;
   const section = name.split("/")[0];
-  const view = ["time", "index", "notes", "growth"].includes(section) ? section : "home";
-  const inJournal = ["time", "index", "notes"].includes(view);
+  const view = ["time", "index", "notes", "reader", "growth"].includes(section) ? section : "home";
+  const inJournal = ["time", "index", "notes", "reader"].includes(view);
   const dashboard = name === "growth/dashboard";
   const activeNav = dashboard ? "today" : inJournal ? "journal" : view;
   document.body.toggleAttribute("data-dashboard", dashboard);
-  for (const id of ["home", "index", "notes", "growth"]) $(id).hidden = id !== view;
+  if (view !== "reader") reader.leave();
+  for (const id of ["home", "index", "notes", "growth", "reader"]) $(id).hidden = id !== view;
   $("timeline").hidden = view !== "home" && view !== "time";
   $("journal-head").hidden = !inJournal;
   document.querySelectorAll("[data-view], [data-journal]").forEach((a) => {
     if (a.dataset.view === activeNav || a.dataset.journal === view) a.setAttribute("aria-current", "page");
     else a.removeAttribute("aria-current");
   });
-  if (inJournal && journalPath) rememberJournalLink(view, hash);
+  if (inJournal && journalPath && view !== "reader") rememberJournalLink(view, hash);
   if (view === "index") {
     const params = new URLSearchParams(query);
     const nextGuide = readGuide(params);
@@ -520,6 +522,8 @@ function displayRoute(hash, scroll = true) {
     if (currentGuide) updateGuide(params);
     setFilterValues(params);
     drawIndex();
+  } else if (view === "reader") {
+    reader.show(new URLSearchParams(query));
   } else if (view === "growth") {
     growth.render(name.split("/")[1], query);
   } else if (view === "notes") {
@@ -657,6 +661,7 @@ async function init() {
     } catch {}
     checkins.profile = () => growth.store.profile();
     setupTimeline();
+    reader = setupBookReader({ storage, native });
     setupIndex();
     setupDeviceTools(book, cards, checkins, growth, () => {
       growth.refresh();
@@ -666,7 +671,7 @@ async function init() {
     });
     if (!location.hash) {
       const section = new URLSearchParams(location.search).get("open");
-      const entryPoints = { timeline: "#time", knowledge: "#index", montessori: guideHash, journal: "#journal/time", checkin: "#checkin", growth: "#growth", today: "#growth/dashboard" };
+      const entryPoints = { timeline: "#time", knowledge: "#index", montessori: guideHash, reader: "#journal/reader", journal: "#journal/time", checkin: "#checkin", growth: "#growth", today: "#growth/dashboard" };
       history.replaceState(history.state, "", Object.hasOwn(entryPoints, section) ? entryPoints[section] : "#growth/dashboard");
     }
     route();

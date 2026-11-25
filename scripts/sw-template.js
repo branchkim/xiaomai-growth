@@ -28,12 +28,16 @@ self.addEventListener("activate", (event) => {
           const url = new URL(client.url);
           if (
             url.pathname === new URL(base).pathname &&
-            ["checkin", "growth", "timeline", "knowledge", "today", "journal", "montessori"].includes(url.searchParams.get("open"))
+            ["checkin", "growth", "timeline", "knowledge", "today", "journal", "montessori", "reader"].includes(url.searchParams.get("open"))
           ) {
             // Navigation fetches are released once activation completes.
             if (url.searchParams.get("open") === "montessori" &&
                 (!url.hash || url.hash === "#growth/dashboard")) {
               url.hash = "journal/index?book=montessori-baby";
+            }
+            if (url.searchParams.get("open") === "reader" &&
+                (!url.hash || url.hash === "#growth/dashboard")) {
+              url.hash = "journal/reader";
             }
             // A fragment-only navigation would leave the old document running.
             url.searchParams.set("v", CACHE.slice("xiaomai-growth-".length));

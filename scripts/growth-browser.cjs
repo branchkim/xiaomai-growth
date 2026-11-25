@@ -334,6 +334,15 @@ async function run() {
     await p.locator('#results a[href="#card/mb-observe-pause"]').waitFor();
     await p.locator('[data-journal="notes"]').click();
     await p.locator("#notes-list").getByText("家里把换片用品集中放在一个篮子里").waitFor();
+    await p.locator('[data-journal="reader"]').click();
+    const map = p.locator("#reader-tree");
+    await map.getByRole("heading", { name: "全书思维导图" }).waitFor();
+    assert.equal(await map.locator("[data-reader-chapter]").count(), 14);
+    await map.locator('[data-reader-chapter="home"]').click();
+    await p.locator("#reader-intro").waitFor();
+    assert.match(await p.locator("#reader-intro").innerText(), /宝宝/);
+    await p.locator("#reader-start").click();
+    await p.locator("#reader-import").waitFor();
     assert.deepEqual(errors, []);
     console.log(
       "PASS 家庭设置、今日游戏、照片日签、备份还原、离线成长曲线、读书专题、章节筛选、外部资料和本机经验。",
