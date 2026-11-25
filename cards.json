@@ -60,7 +60,8 @@
         "card-23",
         "card-24",
         "edu-floor-space",
-        "mb-follow-gaze"
+        "mb-follow-gaze",
+        "mb-home-voices"
       ],
       "window": [
         3,
@@ -92,7 +93,8 @@
       "featured": [
         "card-29",
         "edu-spoon-sounds",
-        "edu-cloth-pages"
+        "edu-cloth-pages",
+        "mb-sibling-space"
       ],
       "window": [
         5,
@@ -109,7 +111,8 @@
         "card-36",
         "edu-book",
         "edu-wave-hello",
-        "mb-drop-and-find"
+        "mb-drop-and-find",
+        "mb-family-agreement"
       ],
       "window": [
         8,
@@ -2468,6 +2471,107 @@
         ]
       },
       "reference": "https://www.nhc.gov.cn/fys/c100078/202502/19c9c6dee0274d23822f313a99ae1779/files/1741749469666_88130.pdf"
+    },
+    {
+      "id": "mb-sibling-space",
+      "stage": "m6",
+      "title": "两娃共用客厅，小零件放在哪儿？",
+      "reason": "大宝想把拼到一半的作品留下，小宝在地上摸索，两个人都需要一块能继续玩的地方。",
+      "steps": [
+        "请大宝挑一块由大人看护、宝宝够不到的桌面搭建。小零件用完由大人收进关好的柜子。",
+        "宝宝在地面玩适龄的大件玩具。换地方前一起看看桌下有没有掉落的小零件，给大宝留一处下次继续搭。"
+      ],
+      "topic": "日常照护",
+      "scene": "兄弟姐妹同玩",
+      "aliases": [
+        "二胎",
+        "大宝",
+        "二宝",
+        "共用客厅",
+        "小零件",
+        "蒙台梭利婴儿",
+        "The Montessori Baby"
+      ],
+      "related": [
+        "edu-floor-space",
+        "mb-setup-basket"
+      ],
+      "observation": "宝宝从哪个方向会碰到大宝的作品？大宝有没有机会把刚才的玩法继续下去？",
+      "sources": [
+        "mbVerified"
+      ],
+      "reference": "https://www.hachettebookgroup.com/titles/simone-davies/the-montessori-baby/9781523512409/"
+    },
+    {
+      "id": "mb-home-voices",
+      "stage": "m4",
+      "title": "外婆说方言，爸爸用普通话，怎么一起读书？",
+      "reason": "宝宝已经在看一幅图时，家人可以用自己最自然的声音接着聊。同一本书也能有不同的亲子读法。",
+      "steps": [
+        "挑一本家里常翻的纸板书。外婆用方言说说宝宝正在看的那一页，说一句就等一等。",
+        "爸爸下次读到同一页时，用自己顺口的话聊。宝宝想翻页就跟着翻，安静地看也可以。"
+      ],
+      "topic": "语言与互动",
+      "scene": "隔代共读",
+      "aliases": [
+        "双语",
+        "两种语言",
+        "方言",
+        "普通话",
+        "乡音",
+        "蒙台梭利婴儿",
+        "The Montessori Baby"
+      ],
+      "related": [
+        "edu-book",
+        "mb-follow-gaze"
+      ],
+      "activity": {
+        "window": [
+          3,
+          13
+        ],
+        "lens": "回应性互动",
+        "signal": "清醒舒服，愿意把目光放到书页上。",
+        "materials": "一本完好、适龄的纸板书",
+        "observe": "听到熟悉的说法时，他继续看图、转向说话的人，还是想翻下一页？",
+        "stop": "宝宝转开或合上书时就结束。",
+        "sources": [
+          "mbVerified",
+          "nhcPlay"
+        ]
+      },
+      "reference": "https://www.hachettebookgroup.com/titles/simone-davies/the-montessori-baby/9781523512409/"
+    },
+    {
+      "id": "mb-family-agreement",
+      "stage": "m7",
+      "title": "爸爸和外婆意见不同，先一起试哪件小事？",
+      "reason": "对「要不要帮」各有想法时，聊一件刚发生的事，两位照护者更容易听懂彼此担心什么。",
+      "steps": [
+        "选宝宝舒服、大人有空的时候聊。比如宝宝伸手拿大软球，先各自说一句刚看到什么，再说希望怎样帮他。",
+        "约定下次一起试一种做法，比如大人坐在旁边，先看看宝宝会怎么拿。事后再聊各自看到的反应，决定下回是否调整。"
+      ],
+      "topic": "观察与交班",
+      "scene": "隔代照护",
+      "aliases": [
+        "育儿分歧",
+        "爸爸",
+        "外婆",
+        "祖辈",
+        "家人沟通",
+        "蒙台梭利婴儿",
+        "The Montessori Baby"
+      ],
+      "related": [
+        "mb-family-ritual",
+        "mb-rest-shift"
+      ],
+      "observation": "改过哪一个动作？宝宝的反应跟两位大人原先想的一样吗？",
+      "sources": [
+        "mbVerified"
+      ],
+      "reference": "https://www.hachettebookgroup.com/titles/simone-davies/the-montessori-baby/9781523512409/"
     }
   ],
   "sources": {
@@ -2600,6 +2704,11 @@
       "title": "美国儿科学会家长网 · 换片区安全",
       "role": "换片用品摆放依据",
       "url": "https://www.healthychildren.org/English/safety-prevention/at-home/Pages/Changing-Table-Safety.aspx"
+    },
+    "mbVerified": {
+      "title": "Davies 与 Uzodike《The Montessori Baby》，2021 英文电子版（章节见本卡对照）",
+      "role": "原书教育观点",
+      "url": "https://www.hachettebookgroup.com/titles/simone-davies/the-montessori-baby/9781523512409/"
     }
   },
   "resources": [

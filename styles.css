@@ -624,6 +624,14 @@ small {
   text-decoration: none;
 }
 .guide-topic[aria-current] strong { text-decoration: underline; }
+.guide-folds .review-chapter { padding: 0 3px; }
+.review-chapter ol { list-style: none; margin: 0; padding: 0; }
+.review-item { padding: 12px 0; border-top: 1px solid var(--line); overflow-wrap: anywhere; }
+.review-item p { margin: 4px 0; }
+.review-kind { margin-left: .5em; font-size: .77rem; color: var(--leaf); }
+.review-location { display: block; font-size: .82rem; color: var(--grey); overflow-wrap: anywhere; }
+.review-item a { display: inline-block; padding: 5px 0; margin-right: 12px; }
+.review-refs span { display: block; }
 .guide-topic::after { flex: none; transform: rotate(-45deg); margin-left: auto; }
 .guide-chapter { flex: none; width: 4em; color: var(--grey); font-size: .82rem; }
 .guide-topic small, .guide-source small { margin-top: 1px; }

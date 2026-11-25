@@ -10,6 +10,7 @@ import {
 import { setupGrowth } from "./growth.js";
 import { setupDeviceTools } from "./device-tools.js";
 import { guideCardIds, guideHash, guideId, guideTitle, readGuide, setupGuide } from "./book-guide.js";
+import { setupCrosswalk, appendBookSource } from "./book-review.js";
 
 const $ = (id) => document.getElementById(id);
 const native = window.xiaomaiNative;
@@ -199,6 +200,7 @@ const filterNames = {
   lens: "教育视角",
 };
 function setupIndex() {
+  setupCrosswalk({ cards, element, makeLink });
   updateGuide = setupGuide({ element, makeLink, external });
   const byId = new Map(searchIndex.map(entry => [entry.card.id, entry]));
   guideSearchIndex = guideCardIds.map(id => byId.get(id)).filter(Boolean);
@@ -433,6 +435,7 @@ function showCard(card) {
     root.append(d);
   }
   growth.cardPractice(card, root);
+  appendBookSource(root, card.id, { element, fold });
   const refs = fold("参考资料");
   const urls = new Set();
   for (const id of new Set([...(a?.sources || []), ...(card.sources || [])])) {
@@ -511,7 +514,7 @@ function displayRoute(hash, scroll = true) {
     $("index-sources").hidden = !!currentGuide;
     $("quick-search").hidden = !!currentGuide;
     $("index-title").textContent = currentGuide ? guideTitle : journalPath ? "知识库" : "知识索引";
-    $("index-caption").textContent = currentGuide ? "依据公开目录及配套资料整理，正文尚未逐章核对。" : data.cards.length + " 张卡片";
+    $("index-caption").textContent = currentGuide ? "已按英文原书核对 · 10 章、家庭实例与附录" : data.cards.length + " 张卡片";
     $("search").placeholder = currentGuide ? "搜专题里的做法或月龄" : "搜问题、家里的说法或材料";
     $("search").setAttribute("aria-label", currentGuide ? "搜索专题卡片" : "搜索知识索引");
     if (currentGuide) updateGuide(params);

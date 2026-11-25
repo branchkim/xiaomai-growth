@@ -315,6 +315,14 @@ async function run() {
     assert.match(p.url(), /theme=home/);
     await p.locator('#results a[href="#card/mb-setup-basket"]').waitFor();
     await p.goto(bookURL);
+    await p.locator("#guide-crosswalk > summary").click();
+    await p.getByRole("searchbox", {name: "搜索原书对照"}).fill("Floor bed questions");
+    await p.locator("#review-list").getByText("美国儿科学会 · 婴儿安全睡眠").waitFor();
+    await p.getByRole("searchbox", {name: "搜索原书对照"}).fill("Bilingualism");
+    await p.locator('#review-list a[href="#card/mb-home-voices"]').first().click();
+    await p.getByText("这张卡和原书怎么对应", { exact: true }).click();
+    await p.locator(".review-refs").getByText(/外婆说方言/).waitFor();
+    await p.getByRole("button", { name: "关闭卡片" }).click();
     const references = p.locator("#guide-references");
     await references.locator("summary").click();
     const resources = await references.locator('a[href$=".pdf"]').evaluateAll(links => links.map(link => link.href));

@@ -7,6 +7,9 @@ function activity(title, how, observation, material) {
 }
 
 export const gameCopy = {
+  "mb-home-voices": activity(
+    "用家乡话翻一本书", "翻到宝宝爱看的那一页，用顺口的方言或普通话说一句，等他回应。",
+    "听见熟悉的说法，转向书页或说话的人", "一本完好的纸板书"),
   "edu-diaper-talk": activity(
     "换片时面对面说话", "趁宝宝清醒，先让他看见你的脸，再说「我帮你换尿布啦」，停一停。",
     "目光在家人的脸上停了一会儿", "手边的换片用品"),

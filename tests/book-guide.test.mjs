@@ -3,10 +3,29 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { guideCardIds, guideHash, guideTopics, guideLink, readGuide } from "../book-guide.js";
 import { bookResources } from "../book-resources.js";
+import { bookReview } from "../book-review-data.js";
+import { searchReview } from "../book-review.js";
 import { makeSearchIndex, findCards } from "../library.js";
 
 const data = JSON.parse(await readFile(new URL("../cards.json", import.meta.url)));
 const cards = new Map(data.cards.map(card => [card.id, card]));
+
+test("逐章对照可用中英文检索，所有卡片引用均能打开", () => {
+  assert.equal(bookReview.length, 12);
+  for (const chapter of bookReview) {
+    assert.ok(chapter.insight && chapter.practice && chapter.sections.length);
+    for (const section of chapter.sections) {
+      assert.ok(section.heading && section.title && section.finding && section.match);
+      for (const id of section.ids) assert.ok(cards.has(id), id);
+    }
+    for (const ref of chapter.cardRefs) {
+      assert.ok(cards.has(ref.id) && ref.remark && ref.section && ref.relationship);
+    }
+  }
+  const sleep = searchReview("FLOOR BED QUESTIONS").flatMap(group => group.sections);
+  assert.ok(sleep.some(section => section.guidance === "sleep"));
+  assert.ok(searchReview("方言").length && !searchReview("no-such-book-entry").length);
+});
 
 test("公开的十章及章后资料各自对应可读的小麦实践卡", () => {
   assert.deepEqual(guideTopics.slice(0, 10).map(t => t.label),
