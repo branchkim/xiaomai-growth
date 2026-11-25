@@ -9,7 +9,11 @@
       "featured": [
         "card-04",
         "card-02",
-        "edu-diaper-talk"
+        "edu-humming"
+      ],
+      "window": [
+        0,
+        1
       ]
     },
     {
@@ -21,7 +25,11 @@
       "featured": [
         "card-12",
         "card-14",
-        "edu-dress"
+        "edu-own-hands"
+      ],
+      "window": [
+        1,
+        2
       ]
     },
     {
@@ -33,7 +41,11 @@
       "featured": [
         "card-19",
         "card-21",
-        "card-20"
+        "edu-mirror-smile"
+      ],
+      "window": [
+        2,
+        3
       ]
     },
     {
@@ -45,7 +57,11 @@
       "featured": [
         "card-23",
         "card-24",
-        "card-22"
+        "edu-floor-space"
+      ],
+      "window": [
+        3,
+        4
       ]
     },
     {
@@ -57,7 +73,11 @@
       "featured": [
         "edu-choose",
         "card-28",
-        "card-27"
+        "edu-play-look"
+      ],
+      "window": [
+        4,
+        5
       ]
     },
     {
@@ -69,7 +89,11 @@
       "featured": [
         "card-29",
         "edu-spoon-sounds",
-        "edu-pass"
+        "edu-cloth-pages"
+      ],
+      "window": [
+        5,
+        8
       ]
     },
     {
@@ -80,8 +104,76 @@
       "focus": "把熟悉的名字和真实的人、物连起来，也给爬和扶站腾出安全空间。",
       "featured": [
         "card-36",
-        "edu-doorway-words",
-        "edu-book"
+        "edu-book",
+        "edu-wave-hello"
+      ],
+      "window": [
+        8,
+        12
+      ]
+    },
+    {
+      "id": "t12",
+      "label": "满12–17月龄",
+      "name": "跟着家人做",
+      "short": "12–17月龄",
+      "focus": "小麦想加入换片、收拾或擦桌时，留一个够得着、能完成的小动作。",
+      "featured": [
+        "edu-low-shelf",
+        "edu-diaper-helper",
+        "edu-wipe-place"
+      ],
+      "window": [
+        12,
+        18
+      ]
+    },
+    {
+      "id": "t18",
+      "label": "满18–23月龄",
+      "name": "我想自己来",
+      "short": "18–23月龄",
+      "focus": "用袜子、衣服和盒子一起试。留意他是在作选择、找相同，还是想重做一遍。",
+      "featured": [
+        "edu-sock-pairs",
+        "edu-two-shirts",
+        "edu-open-box"
+      ],
+      "window": [
+        18,
+        24
+      ]
+    },
+    {
+      "id": "t24",
+      "label": "满24–29月龄",
+      "name": "搭一把小手",
+      "short": "24–29月龄",
+      "focus": "把摆桌、穿鞋和洗菜拆成小步骤，给孩子留出尝试和求助的机会。",
+      "featured": [
+        "edu-set-table",
+        "edu-shoe-time",
+        "edu-wash-veg"
+      ],
+      "window": [
+        24,
+        30
+      ]
+    },
+    {
+      "id": "t30",
+      "label": "满30–35月龄",
+      "name": "轮到我当小帮手",
+      "short": "30–35月龄",
+      "focus": "准备饭桌或玩买菜时，等小麦按自己的想法安排顺序，再听听他怎么讲。",
+      "featured": [
+        "edu-small-pour",
+        "edu-napkin-fold",
+        "edu-story-retell"
+      ],
+      "window": [
+        30,
+        36
       ]
     }
   ],
@@ -103,7 +195,8 @@
         "睡一会就醒",
         "安全睡眠"
       ],
-      "related": []
+      "related": [],
+      "observation": "这次醒来前睡了多久？醒后是找奶、尿布湿了，还是抱一会儿又困了？"
     },
     {
       "id": "card-02",
@@ -123,7 +216,8 @@
         "黄疸",
         "胆红素"
       ],
-      "related": []
+      "related": [],
+      "observation": "最近一次测胆红素是出生后多少小时？把数值、单位、时间和下次复查约定记在一起。"
     },
     {
       "id": "card-03",
@@ -141,7 +235,8 @@
         "黑绿便",
         "第一泡大便"
       ],
-      "related": []
+      "related": [],
+      "observation": "第一次胎便是出生后多久排的？接下来几片尿布里的便便颜色怎样变化？"
     },
     {
       "id": "card-04",
@@ -161,7 +256,8 @@
         "奶量",
         "吞咽"
       ],
-      "related": []
+      "related": [],
+      "observation": "这次最早看到哪一个找奶信号？吃奶时听到吞咽了吗，宝宝怎样示意要停一停？"
     },
     {
       "id": "card-05",
@@ -179,7 +275,8 @@
         "错过一顿",
         "睡过奶点"
       ],
-      "related": []
+      "related": [],
+      "observation": "对照出院时的喂养安排，记下上一餐开始和这次醒来的时间，以及醒来后的吸吮情况。"
     },
     {
       "id": "card-06",
@@ -197,7 +294,8 @@
         "打嗝",
         "奶嗝"
       ],
-      "related": []
+      "related": [],
+      "observation": "托好头颈竖抱后，身体有没有放松？把是否打嗝和是否舒服分别记下来。"
     },
     {
       "id": "card-07",
@@ -218,7 +316,8 @@
       ],
       "related": [
         "edu-dress"
-      ]
+      ],
+      "observation": "当时穿了几层，胸口或后颈摸起来怎样？衣料贴着后颈的位置有没有湿？"
     },
     {
       "id": "card-08",
@@ -238,7 +337,8 @@
         "滴剂",
         "IU"
       ],
-      "related": []
+      "related": [],
+      "observation": "今天用的是哪一瓶、标签按滴还是按毫升标注？家人把实际给过的时间记在同一处。"
     },
     {
       "id": "card-09",
@@ -258,7 +358,8 @@
       ],
       "related": [
         "edu-diaper-talk"
-      ]
+      ],
+      "observation": "这次换片时残端是否干燥，尿布前缘有没有擦到它？留意周围皮肤和上一次的变化。"
     },
     {
       "id": "card-10",
@@ -279,7 +380,8 @@
       ],
       "related": [
         "edu-diaper-talk"
-      ]
+      ],
+      "observation": "更换时尿布里是尿还是大便，哪一处发红？和前一次相比，红的范围有变化吗？"
     },
     {
       "id": "card-11",
@@ -297,7 +399,8 @@
         "看图",
         "追视"
       ],
-      "related": []
+      "related": [],
+      "observation": "目光停在家人的脸还是图案上？移到哪一侧时转开了头？"
     },
     {
       "id": "card-12",
@@ -314,7 +417,8 @@
         "昼夜颠倒",
         "白天睡晚上闹"
       ],
-      "related": []
+      "related": [],
+      "observation": "白天见到光、夜里换片时各有什么反应？记下最容易重新安静下来的那个环节。"
     },
     {
       "id": "card-13",
@@ -335,7 +439,8 @@
         "哭闹",
         "蹬腿"
       ],
-      "related": []
+      "related": [],
+      "observation": "哭前刚发生什么？这次先试了哪一种安抚，小麦的哭声或身体姿势怎样变化？"
     },
     {
       "id": "card-14",
@@ -354,7 +459,8 @@
         "抬头",
         "趴一会"
       ],
-      "related": []
+      "related": [],
+      "observation": "清醒趴玩时，他会把脸转向你吗？刚开始累时出现了什么动作？"
     },
     {
       "id": "card-15",
@@ -374,7 +480,8 @@
       ],
       "related": [
         "card-21"
-      ]
+      ],
+      "observation": "轻声呼唤后，是动作停了、眨了眼，还是转过头？记下当时是否清醒。"
     },
     {
       "id": "card-16",
@@ -392,7 +499,8 @@
         "作息",
         "作息乱"
       ],
-      "related": []
+      "related": [],
+      "observation": "今天在哪个环节先出现困意或找奶动作？下一位家人能从哪个小动作看出来？"
     },
     {
       "id": "card-17",
@@ -410,7 +518,8 @@
         "小觉",
         "白天睡得短"
       ],
-      "related": []
+      "related": [],
+      "observation": "从开始做睡前准备到安静下来，哪一个熟悉步骤最容易接上？"
     },
     {
       "id": "card-18",
@@ -428,7 +537,8 @@
         "夜醒",
         "睡梦中哼"
       ],
-      "related": []
+      "related": [],
+      "observation": "哼声出现时眼睛闭着还是睁开，随后自己平静下来还是继续找奶、哭起来？"
     },
     {
       "id": "card-19",
@@ -448,7 +558,8 @@
       ],
       "related": [
         "card-24"
-      ]
+      ],
+      "observation": "趴玩时玩具放在哪一边他更愿意看？两边试过以后，有什么相同和不同？"
     },
     {
       "id": "card-20",
@@ -468,7 +579,8 @@
       ],
       "related": [
         "edu-doorway-words"
-      ]
+      ],
+      "observation": "散步走到哪里时小麦最放松，哪里开始出汗或烦躁？记下当时的天气和遮阴情况。"
     },
     {
       "id": "card-21",
@@ -534,7 +646,8 @@
         "分心",
         "厌奶"
       ],
-      "related": []
+      "related": [],
+      "observation": "小麦在哪个声音或动作出现时松了口？换到安静环境后，他怎样表示还想吃或想停？"
     },
     {
       "id": "card-23",
@@ -552,7 +665,8 @@
         "防摔",
         "坠床"
       ],
-      "related": []
+      "related": [],
+      "observation": "换片或地垫玩耍时，小麦从朝哪一侧转头变成了侧身？附近哪些位置现在够得到了？"
     },
     {
       "id": "card-24",
@@ -621,7 +735,8 @@
         "刷牙",
         "第一颗牙"
       ],
-      "related": []
+      "related": [],
+      "observation": "第一颗牙露在什么位置？这次刷牙时，他在哪个动作下愿意把嘴张开一会儿？"
     },
     {
       "id": "card-26",
@@ -639,7 +754,8 @@
         "下巴红",
         "围嘴"
       ],
-      "related": []
+      "related": [],
+      "observation": "围兜哪个位置先湿，发红是在下巴还是颈褶？换干围兜后下次再看有什么变化？"
     },
     {
       "id": "card-27",
@@ -661,7 +777,8 @@
       "related": [
         "card-24",
         "edu-choose"
-      ]
+      ],
+      "observation": "小麦习惯咬牙胶的哪一处？清洗时看看常咬的位置有没有裂口、毛刺或松动。"
     },
     {
       "id": "card-28",
@@ -683,7 +800,8 @@
         "edu-spoon-sounds",
         "edu-choose",
         "edu-pass"
-      ]
+      ],
+      "observation": "是看到爸爸摇才伸手，还是自己晃了一下又停下来听？哪种声音让他转头避开？"
     },
     {
       "id": "card-29",
@@ -701,7 +819,8 @@
         "什么时候吃辅食",
         "准备信号"
       ],
-      "related": []
+      "related": [],
+      "observation": "小麦坐在餐椅里时头颈和身体的位置怎样？面对勺子时，他怎样张嘴或转开？"
     },
     {
       "id": "card-30",
@@ -720,7 +839,8 @@
         "铁",
         "强化铁"
       ],
-      "related": []
+      "related": [],
+      "observation": "这口给的是什么、是什么质地？小麦吞完后是再次张嘴，还是闭嘴转开了？"
     },
     {
       "id": "card-31",
@@ -739,7 +859,8 @@
         "颗粒",
         "粗细"
       ],
-      "related": []
+      "related": [],
+      "observation": "记下新食材名称、形态和吃的时间。之后如果有变化，单独写下当时实际看到的表现。"
     },
     {
       "id": "card-32",
@@ -757,7 +878,8 @@
         "辅食油",
         "铁和油"
       ],
-      "related": []
+      "related": [],
+      "observation": "回顾今天几餐，哪一餐有富铁食物，与什么蔬菜或主食搭配？记录家里最方便准备的一种。"
     },
     {
       "id": "card-33",
@@ -775,7 +897,8 @@
         "生病时怎么吃",
         "一岁前不能吃什么"
       ],
-      "related": []
+      "related": [],
+      "observation": "今天给的食物有哪些是以前吃过的？如果生病，记下他愿意接受的熟悉食物和吃奶情况。"
     },
     {
       "id": "card-34",
@@ -793,7 +916,8 @@
         "餐椅",
         "姿势"
       ],
-      "related": []
+      "related": [],
+      "observation": "扣好安全带后，小麦的躯干能否保持直立，大人从座位上能否一直看清他的脸？"
     },
     {
       "id": "card-35",
@@ -816,7 +940,8 @@
       ],
       "related": [
         "edu-spoon-sounds"
-      ]
+      ],
+      "observation": "他更想自己握勺还是伸手抓？这顿饭最后是伸手还想吃，还是转脸、推开了？"
     },
     {
       "id": "card-36",
@@ -835,7 +960,8 @@
         "家具防倒",
         "防撞"
       ],
-      "related": []
+      "related": [],
+      "observation": "沿着他今天真实爬过的路线蹲下看，他新够到了哪一个边角、柜门或抽屉？"
     },
     {
       "id": "card-37",
@@ -854,7 +980,8 @@
         "磁珠",
         "异物"
       ],
-      "related": []
+      "related": [],
+      "observation": "上一次清理后，今天在哪个位置又发现了小物件？记下需要全家一起调整的收纳位置。"
     },
     {
       "id": "card-38",
@@ -875,7 +1002,8 @@
       ],
       "related": [
         "edu-book"
-      ]
+      ],
+      "observation": "爸爸露出脸后，小麦是笑了、靠近了，还是紧张地寻找？遮多久他仍愿意玩？"
     },
     {
       "id": "card-39",
@@ -896,7 +1024,8 @@
       ],
       "related": [
         "edu-doorway-words"
-      ]
+      ],
+      "observation": "道别前谁在身边，爸爸离开后小麦做了什么？哪一句熟悉的话或哪个人帮他安稳下来？"
     },
     {
       "id": "card-40",
@@ -916,7 +1045,8 @@
         "自己吃",
         "手抓食物"
       ],
-      "related": []
+      "related": [],
+      "observation": "记下这次食物的形状、软硬，以及小麦抓取、送入口中时的动作。进餐时先专心陪在身边。"
     },
     {
       "id": "card-41",
@@ -939,7 +1069,8 @@
       "related": [
         "edu-spoon-sounds",
         "edu-pass"
-      ]
+      ],
+      "observation": "第一次示范后，他主动重复的是拿起、放下，还是停下来等声音？"
     },
     {
       "id": "edu-diaper-talk",
@@ -1228,6 +1359,823 @@
         "card-21",
         "card-38"
       ]
+    },
+    {
+      "id": "edu-humming",
+      "stage": "m1",
+      "title": "爸爸只会哼两句，也能唱给小麦听吗？",
+      "reason": "短短的熟悉旋律给宝宝一个容易听见、又能停下来的声音。安静的一拍，也给大人机会看见他的回应。",
+      "steps": [
+        "大人坐稳，托好小麦的头颈，让口鼻露出来。用平常对他说话的轻声哼两句家乡小调。",
+        "唱完停一会儿。小麦转向你、发出声音或安静地听，就回应他一下，再决定要不要唱。"
+      ],
+      "reference": "https://app.www.gov.cn/govdata/gov/202502/09/524439/article.html",
+      "topic": "语言与互动",
+      "scene": "清醒抱抱",
+      "aliases": [
+        "哼歌",
+        "童谣",
+        "奶奶的歌",
+        "家乡话"
+      ],
+      "related": [
+        "edu-diaper-talk",
+        "card-11"
+      ],
+      "activity": {
+        "window": [
+          0,
+          1
+        ],
+        "signal": "小麦醒着，已经吃好或换好，愿意靠在你怀里。",
+        "lens": "回应性照护",
+        "materials": "自己的声音",
+        "stop": "皱眉、转开或找奶时收住声音，先回应他此刻的需要。",
+        "observe": "哼到哪一句时，小麦的脸朝向你或手脚慢下来？停下来后，他还愿意听吗？",
+        "sources": [
+          "nhcDev",
+          "ghBaby"
+        ]
+      }
+    },
+    {
+      "id": "edu-own-hands",
+      "stage": "m2",
+      "title": "小麦盯着自己的手，要递个玩具吗？",
+      "reason": "自己的手一动，眼前的样子也跟着变。把这段注意力留给他，他就能反复试试同一个动作。",
+      "steps": [
+        "让小麦仰躺在地垫上，你坐在旁边。先收起手里正准备递出的玩具，看他自己的手怎么动。",
+        "等小麦看向你时，再轻轻说一句「刚刚你的手指动了」。"
+      ],
+      "reference": "https://app.www.gov.cn/govdata/gov/202502/09/524439/article.html",
+      "topic": "动作与探索",
+      "scene": "地垫玩耍",
+      "aliases": [
+        "看手",
+        "吃手",
+        "发现双手",
+        "空手玩"
+      ],
+      "related": [
+        "card-15",
+        "edu-choose"
+      ],
+      "activity": {
+        "window": [
+          1,
+          3
+        ],
+        "signal": "宝宝清醒，已经在看自己胸前或脸旁的手。",
+        "lens": "蒙台梭利·自由探索",
+        "materials": "一块平整、稳固的地垫",
+        "stop": "他转头找别的东西、开始困倦或不舒服，就结束这一小会儿。",
+        "observe": "他是在注视摊开的手掌、两手相碰，还是看着手慢慢靠近脸？",
+        "sources": [
+          "nhcDev",
+          "ami03",
+          "ghBaby"
+        ]
+      }
+    },
+    {
+      "id": "edu-mirror-smile",
+      "stage": "m3",
+      "title": "小麦扬起嘴角，家人可以怎样接话？",
+      "reason": "脸上的变化也是早期交流。大人跟随宝宝刚做的表情再停顿，小麦可以用眼神、嘴角或身体动作接下一轮。",
+      "steps": [
+        "家人坐稳抱好宝宝，或坐在地垫旁与他面对面。他扬起嘴角时，你也微微笑一下。",
+        "保持安静等一会儿。如果他又看你，可以接一句「你看到我笑啦」。"
+      ],
+      "reference": "https://app.www.gov.cn/govdata/gov/202502/09/524439/article.html",
+      "topic": "语言与互动",
+      "scene": "面对面",
+      "aliases": [
+        "表情",
+        "微笑",
+        "模仿",
+        "面对面交流"
+      ],
+      "related": [
+        "card-21",
+        "edu-humming"
+      ],
+      "activity": {
+        "window": [
+          1,
+          3
+        ],
+        "signal": "宝宝清醒、放松，正朝你的脸看。",
+        "lens": "回应性照护",
+        "materials": "一张熟悉的脸",
+        "stop": "他移开眼睛或皱眉就让他休息，大人也可以安静陪着。",
+        "observe": "你笑过之后，他是继续看、扭动身体，还是把脸转开？写下见到的那个动作。",
+        "sources": [
+          "nhcDev",
+          "ghBaby"
+        ]
+      }
+    },
+    {
+      "id": "edu-floor-space",
+      "stage": "m4",
+      "title": "客厅里，哪里适合让小麦自在地动一动？",
+      "reason": "身旁有空地，宝宝踢腿、侧身或改变视线时有回旋的地方。家人坐在旁边，也容易看清是他自己发起了哪个动作。",
+      "steps": [
+        "在地面腾出一块空间，移走热杯、电线、小物件，和走动的家人说一声。把清醒的小麦仰放在垫上，坐在他身旁。",
+        "先让他动一会儿。等他看过来，你再说说刚看到的动作，留着身侧的空间让他继续转动。"
+      ],
+      "reference": "https://app.www.gov.cn/govdata/gov/202502/09/524439/article.html",
+      "topic": "动作与探索",
+      "scene": "地垫玩耍",
+      "aliases": [
+        "客厅",
+        "地垫",
+        "自由活动",
+        "准备环境",
+        "小户型"
+      ],
+      "related": [
+        "card-23",
+        "card-24"
+      ],
+      "activity": {
+        "window": [
+          3,
+          6
+        ],
+        "signal": "小麦醒着、身体舒服，想伸腿或向侧面看。",
+        "lens": "蒙台梭利·环境准备",
+        "materials": "平整稳固的地垫",
+        "stop": "宝宝困了、烦躁或家人需要从这里走动时结束；困了送回平整的婴儿床仰睡。",
+        "observe": "空出两边后，他最常看向哪里？身体哪一部分先动，是手臂、腿还是肩膀？",
+        "sources": [
+          "nhcDev",
+          "ami03",
+          "ghNido"
+        ]
+      }
+    },
+    {
+      "id": "edu-play-look",
+      "stage": "m5",
+      "title": "交班时，怎样说清小麦刚才在玩什么？",
+      "reason": "同一个动作，大人可能有不同解释。先记下摸了哪里、重复了什么，接班的人下次就知道从哪里开始观察。",
+      "steps": [
+        "先静静看一小会儿，例如他摸着布书的一角。等他自然停下来，再写一句你确实看见的事：「摸了几次书角，又抬头看我」。",
+        "交班时把这句话念给家人，再说你的猜想。下次给他同一本书，看他的兴趣有没有变。"
+      ],
+      "reference": "https://app.www.gov.cn/govdata/gov/202502/09/524439/article.html",
+      "topic": "观察与交班",
+      "scene": "家人交班",
+      "aliases": [
+        "观察记录",
+        "家人交班",
+        "专注",
+        "爷爷奶奶",
+        "不打断"
+      ],
+      "related": [
+        "edu-choose",
+        "card-24"
+      ],
+      "activity": {
+        "window": [
+          3,
+          6
+        ],
+        "signal": "小麦正摸一件熟悉的物品，身边有大人陪着。",
+        "lens": "蒙台梭利·观察",
+        "materials": "宝宝正在玩的适龄物品",
+        "stop": "物品不安全或宝宝需要你时马上帮忙；想写笔记可以等照护结束。",
+        "observe": "他自己反复做的那个动作是什么？家人靠近说话前后，动作有变化吗？",
+        "sources": [
+          "nhcDev",
+          "ghEyes",
+          "ghFact"
+        ]
+      }
+    },
+    {
+      "id": "edu-cloth-pages",
+      "stage": "m6",
+      "title": "翻布书时，小麦想自己摸哪一页？",
+      "reason": "手碰到不同的书页，眼睛能跟着看到翻动。说出他正在摸的那一处，家人的话就和手下的感觉连在一起。",
+      "steps": [
+        "两人坐稳或一起在地垫上。家人扶住书脊，翻开一页，等小麦伸手。",
+        "他若一直搓同一个位置，就跟着说「你摸到这块软布了」。留着页角给他；他只想摸着也可以。"
+      ],
+      "reference": "https://app.www.gov.cn/govdata/gov/202502/09/524439/article.html",
+      "topic": "亲子阅读",
+      "scene": "亲子共读",
+      "aliases": [
+        "触感书",
+        "布书",
+        "翻页",
+        "祖辈共读"
+      ],
+      "related": [
+        "edu-book",
+        "card-24"
+      ],
+      "activity": {
+        "window": [
+          6,
+          9
+        ],
+        "signal": "宝宝伸手碰书，家人能扶稳书让他摸到。",
+        "lens": "跟随孩子的兴趣",
+        "materials": "一本尺寸适龄、无松线和可脱落装饰的布书",
+        "stop": "发现松线、部件脱落就收好；他把书推开或开始困了，也可以合上。",
+        "observe": "他喜欢整掌拍、手指搓，还是试着掀页角？哪一页让他又回过头来？",
+        "sources": [
+          "nhcDev",
+          "ghTouch",
+          "ghReading"
+        ]
+      }
+    },
+    {
+      "id": "edu-wave-hello",
+      "stage": "m7",
+      "title": "爷爷进门时，怎样让小麦也能打招呼？",
+      "reason": "同一句招呼配上看得见的手势，宝宝有机会把人、动作和声音联系起来。他可以自己决定用哪种方式加入。",
+      "steps": [
+        "爷爷在小麦能看清的位置停下来，挥一下手说「小麦，我回来啦」。让宝宝留在熟悉的照护者身边。",
+        "如果小麦抬手、微笑或只是望着，就回应他的动作。下一次听到开门声还可以用同样的招呼。"
+      ],
+      "reference": "https://app.www.gov.cn/govdata/gov/202502/09/524439/article.html",
+      "topic": "语言与互动",
+      "scene": "家人回家",
+      "aliases": [
+        "挥手",
+        "再见",
+        "手势",
+        "你好",
+        "欢迎回家"
+      ],
+      "related": [
+        "card-39",
+        "edu-doorway-words"
+      ],
+      "activity": {
+        "window": [
+          9,
+          12
+        ],
+        "signal": "小麦注意到有人来，愿意看一看。",
+        "lens": "回应性照护",
+        "materials": "熟悉的家人",
+        "stop": "他把脸埋起来或抓紧抱着他的人，就保持他喜欢的距离。",
+        "observe": "开门、听见名字、看见手势，哪一个先吸引了他？他怎样向家人表示注意到了？",
+        "sources": [
+          "nhcDev",
+          "ghBaby"
+        ]
+      }
+    },
+    {
+      "id": "edu-low-shelf",
+      "stage": "t12",
+      "title": "水杯放在哪里，小麦能自己取到？",
+      "reason": "固定又够得着的位置，让孩子一次次把「我要用杯子」和「我能去拿」连起来，也让家人看见他主动参与的时刻。",
+      "steps": [
+        "爸爸先蹲到孩子的高度，挑一处不用踮脚、攀爬或探进柜里的位置。移开热水、药品和易碎物，确认柜体稳固。",
+        "把孩子常用的空杯放在这里。需要用杯时一起去，请他拿给你；用过擦干后再一起放回。"
+      ],
+      "reference": "https://montessori-ami.org/about-montessori/montessori-0-3",
+      "topic": "生活自理",
+      "scene": "准备环境",
+      "aliases": [
+        "低架",
+        "低柜",
+        "水杯",
+        "伸手够",
+        "小户型"
+      ],
+      "related": [
+        "edu-small-pour",
+        "card-36"
+      ],
+      "activity": {
+        "window": [
+          12,
+          18
+        ],
+        "signal": "孩子在稳固支撑下伸手取物，或走动时会寻找自己的杯子。",
+        "lens": "蒙台梭利·环境准备",
+        "materials": "一个轻巧、不易碎的空杯和稳固矮柜上一处空位",
+        "stop": "如果他需要攀爬、会被柜门夹手，先收好杯子，重新找个安全位置。",
+        "observe": "下次要用杯时，他是自己看向原位、伸手去拿，还是先看家人？放回时哪里需要帮忙？",
+        "sources": [
+          "ami03",
+          "nhcDev",
+          "ghHome"
+        ]
+      }
+    },
+    {
+      "id": "edu-diaper-helper",
+      "stage": "t12",
+      "title": "换片前，能请小麦帮忙拿一片干净尿布吗？",
+      "reason": "换尿布时留一件小事给孩子，他能用自己的动作加入熟悉的流程，也更容易知道下一步要做什么。",
+      "steps": [
+        "把一片干净尿布放在安全换片处旁边的篮里，湿尿布和护理用品放开。爷爷伸手说「请帮我拿一片」。",
+        "等一会儿。孩子递过来，就接住说「收到了」；他只想摸一摸，也可以由爷爷接着换。"
+      ],
+      "reference": "https://app.www.gov.cn/govdata/gov/202502/09/524439/article.html",
+      "topic": "生活自理",
+      "scene": "换尿布",
+      "aliases": [
+        "拿尿布",
+        "帮忙",
+        "取物",
+        "爷爷换片"
+      ],
+      "related": [
+        "edu-diaper-talk",
+        "edu-low-shelf"
+      ],
+      "activity": {
+        "window": [
+          12,
+          18
+        ],
+        "signal": "孩子愿意伸手递东西；还没走稳时，把物品放在坐着能拿到的地方。",
+        "lens": "蒙台梭利·日常生活",
+        "materials": "一片干净尿布、一个敞口矮篮",
+        "stop": "尿布已脏、孩子难受或不愿参加时，先照顾他。",
+        "observe": "他先看篮子还是你的手？他用递、指或移开物品表达了什么？",
+        "sources": [
+          "nhcDev",
+          "ami03",
+          "ghCareJob"
+        ]
+      }
+    },
+    {
+      "id": "edu-wipe-place",
+      "stage": "t12",
+      "title": "饭后留哪一小块桌面给小麦擦？",
+      "reason": "桌上一块看得见的水印，让来回擦这个动作有清楚的结果。留一小块就够孩子试试自己的手。",
+      "steps": [
+        "把热菜、碗筷和清洁剂收开。大人在桌面留一处清水印，慢慢擦一半，再把拧干的小布递给孩子。",
+        "手指向剩下的水印，等他决定要不要擦。结束时一起把抹布放回盆里，地上有水由大人及时擦干。"
+      ],
+      "reference": "https://montessori-ami.org/about-montessori/montessori-0-3",
+      "topic": "家务参与",
+      "scene": "饭后收拾",
+      "aliases": [
+        "擦桌",
+        "抹布",
+        "帮忙收桌",
+        "饭桌"
+      ],
+      "related": [
+        "edu-choose",
+        "edu-small-pour"
+      ],
+      "activity": {
+        "window": [
+          14,
+          18
+        ],
+        "signal": "能坐稳或站稳在桌旁，已经会伸手模仿擦拭。",
+        "lens": "蒙台梭利·日常生活",
+        "materials": "干净柔软的小抹布、低桌",
+        "stop": "手够不着、身体站不稳或孩子想离开时，由大人收尾。",
+        "observe": "他关注水印慢慢变小，还是更想来回推布？换到哪一侧时动作更顺？",
+        "sources": [
+          "ami03",
+          "nhcDev",
+          "ghWipe"
+        ]
+      }
+    },
+    {
+      "id": "edu-sock-pairs",
+      "stage": "t18",
+      "title": "收衣服时，哪两只袜子是一双？",
+      "reason": "一双袜子给孩子一个可以拿在手里比较的样本。并排放一放，比只问「这是什么颜色」更容易看出相同在哪里。",
+      "steps": [
+        "把两双袜子散放在地垫上。爸爸拿起一只条纹袜，留在孩子眼前，问「哪只和它像？」",
+        "把他递来的并排铺开看看。选了不同的也可以说说看到的花纹。最后一起把成双的袜子放回抽屉。"
+      ],
+      "reference": "https://app.www.gov.cn/govdata/gov/202502/09/524439/article.html",
+      "topic": "分类与认知",
+      "scene": "晾晒收衣",
+      "aliases": [
+        "袜子",
+        "配对",
+        "颜色分类",
+        "收衣服",
+        "一双"
+      ],
+      "related": [
+        "edu-two-shirts",
+        "edu-napkin-fold"
+      ],
+      "activity": {
+        "window": [
+          18,
+          24
+        ],
+        "signal": "孩子喜欢翻干净衣物，愿意拿起一件再看另一件。",
+        "lens": "蒙台梭利·日常生活",
+        "materials": "两双颜色或花纹差别明显、没有可拆装饰的干净袜子",
+        "stop": "孩子只想把袜子堆在一起时，可以顺着他一起收好，改天再配。",
+        "observe": "他看的是颜色、花纹还是长短？他把两只放在一起后，会不会再换一只试试？",
+        "sources": [
+          "nhcDev",
+          "ghSocks",
+          "ghLittle"
+        ]
+      }
+    },
+    {
+      "id": "edu-two-shirts",
+      "stage": "t18",
+      "title": "出门前，怎样让小麦自己选一件外套？",
+      "reason": "两个大人都能接受的选项，让孩子体验自己的手势或话能改变接下来发生的事。范围清楚，照护的人也比较容易兑现。",
+      "steps": [
+        "奶奶左右手各拿一件，放在孩子能同时看见的位置，说「你想穿哪件？」把说话的空当留给他。",
+        "孩子碰了其中一件，就确认「你拿了蓝的，我们穿这件」。没表示时，大人可以体谅地代选。"
+      ],
+      "reference": "https://aidtolife.org/zh/independence/dressing",
+      "topic": "生活自理",
+      "scene": "穿衣出门",
+      "aliases": [
+        "二选一",
+        "穿衣",
+        "外套",
+        "选择",
+        "爷爷奶奶"
+      ],
+      "related": [
+        "edu-shoe-time",
+        "edu-dress"
+      ],
+      "activity": {
+        "window": [
+          18,
+          24
+        ],
+        "signal": "孩子会盯着、碰一碰或指出自己想要的衣物。",
+        "lens": "蒙台梭利·有限选择",
+        "materials": "两件都合天气、都合身的外套",
+        "stop": "赶时间或孩子已经着急时，先帮他穿好；等下次时间宽裕再试。",
+        "observe": "他用什么方式作了选择？衣服挨得太近或你又问了一遍时，他的动作有没有变？",
+        "sources": [
+          "aidClothes",
+          "ghChoice"
+        ]
+      }
+    },
+    {
+      "id": "edu-open-box",
+      "stage": "t18",
+      "title": "总想开护理盒，能给小麦换什么玩？",
+      "reason": "反复开盒有时是对开合动作感兴趣。给一个合适的盒子，可以看清孩子究竟在研究盖子的边、开口还是合上的声音。",
+      "steps": [
+        "把真正的药盒和护理品收好。选孩子不能整个塞进口中、无脱落小件、无夹手铰链的盒盖，放在稳固平面。",
+        "家人用一只手扶盒、另一只手掀盖，慢慢做一次。将盖松放在盒上，让小麦按自己的方式试。"
+      ],
+      "reference": "https://app.www.gov.cn/govdata/gov/202502/09/524439/article.html",
+      "topic": "动作与探索",
+      "scene": "家中探索",
+      "aliases": [
+        "打开盖子",
+        "盒盖",
+        "手指动作",
+        "翻东西",
+        "开合"
+      ],
+      "related": [
+        "edu-play-look",
+        "card-37"
+      ],
+      "activity": {
+        "window": [
+          18,
+          24
+        ],
+        "signal": "孩子看到盒盖会尝试向上掀、用手扶住或自己合上。",
+        "lens": "蒙台梭利·观察",
+        "materials": "一个干净轻便、大盖可整片拿下的空盒",
+        "stop": "盖子卡紧或夹手时马上帮忙；换成更容易松开的盒子，或收起来。",
+        "observe": "他哪只手稳住盒身，哪只手找开口？他更爱掀开还是合上？",
+        "sources": [
+          "nhcDev",
+          "ghEyes"
+        ]
+      }
+    },
+    {
+      "id": "edu-turn-ball",
+      "stage": "t18",
+      "title": "客厅里，怎样把滚球变成轮流的游戏？",
+      "reason": "球滚向对方时，轮到谁变得看得见。大人停下来等待，孩子可以用推、递或看着球回应。",
+      "steps": [
+        "在远离台阶和家具尖角的平地面对面坐下，距离近到伸手就能从对方手中接球。爷爷把球轻轻滚过去。",
+        "孩子拿稳后，爷爷摊开手等一等。他把球递回来或推回来，就再滚一轮。"
+      ],
+      "reference": "https://app.www.gov.cn/govdata/gov/202502/09/524439/article.html",
+      "topic": "动作与探索",
+      "scene": "地垫玩耍",
+      "aliases": [
+        "滚球",
+        "轮流",
+        "爷孙游戏",
+        "来回"
+      ],
+      "related": [
+        "edu-pass",
+        "edu-wave-hello"
+      ],
+      "activity": {
+        "window": [
+          18,
+          24
+        ],
+        "signal": "孩子坐得稳，看到滚过来的大球愿意伸手。",
+        "lens": "来回互动",
+        "materials": "一个柔软、没有小配件、不会塞进口中的大球",
+        "stop": "球滚远由大人捡；孩子想起身或抱着不放时结束轮流。",
+        "observe": "球停到哪里他容易接？他会看爷爷的手再送球，还是想抱着球感受一会儿？",
+        "sources": [
+          "nhcDev",
+          "ghLittle"
+        ]
+      }
+    },
+    {
+      "id": "edu-set-table",
+      "stage": "t24",
+      "title": "开饭前，小麦能给每个人发一条餐巾吗？",
+      "reason": "家里每个座位有一个清楚的用途。给每个座位送一条餐巾，孩子可以用动作体验一个位置对应一件东西。",
+      "steps": [
+        "在端热菜之前，先给孩子看两个相邻的座位。爸爸给自己的位置放一条餐巾，请孩子给奶奶的位置也放一条。",
+        "一起看看有没有座位还是空的。孩子想按自己的顺序放，就让他继续。"
+      ],
+      "reference": "https://montessori-ami.org/about-montessori/montessori-0-3",
+      "topic": "分类与认知",
+      "scene": "摆饭桌",
+      "aliases": [
+        "一一对应",
+        "摆桌",
+        "每人一条",
+        "发餐巾"
+      ],
+      "related": [
+        "edu-napkin-fold",
+        "edu-diaper-helper"
+      ],
+      "activity": {
+        "window": [
+          24,
+          30
+        ],
+        "signal": "孩子能在安全范围内取放物品，想参加摆桌。",
+        "lens": "蒙台梭利·日常生活",
+        "materials": "两三条干净布餐巾、够得到的座位",
+        "stop": "热菜开始上桌或走道拥挤时，让孩子回自己的座位，由大人接手。",
+        "observe": "他是跟着座位挨个放，还是先给熟悉的人送？哪一个空位置是他自己发现的？",
+        "sources": [
+          "ami03",
+          "nhcDev",
+          "ghLittle"
+        ]
+      }
+    },
+    {
+      "id": "edu-shoe-time",
+      "stage": "t24",
+      "title": "赶着出门时，小麦还想自己穿鞋怎么办？",
+      "reason": "穿鞋有好几个动作。把其中一个动作留给孩子，并选个不赶的时刻重复，他可以摸索自己的用力方向。",
+      "steps": [
+        "赶着出门时先说明「今天爸爸帮你穿，最后这个扣子你来按」。等孩子坐稳，留出那一步。",
+        "傍晚回家再把鞋放到他伸手可及的位置，让他试试拉开粘扣。问「要我扶住鞋，还是你自己来？」"
+      ],
+      "reference": "https://aidtolife.org/zh/independence/dressing",
+      "topic": "生活自理",
+      "scene": "玄关穿鞋",
+      "aliases": [
+        "鞋子",
+        "粘扣",
+        "穿鞋",
+        "赶时间",
+        "自己来"
+      ],
+      "related": [
+        "edu-two-shirts",
+        "edu-low-shelf"
+      ],
+      "activity": {
+        "window": [
+          24,
+          30
+        ],
+        "signal": "孩子拉你的手说要自己来，或主动摸鞋上的粘扣。",
+        "lens": "蒙台梭利·日常生活",
+        "materials": "一双合脚的粘扣鞋、稳固低凳或地垫",
+        "stop": "孩子站不稳或已经着急时，扶他坐好，帮他完成当下这一步。",
+        "observe": "脚跟、鞋口、粘扣这几步里，他愿意自己试哪一步？什么时候会抬头向你求助？",
+        "sources": [
+          "aidClothes",
+          "ghReader"
+        ]
+      }
+    },
+    {
+      "id": "edu-wash-veg",
+      "stage": "t24",
+      "title": "做饭前，小麦可以一起洗一根黄瓜吗？",
+      "reason": "给晚饭准备一道真实会吃的菜，让孩子看到自己双手做的事怎样接上家人的工作。双手转一转，也能摸到外皮不同的位置。",
+      "steps": [
+        "在远离灶火、刀具的稳固矮桌上放好浅盆。先和孩子洗手，再由大人示范淋湿后轻轻搓一面。",
+        "请他转动黄瓜洗另一面。结束时让他把黄瓜递给你，由大人完成清洗和切配，随即把水倒掉、擦干地面。"
+      ],
+      "reference": "https://montessori-ami.org/about-montessori/montessori-0-3",
+      "topic": "家务参与",
+      "scene": "准备饭菜",
+      "aliases": [
+        "洗菜",
+        "洗水果",
+        "菜篮",
+        "爷爷做饭"
+      ],
+      "related": [
+        "edu-wipe-place",
+        "edu-set-table"
+      ],
+      "activity": {
+        "window": [
+          24,
+          30
+        ],
+        "signal": "孩子愿意坐稳在矮桌前，伸手触碰蔬菜。",
+        "lens": "蒙台梭利·日常生活",
+        "materials": "完整黄瓜、稳固浅盆、少量常温清水、毛巾",
+        "stop": "大人全程在旁。若孩子要端盆走、把菜往嘴里送或地面变滑，就停下来一起收好。",
+        "observe": "他用一只手搓、另一只手扶吗？在哪里会停下来仔细看或摸？",
+        "sources": [
+          "ami03",
+          "ghKitchen"
+        ]
+      }
+    },
+    {
+      "id": "edu-small-pour",
+      "stage": "t30",
+      "title": "倒一小杯水时，大人的手放在哪里？",
+      "reason": "看着杯中水位变化，孩子能逐渐把倾斜、减慢和扶正几个动作连起来。少量凉水让他有余地试一试。",
+      "steps": [
+        "在孩子坐稳时够得到的桌上放托盘和杯子，壶里只装一点常温饮用水。家人示范壶嘴靠近杯口，水出来后再慢慢扶正。",
+        "把壶放回桌面，请他自己拿。大人的手在旁边照看；他请你帮忙时，先问要不要扶住杯子。洒出一点就一起擦。"
+      ],
+      "reference": "https://montessori-ami.org/about-montessori/montessori-0-3",
+      "topic": "生活自理",
+      "scene": "准备饮水",
+      "aliases": [
+        "倒水",
+        "水杯",
+        "小水壶",
+        "不买教具"
+      ],
+      "related": [
+        "edu-wipe-place",
+        "edu-low-shelf"
+      ],
+      "activity": {
+        "window": [
+          30,
+          36
+        ],
+        "signal": "孩子能稳稳拿住轻壶，对把水从一个容器倒进另一个感兴趣。",
+        "lens": "蒙台梭利·日常生活",
+        "materials": "轻便小壶、不易碎的宽口杯、防滑托盘和抹布",
+        "stop": "桌面或地面有积水就先擦干；热水壶和保温杯由大人拿。",
+        "observe": "他什么时候会停下来看水位？壶扶正后，还想再倒一次还是想拿布擦水？",
+        "sources": [
+          "ami03",
+          "ghReader",
+          "ghKitchen"
+        ]
+      }
+    },
+    {
+      "id": "edu-napkin-fold",
+      "stage": "t30",
+      "title": "洗好的方巾，怎样陪小麦对折一次？",
+      "reason": "柔软的方巾会保留手移动后的样子。孩子可以看到两条边怎样靠在一起，之后还能拿自己叠好的方巾去摆桌。",
+      "steps": [
+        "爸爸和小麦各拿一条，朝同一个方向摊平。爸爸捏住靠近身体的两个角，翻到远端，再用手掌轻轻拂平。",
+        "让小麦自己翻一次。他折成三角或卷起来，也可以一起放入收纳篮，下次再看怎么叠。"
+      ],
+      "reference": "https://montessori-ami.org/about-montessori/montessori-0-3",
+      "topic": "家务参与",
+      "scene": "晾晒收衣",
+      "aliases": [
+        "叠餐巾",
+        "叠方巾",
+        "收衣服",
+        "对折"
+      ],
+      "related": [
+        "edu-sock-pairs",
+        "edu-set-table"
+      ],
+      "activity": {
+        "window": [
+          30,
+          36
+        ],
+        "signal": "孩子愿意摊平一块布，会跟着大人试一个动作。",
+        "lens": "蒙台梭利·日常生活",
+        "materials": "两条无绳带的干净方巾、够得着的桌面",
+        "stop": "他开始拉扯、觉得难或不想叠时，问要不要一起把方巾摊平，再决定是否收工。",
+        "observe": "他从角还是从边下手？哪只手压住布，哪只手把另一边带过来？",
+        "sources": [
+          "ami03",
+          "ghLittle"
+        ]
+      }
+    },
+    {
+      "id": "edu-story-retell",
+      "stage": "t30",
+      "title": "今天的小事，能让小麦讲给晚归的家人听吗？",
+      "reason": "一起经历的事有共同线索。借一件真实物品讲起，孩子能用动作、方言或短句表达自己记得的片段。",
+      "steps": [
+        "爸爸回家时，奶奶拿出今天叠过的方巾，说「这条是我们一起叠的」，把接下来的话留给小麦。",
+        "小麦说「桌上」或做个动作，就顺着接「对，后来你把它放到桌上了」。让故事停在他愿意讲的地方。"
+      ],
+      "reference": "https://app.www.gov.cn/govdata/gov/202502/09/524439/article.html",
+      "topic": "语言与互动",
+      "scene": "家人交班",
+      "aliases": [
+        "讲故事",
+        "回忆",
+        "爸爸回家",
+        "方言",
+        "说经过"
+      ],
+      "related": [
+        "edu-napkin-fold",
+        "edu-play-look"
+      ],
+      "activity": {
+        "window": [
+          30,
+          36
+        ],
+        "signal": "孩子愿意和家人分享刚刚做过的事，或看到熟悉物品时会主动比划。",
+        "lens": "跟随孩子的兴趣",
+        "materials": "今天用过的一件安全物品，如干净的餐巾",
+        "stop": "孩子转去做别的事时自然收尾，不再追问细节。",
+        "observe": "他先想起人物、东西还是动作？有实物在手和只听大人问时，他的表达有什么不同？",
+        "sources": [
+          "nhcDev",
+          "ghReading"
+        ]
+      }
+    },
+    {
+      "id": "edu-pretend-market",
+      "stage": "t30",
+      "title": "在家玩买菜，谁来当卖菜的人？",
+      "reason": "孩子熟悉家人买菜时的问候、挑选和递东西。把这些情景搬回客厅，他可以试着从另一个人的位置说话、接话。",
+      "steps": [
+        "家人把两样「菜」摆在矮桌上，先来当顾客：「今天有什么菜？」让小麦用指、拿或说来回答。",
+        "他把菜递进袋里时，道声谢。下一轮问问谁来当顾客，由孩子选。用手势结账即可。"
+      ],
+      "reference": "https://app.www.gov.cn/govdata/gov/202502/09/524439/article.html",
+      "topic": "语言与互动",
+      "scene": "家庭游戏",
+      "aliases": [
+        "角色扮演",
+        "菜市场",
+        "买菜",
+        "过家家",
+        "换角色"
+      ],
+      "related": [
+        "edu-wash-veg",
+        "edu-story-retell"
+      ],
+      "activity": {
+        "window": [
+          30,
+          36
+        ],
+        "signal": "孩子已经会把熟悉的动作演出来，或愿意邀请大人一起假装做事。",
+        "lens": "来回互动",
+        "materials": "布袋、两个大号蔬菜玩具或两张大幅蔬菜图片",
+        "stop": "道具选没有可拆小件的，布袋用完收好。孩子想把蔬菜全装起来时，可以顺着他收摊。",
+        "observe": "他最想重复的是吆喝、挑菜还是递袋子？换了角色后，他会换一种动作或说法吗？",
+        "sources": [
+          "nhcDev"
+        ]
+      }
     }
   ],
   "sources": {
@@ -1255,6 +2203,91 @@
       "title": "哈佛大学儿童发展中心 · Serve and Return 家长手册",
       "role": "来回互动的操作方法",
       "url": "https://pediatrics.developingchild.harvard.edu/wp-content/uploads/2021/12/HCDC_ServeReturn_for_Parents_Caregivers_2019.pdf"
+    },
+    "nhcDev": {
+      "title": "国家卫生健康委《婴幼儿早期发展服务指南（试行）》",
+      "role": "中国分龄养育指南",
+      "url": "https://app.www.gov.cn/govdata/gov/202502/09/524439/article.html"
+    },
+    "ami03": {
+      "title": "国际蒙台梭利协会 AMI · 出生至三岁",
+      "role": "蒙氏教育理念",
+      "url": "https://montessori-ami.org/about-montessori/montessori-0-3"
+    },
+    "aidClothes": {
+      "title": "Aid to Life 中文版 · 帮助孩子自己穿衣",
+      "role": "蒙氏家庭实践参考",
+      "url": "https://aidtolife.org/zh/independence/dressing"
+    },
+    "ghBaby": {
+      "title": "Montessori Baby · 婴儿期家庭活动",
+      "role": "社区活动灵感",
+      "url": "https://github.com/ising82/montessori-baby/blob/main/app/content/activities.json"
+    },
+    "ghTouch": {
+      "title": "童蒙游戏 · 触感书",
+      "role": "社区活动灵感",
+      "url": "https://github.com/masterone0921/childrenmengs/blob/main/src/content/games.json#L6437"
+    },
+    "ghWipe": {
+      "title": "童蒙游戏 · 擦一小块桌面",
+      "role": "社区活动灵感",
+      "url": "https://github.com/masterone0921/childrenmengs/blob/main/src/content/games.json#L2587"
+    },
+    "ghSocks": {
+      "title": "童蒙游戏 · 袜子配对",
+      "role": "社区活动灵感",
+      "url": "https://github.com/masterone0921/childrenmengs/blob/main/src/content/games.json#L7796"
+    },
+    "ghNido": {
+      "title": "Montessori Virtual Room · 给成人的婴儿环境导览",
+      "role": "社区环境设计灵感",
+      "url": "https://github.com/mrueda/montessori-virtual-room/blob/main/src/content/en/environments.ts#L37-L66"
+    },
+    "ghEyes": {
+      "title": "Montessori Nest · 一次托班里的观察",
+      "role": "教师个人观察",
+      "url": "https://github.com/crinw/Montessori-Nest/blob/master/post/the-power-of-observation/index.html"
+    },
+    "ghCareJob": {
+      "title": "Montessori Nest · 把一件事交给孩子",
+      "role": "教师个人观察",
+      "url": "https://github.com/crinw/Montessori-Nest/blob/master/post/the-power-of-responsibility/index.html"
+    },
+    "ghHome": {
+      "title": "《头三年》· 从孩子的位置看家里的环境",
+      "role": "社区家庭实践读物",
+      "url": "https://github.com/holynova/first-three-years/blob/main/src/content/montessori/ch02.mjs"
+    },
+    "ghReader": {
+      "title": "《育儿读本》· 家庭生活中的蒙氏实践",
+      "role": "社区家庭实践读物",
+      "url": "https://github.com/holynova/parenting-reader/blob/main/content/montessori.md"
+    },
+    "ghChoice": {
+      "title": "鼓楼 · 自主行动与边界",
+      "role": "社区养育草稿",
+      "url": "https://github.com/JohnnyChenS/gulou/blob/main/stages/%E5%AE%B6%E5%BA%AD%E6%9C%9F%EF%BC%8825-45%E5%B2%81%EF%BC%89/%E8%82%B2%E5%84%BF%E6%8C%87%E5%AF%BC/0-3%E5%B2%81/%E8%AE%A4%E7%9F%A5%E4%B8%8E%E5%BF%83%E7%90%86/autonomy-01.md"
+    },
+    "ghLittle": {
+      "title": "Little Roots · 家庭活动材料库",
+      "role": "社区活动灵感",
+      "url": "https://github.com/alemzukic77-dev/little-roots-app/blob/main/scripts/seed/activities.json"
+    },
+    "ghKitchen": {
+      "title": "家庭蒙氏指南 · 居家练习",
+      "role": "社区活动灵感",
+      "url": "https://github.com/xiaoxiao-liu-2026/montessori-baby-guide/blob/main/lib/content.ts"
+    },
+    "ghFact": {
+      "title": "家长随笔 · 育儿中的相关与因果关系",
+      "role": "家长个人经验",
+      "url": "https://github.com/zhangzhishan/Thoughts/issues/35"
+    },
+    "ghReading": {
+      "title": "鼓楼 · 跟随孩子兴趣的早期共读",
+      "role": "社区养育草稿",
+      "url": "https://github.com/JohnnyChenS/gulou/blob/main/stages/%E5%AE%B6%E5%BA%AD%E6%9C%9F%EF%BC%8825-45%E5%B2%81%EF%BC%89/%E8%82%B2%E5%84%BF%E6%8C%87%E5%AF%BC/0-3%E5%B2%81/%E8%AE%A4%E7%9F%A5%E4%B8%8E%E5%BF%83%E7%90%86/early-reading-01.md"
     }
   },
   "resources": [
@@ -1277,6 +2310,26 @@
       "name": "lucaong/minisearch",
       "url": "https://github.com/lucaong/minisearch/blob/3d239d1c3ae7aef1bf5d8945dd7b5f0709f646f5/README.md",
       "about": "参考离线检索与字段权重。"
+    },
+    {
+      "name": "Montessori Baby · 婴儿活动",
+      "url": "https://github.com/ising82/montessori-baby/blob/main/app/content/activities.json",
+      "about": "清醒互动、手部探索和手势游戏的社区实例。"
+    },
+    {
+      "name": "童蒙游戏 · 在家分袜子",
+      "url": "https://github.com/masterone0921/childrenmengs/blob/main/src/content/games.json#L7796",
+      "about": "适合收衣时一起玩的分类游戏，按孩子当下兴趣选。"
+    },
+    {
+      "name": "Montessori Nest · 教师观察",
+      "url": "https://github.com/crinw/Montessori-Nest/blob/master/post/the-power-of-observation/index.html",
+      "about": "从反复开盒的托班个案学习先观察动作。"
+    },
+    {
+      "name": "《育儿读本》· 家里的蒙氏实践",
+      "url": "https://github.com/holynova/parenting-reader/blob/main/content/montessori.md",
+      "about": "从穿鞋、倒水这些日常小事理解何时帮忙。"
     }
   ]
 }

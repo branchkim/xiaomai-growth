@@ -2,6 +2,7 @@ import { Checkins, setupCheckins } from "./checkins.js";
 import { Notebook } from "./notes.js";
 import {
   ageWindow,
+  includesMonth,
   availableFilters,
   makeSearchIndex,
   findCards,
@@ -112,7 +113,7 @@ function setupTimeline() {
     const button = element("button", undefined, "stage");
     button.id = "stage-" + stage.id;
     const image = element("img");
-    image.src = "./assets/stage-" + stage.id + ".webp";
+    image.src = "./assets/stage-" + (stage.art || stage.id) + ".webp";
     image.alt = "";
     const dot = element("span", undefined, "dot");
     dot.setAttribute("aria-hidden", "true");
@@ -176,7 +177,7 @@ function drawTimeline(id) {
 
 const filterNames = {
   stage: "时间线章节",
-  age: "活动适龄窗口",
+  age: "宝宝已满月龄",
   topic: "主题",
   scene: "家庭场景",
   lens: "教育视角",
@@ -236,10 +237,17 @@ function setFilterValues(params) {
   $("search").value = params.get("q") || "";
   $("filter-favorite").checked = params.get("favorite") === "1";
   for (const key of Object.keys(filterNames)) {
-    const value = params.get(key);
-    $("filter-" + key).value = filterOptions[key].some(([k]) => k === value)
-      ? value
-      : "";
+    const value = params.get(key), select = $("filter-" + key);
+    select.querySelector("[data-legacy-age]")?.remove();
+    if (key === "age" && value?.includes("-")) {
+      const original = data.cards.find((c) => c.activity?.window.join("-") === value);
+      if (original) {
+        const option = new Option(ageWindow(original.activity), value);
+        option.dataset.legacyAge = "";
+        select.add(option);
+      }
+    }
+    select.value = Array.from(select.options).some((o) => o.value === value) ? value : "";
   }
 }
 function saveQuery() {
@@ -263,7 +271,7 @@ function drawIndex() {
     (filters.favorite ? "我的收藏 · " : "") +
     (active.length
       ? active
-          .map((k) => filterOptions[k].find(([id]) => id === filters[k])?.[1])
+          .map((k) => $("filter-" + k).selectedOptions[0]?.textContent)
           .join(" / ") + " · "
       : "") +
     "共 " +
@@ -332,13 +340,14 @@ function fold(title, cls = "fold") {
   d.append(element("summary", title));
   return d;
 }
-function practice(parent, activity) {
+function practice(parent, activity, mainObservation) {
   part(parent, "什么时候试", activity.signal);
   part(parent, "手边材料", activity.materials);
   if (activity.steps) {
     part(parent, "这样做的原因", activity.reason);
     addSteps(parent, activity.steps);
   }
+  if (mainObservation && mainObservation !== activity.observe) part(parent, "活动时观察", activity.observe);
   part(parent, "什么时候停", activity.stop);
 }
 function drawFavorite() {
@@ -371,18 +380,19 @@ function showCard(card) {
         "detail-signal",
       ),
     );
-  part(root, "为什么", card.reason);
+  part(root, "为什么做", card.reason);
   if (a && !a.title) {
     part(root, "什么时候试", a.signal);
     part(root, "手边材料", a.materials);
   }
-  root.append(element("h3", "具体怎么做"));
+  root.append(element("h3", "在家怎么做"));
   addSteps(root, card.steps);
+  part(root, "要观察什么", card.observation || a?.observe || "留意孩子的反应和照护前后的变化。");
   if (a && !a.title) part(root, "什么时候停", a.stop);
   if (a?.title) {
     const d = fold(a.title);
     d.append(element("p", a.lens + " · " + ageWindow(a), "detail-signal"));
-    practice(d, a);
+    practice(d, a, card.observation);
     const parentParams = new URLSearchParams(
       (history.state?.cardFrom || "").split("?")[1] || "",
     );
@@ -398,13 +408,13 @@ function showCard(card) {
   const urls = new Set();
   for (const id of a?.sources || []) {
     const s = data.sources[id];
-    refs.append(external(s.title, s.url));
+    refs.append(external(s.role + " · " + s.title, s.url));
     urls.add(s.url);
   }
   if (!urls.has(card.reference))
     refs.append(external("查看这张卡片的照护依据", card.reference));
   root.append(refs);
-  $("note-prompt").textContent = a?.observe || "这次试了什么？小麦有什么反应？";
+  $("note-prompt").textContent = "这次试了什么？孩子有什么反应？";
   $("experience").value = book.entries.get(card.id)?.text || "";
   $("entry").open =
     !!$("experience").value || history.state?.cardFrom === "#notes";
@@ -424,9 +434,9 @@ function showCard(card) {
 function showResources() {
   const root = $("sources-list");
   root.replaceChildren();
-  root.append(element("h3", "养育与活动依据"));
+  root.append(element("h3", "养育指南、理念与活动参考"));
   for (const s of Object.values(data.sources))
-    root.append(external(s.title, s.url));
+    root.append(external(s.role + " · " + s.title, s.url));
   const d = fold("项目参考");
   for (const r of data.resources) {
     d.append(external(r.name, r.url), element("p", r.about, "muted"));
@@ -461,6 +471,7 @@ function displayRoute(hash) {
     const id = name.startsWith("time/") ? name.slice(5) : activeStage;
     drawTimeline(stages.has(id) ? id : data.stages[0].id);
     if (name === "checkin") $("checkin").scrollIntoView({ block: "start" });
+    if (name === "time" || name.startsWith("time/")) $("timeline-title").scrollIntoView({ block: "start" });
   }
 }
 function route() {
@@ -487,6 +498,8 @@ function closeCard() {
   }
 }
 document.addEventListener("click", (event) => {
+  const timeLink = event.target.closest('a[href^="#time"]');
+  if (timeLink && timeLink.hash === location.hash) $("timeline-title").scrollIntoView({ block: "start" });
   const a = event.target.closest('a[href^="#card/"]');
   if (
     !a ||
@@ -564,12 +577,13 @@ async function init() {
     book = new Notebook(storage, new Set(cards.keys()));
     searchIndex = makeSearchIndex(data);
     filterOptions = availableFilters(data);
-    activeStage = data.stages[0].id;
+    growth = setupGrowth({ storage, checkins, data });
+    const profileAge = growth.ageMonths();
+    activeStage = data.stages.find((s) => includesMonth(s.window, profileAge))?.id || data.stages[0].id;
     try {
       const saved = storage?.getItem("xiaomai/stage");
       if (stages.has(saved)) activeStage = saved;
     } catch {}
-    growth = setupGrowth({ storage, checkins, data });
     checkins.profile = () => growth.store.profile();
     setupTimeline();
     setupIndex();
@@ -579,6 +593,12 @@ async function init() {
       renderNotes();
       if (!$("index").hidden) drawIndex();
     });
+    if (!location.hash) {
+      const section = new URLSearchParams(location.search).get("open");
+      if (section === "timeline" || section === "knowledge") {
+        history.replaceState(history.state, "", section === "timeline" ? "#time" : "#index");
+      }
+    }
     route();
   } catch {
     $("notice").textContent = "手账暂时没有载入，请联网刷新。";

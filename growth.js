@@ -10,6 +10,7 @@ import { localDay } from "./checkins.js";
 import { mountHealth, healthReport, healthToday } from "./health.js";
 import { mountCareTrends, careReport } from "./care-trends.js";
 import { mountDiary } from "./diary.js";
+import { includesMonth, monthOptions } from "./library.js";
 
 const $ = (id) => document.getElementById(id);
 const make = (tag, text, cls) => {
@@ -119,31 +120,16 @@ function playView(root, ctx) {
     select = make("select");
   h.append(make("h2", "亲子游戏"), label);
   label.append(select);
-  for (let i = 0; i <= 12; i++)
-    select.add(
-      new Option(
-        i === 0 ? "未满 1 个月" : i === 12 ? "满周岁" : i + " 月龄",
-        i,
-      ),
-    );
-  select.value = Math.min(12, age);
+  for (const [value, text] of ctx.monthOptions) select.add(new Option(text, value));
+  const end = ctx.monthOptions.length;
+  select.value = Math.min(end - 1, age);
   const list = make("div", null, "play-list");
+  if (age >= end) root.append(make("p", "活动收录至未满 " + end + " 个月，可按月龄回看。", "muted"));
   root.append(h, list);
   const draw = () => {
     list.replaceChildren();
-    const m = Math.min(11, Number(select.value));
-    if (Number(select.value) === 12)
-      list.append(
-        make(
-          "p",
-          "满周岁可以重玩这些熟悉的游戏，跟着孩子当下的兴趣调整。",
-          "muted",
-        ),
-      );
-    for (const card of ctx.cards.filter(
-      (c) =>
-        c.activity && m >= c.activity.window[0] && m < c.activity.window[1],
-    )) {
+    const m = Number(select.value);
+    for (const card of ctx.cards.filter((c) => includesMonth(c.activity?.window, m))) {
       const a = card.activity,
         d = make("article", null, "play-entry"),
         title = link(a.title || card.title, "#card/" + card.id);
@@ -156,6 +142,7 @@ function playView(root, ctx) {
         d.append(make("small", "家里已经试过"));
       list.append(d);
     }
+    if (m >= 12) return; // Toddler activities list the household materials directly on each card.
     const diy = make("details", null, "growth-fold");
     diy.append(make("summary", "家里的材料怎么用"));
     const homeIdeas =
@@ -181,7 +168,10 @@ function playView(root, ctx) {
     diy.append(make("h3", homeIdeas[0]), make("p", homeIdeas[1]));
     list.append(diy);
   };
-  select.onchange = draw;
+  select.onchange = () => {
+    history.replaceState(null, "", "#growth/play?month=" + select.value);
+    draw();
+  };
   draw();
 }
 
@@ -282,6 +272,7 @@ export function setupGrowth({ storage, checkins, data }) {
     store,
     checkins,
     cards: data.cards,
+    monthOptions: monthOptions(data.stages, data.cards),
     profile: () => store.profile(),
     ageMonths: () => monthsOld(store.profile().birthday),
     refresh: () => {
@@ -392,13 +383,9 @@ export function setupGrowth({ storage, checkins, data }) {
       );
     if (p.reminders.activity) {
       let item = next.activity;
-      if (!item && ctx.ageMonths() <= 12) {
-        const eligible = data.cards.filter(
-          (c) =>
-            c.activity &&
-            ctx.ageMonths() >= c.activity.window[0] &&
-            ctx.ageMonths() < c.activity.window[1],
-        );
+      if (!item) {
+        const month = ctx.ageMonths();
+        const eligible = data.cards.filter((c) => includesMonth(c.activity?.window, month));
         const card = eligible.length
           ? eligible[(lifeDay(p.birthday, day) - 1) % eligible.length]
           : null;
@@ -433,8 +420,8 @@ export function setupGrowth({ storage, checkins, data }) {
     outlet.replaceChildren();
     ctx.healthSection = pane;
     const mo = new URLSearchParams(query).get("month");
-    ctx.healthMonth =
-      mo !== null && /^(?:[0-9]|1[012])$/.test(mo) ? Number(mo) : null;
+    const limit = pane === "play" ? ctx.monthOptions.length - 1 : 12;
+    ctx.healthMonth = mo !== null && /^\d+$/.test(mo) && Number(mo) <= limit ? Number(mo) : null;
     ctx.healthVisitId =
       pane === "plan" ? new URLSearchParams(query).get("visit") : null;
     if (pane === "play") playView(outlet, ctx);
@@ -455,18 +442,18 @@ export function setupGrowth({ storage, checkins, data }) {
       select = make("select");
     select.setAttribute("aria-label", "成长工具月龄");
     head.append(name, select);
-    for (let i = 0; i <= 12; i++)
-      select.add(new Option(i === 0 ? "出生至满月" : i + " 月龄", i));
-    select.value = Math.min(12, ctx.ageMonths() ?? 0);
+    for (const [value, text] of ctx.monthOptions) select.add(new Option(text, value));
+    select.value = Math.min(ctx.monthOptions.length - 1, ctx.ageMonths() ?? 0);
     const links = make("div", null, "home-shortcuts");
     const update = () => {
-      links.replaceChildren(
-        ...[
-          ["plan", "疫苗与儿保"],
-          ["observe", "发育与提醒"],
-          ["play", "游戏与材料"],
-        ].map(([k, t]) => link(t, "#growth/" + k + "?month=" + select.value)),
+      const month = select.value;
+      const entries = [link("游戏与材料", "#growth/play?month=" + month),
+        link("月龄知识卡", "#index?age=" + month)];
+      if (Number(month) <= 12) entries.push(
+        link("疫苗与儿保", "#growth/plan?month=" + month),
+        link("发育与提醒", "#growth/observe?month=" + month),
       );
+      links.replaceChildren(...entries);
     };
     select.onchange = update;
     update();
@@ -544,6 +531,7 @@ export function setupGrowth({ storage, checkins, data }) {
   return {
     store,
     render,
+    ageMonths: ctx.ageMonths,
     today,
     cardPractice,
     refresh: () => {

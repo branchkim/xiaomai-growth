@@ -8,20 +8,26 @@ const cards = new Map(data.cards.map((c) => [c.id, c]));
 const stages = new Set(data.stages.map((s) => s.id));
 assert.equal(cards.size, data.cards.length, "卡片编号重复");
 assert.equal(stages.size, data.stages.length, "时间线阶段重复");
+let nextMonth = 0;
 for (const s of data.stages) {
+  assert.ok(Array.isArray(s.window) && s.window.length === 2 &&
+    s.window[0] === nextMonth && Number.isInteger(s.window[1]) && s.window[1] > nextMonth,
+    s.id + " 月龄时间线应连续");
+  nextMonth = s.window[1];
   assert.ok(
     s.focus &&
       s.featured.length &&
       s.featured.every((id) => cards.get(id)?.stage === s.id),
     s.id,
   );
-  await read("assets/stage-" + s.id + ".webp");
+  await read("assets/stage-" + (s.art || s.id) + ".webp");
 }
 for (const c of data.cards) {
   assert.ok(
     stages.has(c.stage) &&
       c.title &&
       c.reason &&
+      (c.observation || c.activity?.observe) &&
       c.steps?.length &&
       c.steps.every(Boolean),
     c.id,
@@ -41,7 +47,8 @@ for (const c of data.cards) {
     const { window, sources, signal, materials, stop, observe, lens } =
       c.activity;
     assert.ok(
-      window[0] >= 0 &&
+      Number.isInteger(window[0]) && Number.isInteger(window[1]) &&
+        window[0] >= 0 && window[1] <= nextMonth &&
         window[1] > window[0] &&
         signal &&
         materials &&
@@ -52,7 +59,7 @@ for (const c of data.cards) {
     );
     assert.ok(
       sources.length &&
-        sources.every((id) => data.sources[id]?.url.startsWith("https://")),
+        sources.every((id) => data.sources[id]?.url.startsWith("https://") && data.sources[id].role && data.sources[id].title),
       c.id,
     );
   }

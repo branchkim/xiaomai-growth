@@ -206,6 +206,28 @@ async function run() {
     );
     await p2.goto(url + "#growth/diary");
     await p2.getByText(/已写 0 篇/).waitFor();
+    const sources = JSON.parse(await fs.readFile(path.join(root, "cards.json"), "utf8"));
+    const toddler = sources.cards.find((c) => c.activity?.window[0] >= 12 &&
+      c.activity.window[0] <= 15 && c.activity.window[1] > 15);
+    assert.ok(toddler, "需要覆盖满15个月的家庭活动");
+    await p.goto(url + "?open=knowledge");
+    await p.locator("#search").fill("15个月");
+    const target = p.locator('#results a[href="#card/' + toddler.id + '"]');
+    await target.click();
+    for (const text of ["为什么做", "在家怎么做", "要观察什么"]) {
+      await p.getByRole("heading", { name: text, exact: true }).waitFor();
+    }
+    await p.locator("#entry summary").click();
+    await p.locator("#experience").fill("爷爷等她自己试了一次");
+    await p.reload();
+    assert.equal(await p.locator("#experience").inputValue(), "爷爷等她自己试了一次");
+    await p.getByRole("button", { name: "关闭卡片" }).click();
+    await p.goto(url + "#growth/play?month=15");
+    await p.locator('.play-entry a[href="#card/' + toddler.id + '"]').waitFor();
+    await p.goto(url + "?open=timeline");
+    const stage = sources.stages.find((x) => x.window[0] <= 15 && 15 < x.window[1]);
+    await p.locator("#stage-" + stage.id).click();
+    assert.equal(await p.locator("#all-stage").getAttribute("href"), "#index?stage=" + stage.id);
     assert.deepEqual(errors, []);
     console.log(
       "PASS 家庭设置、今日游戏、首次尝试、照片与日签、报告、备份还原、离线成长曲线。",

@@ -308,6 +308,23 @@ main {
     transform: translate(5px, -7px) rotate(-18deg);
   }
 }
+.cover-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 14px;
+}
+.timeline-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--leaf);
+  font-size: .92rem;
+  font-weight: 600;
+}
+#timeline-title {
+  scroll-margin-top: 76px;
+}
 .timeline {
   margin-top: 26px;
 }
@@ -340,7 +357,7 @@ main {
 }
 .stages li {
   min-width: 0;
-  flex: 1;
+  flex: 1 0 84px;
   position: relative;
   scroll-snap-align: center;
 }
