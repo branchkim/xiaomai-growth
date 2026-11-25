@@ -9,7 +9,8 @@
       "featured": [
         "card-04",
         "card-02",
-        "edu-humming"
+        "edu-humming",
+        "mb-observe-pause"
       ],
       "window": [
         0,
@@ -41,7 +42,8 @@
       "featured": [
         "card-19",
         "card-21",
-        "edu-mirror-smile"
+        "edu-mirror-smile",
+        "mb-family-ritual"
       ],
       "window": [
         2,
@@ -57,7 +59,8 @@
       "featured": [
         "card-23",
         "card-24",
-        "edu-floor-space"
+        "edu-floor-space",
+        "mb-follow-gaze"
       ],
       "window": [
         3,
@@ -105,7 +108,8 @@
       "featured": [
         "card-36",
         "edu-book",
-        "edu-wave-hello"
+        "edu-wave-hello",
+        "mb-drop-and-find"
       ],
       "window": [
         8,
@@ -121,7 +125,8 @@
       "featured": [
         "edu-low-shelf",
         "edu-diaper-helper",
-        "edu-wipe-place"
+        "edu-wipe-place",
+        "mb-cup-return"
       ],
       "window": [
         12,
@@ -2176,6 +2181,293 @@
           "nhcDev"
         ]
       }
+    },
+    {
+      "id": "mb-observe-pause",
+      "stage": "m1",
+      "title": "记下宝宝清醒时的一幕",
+      "reason": "交班时听到「今天特别乖」，下一位家人很难接着聊。记下宝宝做了什么、大人怎样回应，大家更容易看懂他当时的兴致。",
+      "steps": [
+        "挑一次清醒、舒服的时候，在身旁看看宝宝的脸和手。想吃奶、哭了或需要你时就先照顾他。",
+        "事后在「我家的经验」里记一句，例如「外婆说话时，他停下踢腿，朝声音那边转了转」。换个日子看看还会发生什么。"
+      ],
+      "topic": "观察与交班",
+      "scene": "家人交班",
+      "aliases": [
+        "观察记录",
+        "宝宝信号",
+        "客观描述",
+        "蒙台梭利婴儿",
+        "蒙氏婴儿",
+        "The Montessori Baby"
+      ],
+      "related": [
+        "edu-play-look",
+        "mb-family-ritual"
+      ],
+      "observation": "当时周围发生了什么？宝宝先做了什么，你回应后，他接下来做了什么？",
+      "sources": [
+        "mbObservation",
+        "nhcCare"
+      ],
+      "reference": "https://www.nhc.gov.cn/fys/c100078/202502/19c9c6dee0274d23822f313a99ae1779/files/1741749469580_51223.pdf"
+    },
+    {
+      "id": "mb-visitor-hello",
+      "stage": "m1",
+      "title": "和来家里的亲人打个招呼",
+      "reason": "亲友来家里时，几个大人一齐说话容易盖过宝宝细小的回应。一次让一个人开口，家人更容易看见宝宝还想聊、还是想歇。",
+      "steps": [
+        "清醒时由熟悉的大人抱稳，托好头颈。请一位亲人在宝宝看得见的位置轻声招呼，再留出安静的一会儿。",
+        "宝宝又转回来，可以接一句。若他转开或皱眉，陪他歇一歇，亲人稍后再来。"
+      ],
+      "topic": "情绪与陪伴",
+      "scene": "亲友来访",
+      "aliases": [
+        "探望",
+        "会客",
+        "打招呼",
+        "尊重式照护",
+        "蒙台梭利婴儿",
+        "蒙氏婴儿",
+        "The Montessori Baby"
+      ],
+      "related": [
+        "edu-humming",
+        "mb-observe-pause"
+      ],
+      "activity": {
+        "window": [
+          0,
+          3
+        ],
+        "signal": "宝宝醒着、舒服，正听身旁的人说话。",
+        "lens": "回应性照护",
+        "materials": "熟悉的怀抱、一位来访的亲人",
+        "stop": "打哈欠、哭了或转过脸，就停下来回应他的需要。",
+        "observe": "亲人说完后，他是动了动嘴、望过去，还是想继续靠着你？",
+        "sources": [
+          "nhcPlay",
+          "nhcCare",
+          "mbOverview"
+        ]
+      },
+      "reference": "https://www.nhc.gov.cn/fys/c100078/202502/19c9c6dee0274d23822f313a99ae1779/files/1741749469580_51223.pdf"
+    },
+    {
+      "id": "mb-setup-basket",
+      "stage": "m1",
+      "title": "换尿布前，把要用的东西摆到手边",
+      "reason": "家里几个人轮流换尿布，每个人都知道东西放在哪，就能把注意力留给眼前的宝宝。",
+      "steps": [
+        "在干净平整的地垫旁放一只固定的浅篮。开始前，取出这次要用的尿布、干净软布和替换衣物，放在大人伸手可及处。",
+        "用品用完放回固定位置，告诉下一位家人还缺什么。塑料袋、小盖子和护理用品收在宝宝够不到的地方。"
+      ],
+      "topic": "日常照护",
+      "scene": "换尿布",
+      "aliases": [
+        "环境准备",
+        "换片篮",
+        "小户型",
+        "蒙台梭利婴儿",
+        "蒙氏婴儿",
+        "The Montessori Baby"
+      ],
+      "related": [
+        "edu-diaper-talk",
+        "mb-family-ritual"
+      ],
+      "observation": "这次换片时，大人哪件东西要起身去拿？下次能提前放在哪里？",
+      "sources": [
+        "diaperStation",
+        "mbOverview"
+      ],
+      "reference": "https://www.healthychildren.org/English/safety-prevention/at-home/Pages/Changing-Table-Safety.aspx"
+    },
+    {
+      "id": "mb-rest-shift",
+      "stage": "m1",
+      "title": "让今天值班的大人安心歇一会儿",
+      "reason": "一句「有事叫我」常常让两个人都惦记着宝宝。说清谁在照看、什么时候接回来，累了的那位才有机会吃顿热饭或闭会儿眼。",
+      "steps": [
+        "和一位熟悉宝宝、醒着且能独立照看的家人约好一段时间。面对面交接，等对方接稳并说「我来照看」，再去休息。",
+        "接班人记住刚刚做过的照护和下次可能要做的事。到约好的时间再碰头，哪段最需要人手可以留在家庭经验里。"
+      ],
+      "topic": "观察与交班",
+      "scene": "家人交班",
+      "aliases": [
+        "休息",
+        "替班",
+        "照护者支持",
+        "轮班",
+        "蒙台梭利婴儿",
+        "蒙氏婴儿",
+        "The Montessori Baby"
+      ],
+      "related": [
+        "mb-family-ritual"
+      ],
+      "observation": "这次休息有被什么事情打断吗？下回交班时，提前说清哪件事会更好？",
+      "sources": [
+        "unicefCaregiver",
+        "nhcCare"
+      ],
+      "reference": "https://www.unicef.cn/mental-health/build-foundation-0-5-years"
+    },
+    {
+      "id": "mb-family-ritual",
+      "stage": "m3",
+      "title": "换人抱之前，先告诉宝宝谁来了",
+      "reason": "白天外婆带、傍晚爸爸接手，宝宝听见和看见的人都变了。留一小段三个人同在的时间，接手的人也能听见上一位家人怎样回应宝宝。",
+      "steps": [
+        "接手的大人先走到宝宝看得见的位置。原来抱着他的人说一句家里顺口的话，比如「爸爸回来啦，接下来爸爸陪你」。",
+        "等两人都托稳再交接。宝宝着急了就抱稳安抚。等他自在时，再和家人聊刚才哪一句话、哪一个动作最管用。"
+      ],
+      "topic": "观察与交班",
+      "scene": "家人交班",
+      "aliases": [
+        "祖辈",
+        "交接",
+        "隔代照护",
+        "换人抱",
+        "蒙台梭利婴儿",
+        "蒙氏婴儿",
+        "The Montessori Baby"
+      ],
+      "related": [
+        "mb-rest-shift",
+        "mb-observe-pause"
+      ],
+      "observation": "交接前后，宝宝对熟悉的声音或怀抱有什么反应？下次谁先说话会更从容？",
+      "sources": [
+        "nhcCare",
+        "mbOverview"
+      ],
+      "reference": "https://www.nhc.gov.cn/fys/c100078/202502/19c9c6dee0274d23822f313a99ae1779/files/1741749469580_51223.pdf"
+    },
+    {
+      "id": "mb-follow-gaze",
+      "stage": "m4",
+      "title": "宝宝看着什么，就说给他听",
+      "reason": "大人跟着宝宝的目光开口，正在发生的事就有了名字。一句家常话说完停下来，也把接话的机会留给了宝宝。",
+      "steps": [
+        "叠衣服时，宝宝若望着你手里的衣袖，就说「爸爸在折袖子」。用你说得自然的普通话或方言都可以。",
+        "等一等。宝宝要是看向另一件衣服，就顺着他聊。如果只是安静地看，让他看完。"
+      ],
+      "topic": "语言与互动",
+      "scene": "收衣服",
+      "aliases": [
+        "跟随目光",
+        "方言",
+        "命名",
+        "共同注意",
+        "蒙台梭利婴儿",
+        "蒙氏婴儿",
+        "The Montessori Baby"
+      ],
+      "related": [
+        "edu-dress",
+        "edu-doorway-words"
+      ],
+      "activity": {
+        "window": [
+          3,
+          8
+        ],
+        "signal": "清醒时宝宝正看着大人手里的东西。",
+        "lens": "跟随孩子的兴趣",
+        "materials": "大人手里一件干净的衣服",
+        "stop": "宝宝移开目光或变得烦躁就停。衣物放在成人手边，远离宝宝口鼻。",
+        "observe": "你开口前后，宝宝分别看向了哪里？留出空当后，他有没有动嘴、出声，或回头看你？",
+        "sources": [
+          "nhcPlay",
+          "nhcCare",
+          "mbOverview"
+        ]
+      },
+      "reference": "https://www.nhc.gov.cn/fys/c100078/202502/19c9c6dee0274d23822f313a99ae1779/files/1741749469666_88130.pdf"
+    },
+    {
+      "id": "mb-drop-and-find",
+      "stage": "m7",
+      "title": "软球滚开了，一起找找它",
+      "reason": "球从手边滚到别处，宝宝能看到自己的动作让东西换了位置。大人暂缓捡球，可以看见他打算怎么找。",
+      "steps": [
+        "在远离台阶的空地上陪着宝宝，把一只大软球放在他手边。如果球从他手里滚开，就先留在原处。",
+        "顺着他的眼神找。够不到时，你可以帮他把球移近，让他自己决定要不要再碰一次。"
+      ],
+      "topic": "动作探索",
+      "scene": "地垫游戏",
+      "aliases": [
+        "找球",
+        "追视",
+        "动作探索",
+        "蒙台梭利婴儿",
+        "蒙氏婴儿",
+        "The Montessori Baby"
+      ],
+      "related": [
+        "edu-turn-ball",
+        "edu-pass"
+      ],
+      "activity": {
+        "window": [
+          8,
+          12
+        ],
+        "signal": "宝宝在地上有舒适、稳定的姿势，愿意伸手碰球。",
+        "lens": "蒙台梭利·自由探索",
+        "materials": "大于宝宝嘴巴、无可拆小件的大软球",
+        "stop": "球滚到家具底下或危险处，由大人取回。宝宝转去玩别的就收球。",
+        "observe": "球换了位置后，他用什么方式找过来，转头、指过去，还是伸手去碰？",
+        "sources": [
+          "nhcCare",
+          "nhcPlay",
+          "mbOverview"
+        ]
+      },
+      "reference": "https://www.nhc.gov.cn/fys/c100078/202502/19c9c6dee0274d23822f313a99ae1779/files/1741749469580_51223.pdf"
+    },
+    {
+      "id": "mb-cup-return",
+      "stage": "t12",
+      "title": "把玩过的套杯送回篮里",
+      "reason": "同一个动作放在游戏的结尾，收玩具就成了宝宝能参与的一小步。把杯子放进去、再拿出来，同样值得让他试。",
+      "steps": [
+        "在地垫旁放稳敞口矮篮。玩过套杯，你把一个大杯放进篮里，留下另一个给宝宝。",
+        "宝宝递给你，你就接。他想自己放，就扶稳篮子。收完和他一起把篮子留在下次找得到的地方。"
+      ],
+      "topic": "生活自理",
+      "scene": "收玩具",
+      "aliases": [
+        "周岁过渡",
+        "套杯",
+        "收纳",
+        "还原",
+        "蒙台梭利婴儿",
+        "蒙氏婴儿",
+        "The Montessori Baby"
+      ],
+      "related": [
+        "edu-open-box",
+        "edu-low-shelf"
+      ],
+      "activity": {
+        "window": [
+          11,
+          16
+        ],
+        "signal": "宝宝能稳稳坐着，喜欢把手里的东西放下、拿起。",
+        "lens": "蒙台梭利·日常生活",
+        "materials": "两个无小件的大号套杯、一只无盖无绳的敞口篮",
+        "stop": "宝宝累了或想换游戏，大人收尾即可。杯和篮选边缘光滑、不易碎的。",
+        "observe": "篮子靠近时，他想自己放、递给你，还是再拿出来？今天哪一步是他选的？",
+        "sources": [
+          "nhcPlay",
+          "mbOverview"
+        ]
+      },
+      "reference": "https://www.nhc.gov.cn/fys/c100078/202502/19c9c6dee0274d23822f313a99ae1779/files/1741749469666_88130.pdf"
     }
   ],
   "sources": {
@@ -2288,6 +2580,26 @@
       "title": "鼓楼 · 跟随孩子兴趣的早期共读",
       "role": "社区养育草稿",
       "url": "https://github.com/JohnnyChenS/gulou/blob/main/stages/%E5%AE%B6%E5%BA%AD%E6%9C%9F%EF%BC%8825-45%E5%B2%81%EF%BC%89/%E8%82%B2%E5%84%BF%E6%8C%87%E5%AF%BC/0-3%E5%B2%81/%E8%AE%A4%E7%9F%A5%E4%B8%8E%E5%BF%83%E7%90%86/early-reading-01.md"
+    },
+    "mbOverview": {
+      "title": "Workman 出版社 · The Montessori Baby",
+      "role": "本书的公开主题简介",
+      "url": "https://www.hachettebookgroup.com/titles/simone-davies/the-montessori-baby/9781523512409/"
+    },
+    "mbObservation": {
+      "title": "Junnifa Uzodike · 出生至十五周的观察记录",
+      "role": "作者公开的单个家庭案例",
+      "url": "https://www.hachettebookgroup.com/wp-content/uploads/2023/06/WorkmanPublishing-Additional-Resources-MB-Junnifas-observations.pdf"
+    },
+    "unicefCaregiver": {
+      "title": "联合国儿童基金会中文版 · 0–5岁家长指南",
+      "role": "照护者休息与社会支持",
+      "url": "https://www.unicef.cn/mental-health/build-foundation-0-5-years"
+    },
+    "diaperStation": {
+      "title": "美国儿科学会家长网 · 换片区安全",
+      "role": "换片用品摆放依据",
+      "url": "https://www.healthychildren.org/English/safety-prevention/at-home/Pages/Changing-Table-Safety.aspx"
     }
   },
   "resources": [

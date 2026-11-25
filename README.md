@@ -17,6 +17,8 @@
 
 原始 41 张卡片的编号为 `card-01` 至 `card-41`。新增家庭活动采用 `edu-` 编号。备份和导入沿用第 1 版结构。
 
+《蒙台梭利婴儿》专题可以从「育儿笔记 → 知识库」打开，也可以分享 `?open=montessori`。在 `book-guide.js` 维护公开目录的主题与实践卡之间的对应关系。在 `book-resources.js` 维护出版社附件的链接及中文说明。专题新增的小麦原创卡使用 `mb-` 编号，仍在 `cards.json` 中维护，与既有卡共用月龄筛选、收藏和本机经验。目录导读和家庭实践的来源应分别标明；未来逐章核对时，应注明实际查阅的版本与页码。
+
 健康计划、出处与测量标准放在 `health-data.js` 和 `health-growth.js`。修改剂次、月龄或参考数值时请同时核对官方文件和覆盖范围。照护统计在 `care-trends.js`，照片及日签在 `diary.js`，家庭资料、备份结构及路由分别在 `growth-store.js`、`device-tools.js` 和 `growth.js`。
 
 运行 `node --test tests/*.test.mjs` 检查数据与统计。已安装 Playwright 和 Chrome 的环境也可以运行 `node scripts/growth-browser.cjs` 验证手机布局、照片、报告、备份与离线访问。

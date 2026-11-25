@@ -176,8 +176,35 @@
             <h1 id="index-title">知识索引</h1>
             <p id="index-caption" class="muted"></p>
           </div>
-          <button class="quiet" data-resources>内容来源</button>
+          <button class="quiet" id="index-sources" data-resources>内容来源</button>
+          <a class="quiet" id="book-library" href="#journal/index" hidden>全部知识卡</a>
         </header>
+        <a class="book-entry" id="book-entry" href="#journal/index?book=montessori-baby" aria-label="打开《蒙台梭利婴儿》读书专题">
+          <i class="book-entry-icon" data-icon="book"></i>
+          <span><small>读书专题</small><strong>蒙台梭利婴儿</strong></span>
+          <i class="book-entry-arrow" data-icon="right"></i>
+        </a>
+        <div id="book-guide" hidden>
+          <p class="guide-intro">从换一片尿布、等宝宝回应，到和家人交班。选一张小麦原创实践卡，试一试，写下你看到的反应。</p>
+          <div class="guide-folds">
+            <details id="guide-outline">
+              <summary>按书中主题找卡</summary>
+              <p>以下主题对应英文版目录，问题和实践卡由小麦编写。</p>
+              <div id="guide-topics"></div>
+              <a href="https://books.google.com/books/about/The_Montessori_Baby.html?id=xnANEAAAQBAJ" target="_blank" rel="noreferrer">查看英文版目录</a>
+            </details>
+            <details id="guide-references">
+              <summary id="guide-resource-label">出版社配套资料</summary>
+              <p><cite lang="en">The Montessori Baby</cite>，Simone Davies 和 Junnifa Uzodike 著。以下链接前往出版社公开的英文资源。</p>
+              <a href="https://www.hachettebookgroup.com/titles/simone-davies/the-montessori-baby/9781523512409/" target="_blank" rel="noreferrer">出版社书页</a>
+              <div id="guide-resources"></div>
+            </details>
+          </div>
+          <div id="guide-selection" hidden>
+            <strong id="guide-active-topic"></strong>
+            <a id="guide-all-topics">全部专题卡</a>
+          </div>
+        </div>
         <div class="index-tools">
           <label class="search"
             ><i data-icon="search"></i

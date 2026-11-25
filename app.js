@@ -9,6 +9,7 @@ import {
 } from "./library.js";
 import { setupGrowth } from "./growth.js";
 import { setupDeviceTools } from "./device-tools.js";
+import { guideCardIds, guideHash, guideId, guideTitle, readGuide, setupGuide } from "./book-guide.js";
 
 const $ = (id) => document.getElementById(id);
 const native = window.xiaomaiNative;
@@ -78,6 +79,7 @@ const checkins = new Checkins(storage);
 const refreshCheckins = setupCheckins(checkins);
 
 let journalPath = native?.surface === "journal";
+let currentGuide, updateGuide, guideSearchIndex, lastLibraryHash;
 function libraryHash(path) {
   return (journalPath ? "#journal/" : "#") + path;
 }
@@ -197,6 +199,9 @@ const filterNames = {
   lens: "教育视角",
 };
 function setupIndex() {
+  updateGuide = setupGuide({ element, makeLink, external });
+  const byId = new Map(searchIndex.map(entry => [entry.card.id, entry]));
+  guideSearchIndex = guideCardIds.map(id => byId.get(id)).filter(Boolean);
   for (const [key, label] of Object.entries(filterNames)) {
     const wrap = element("label", label);
     const select = element("select");
@@ -236,7 +241,6 @@ function setupIndex() {
     saveQuery();
     $("search").focus();
   };
-  $("index-caption").textContent = data.cards.length + " 张卡片";
 }
 function readFilters() {
   const filters = {
@@ -267,17 +271,26 @@ function setFilterValues(params) {
 function saveQuery() {
   const filters = readFilters(),
     params = new URLSearchParams();
+  if (currentGuide) {
+    params.set("book", guideId);
+    if (currentGuide.topic) params.set("theme", currentGuide.topic.id);
+  }
   for (const [key, value] of Object.entries(filters))
     if (value.trim()) params.set(key, value.trim());
   const query = params.toString();
   history.replaceState(null, "", libraryHash("index" + (query ? "?" + query : "")));
   displayedHash = location.hash;
+  if (currentGuide) updateGuide(params);
+  else lastLibraryHash = displayedHash;
   rememberJournalLink("index", location.hash);
   drawIndex();
 }
 function drawIndex() {
   const filters = readFilters();
-  const matches = findCards(searchIndex, filters).filter(
+  const scopedIndex = currentGuide?.topic
+    ? guideSearchIndex.filter(entry => currentGuide.topic.cards.includes(entry.card.id))
+    : currentGuide ? guideSearchIndex : searchIndex;
+  const matches = findCards(scopedIndex, filters).filter(
     (card) => !filters.favorite || book.favorites.has(card.id),
   );
   const active = Object.keys(filterNames).filter((k) => filters[k]);
@@ -422,7 +435,7 @@ function showCard(card) {
   growth.cardPractice(card, root);
   const refs = fold("参考资料");
   const urls = new Set();
-  for (const id of a?.sources || []) {
+  for (const id of new Set([...(a?.sources || []), ...(card.sources || [])])) {
     const s = data.sources[id];
     refs.append(external(s.role + " · " + s.title, s.url));
     urls.add(s.url);
@@ -483,8 +496,26 @@ function displayRoute(hash, scroll = true) {
   });
   if (inJournal && journalPath) rememberJournalLink(view, hash);
   if (view === "index") {
-    $("index-title").textContent = journalPath ? "知识库" : "知识索引";
-    setFilterValues(new URLSearchParams(query));
+    const params = new URLSearchParams(query);
+    const nextGuide = readGuide(params);
+    if (!currentGuide || !nextGuide || currentGuide.topic !== nextGuide.topic) {
+      $("guide-outline").open = false;
+      $("guide-references").open = false;
+    }
+    currentGuide = nextGuide;
+    if (!currentGuide) lastLibraryHash = hash;
+    $("book-entry").hidden = !!currentGuide;
+    $("book-guide").hidden = !currentGuide;
+    $("book-library").hidden = !currentGuide;
+    $("book-library").href = lastLibraryHash || libraryHash("index");
+    $("index-sources").hidden = !!currentGuide;
+    $("quick-search").hidden = !!currentGuide;
+    $("index-title").textContent = currentGuide ? guideTitle : journalPath ? "知识库" : "知识索引";
+    $("index-caption").textContent = currentGuide ? "依据公开目录及配套资料整理，正文尚未逐章核对。" : data.cards.length + " 张卡片";
+    $("search").placeholder = currentGuide ? "搜专题里的做法或月龄" : "搜问题、家里的说法或材料";
+    $("search").setAttribute("aria-label", currentGuide ? "搜索专题卡片" : "搜索知识索引");
+    if (currentGuide) updateGuide(params);
+    setFilterValues(params);
     drawIndex();
   } else if (view === "growth") {
     growth.render(name.split("/")[1], query);
@@ -611,7 +642,8 @@ async function init() {
     cards = new Map(data.cards.map((c) => [c.id, c]));
     stages = new Map(data.stages.map((s) => [s.id, s]));
     book = new Notebook(storage, new Set(cards.keys()));
-    searchIndex = makeSearchIndex(data);
+    const guideAliases = [guideTitle, "The Montessori Baby", "Simone Davies", "Junnifa Uzodike"];
+    searchIndex = makeSearchIndex(data, new Map(guideCardIds.map(id => [id, guideAliases])));
     filterOptions = availableFilters(data);
     growth = setupGrowth({ storage, checkins, data });
     const profileAge = growth.ageMonths();
@@ -631,7 +663,7 @@ async function init() {
     });
     if (!location.hash) {
       const section = new URLSearchParams(location.search).get("open");
-      const entryPoints = { timeline: "#time", knowledge: "#index", journal: "#journal/time", checkin: "#checkin", growth: "#growth", today: "#growth/dashboard" };
+      const entryPoints = { timeline: "#time", knowledge: "#index", montessori: guideHash, journal: "#journal/time", checkin: "#checkin", growth: "#growth", today: "#growth/dashboard" };
       history.replaceState(history.state, "", Object.hasOwn(entryPoints, section) ? entryPoints[section] : "#growth/dashboard");
     }
     route();

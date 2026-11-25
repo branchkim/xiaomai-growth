@@ -301,9 +301,34 @@ async function run() {
     await p.goto(url + "#journal/time/t18");
     await p.locator('#stage-t18[aria-current="step"]').waitFor();
     assert.equal(await p.locator("#checkin").isVisible(), false);
+    await p.locator('[data-journal="index"]').click();
+    await p.locator("#book-entry").click();
+    const bookURL = url + "?open=montessori";
+    await p.waitForURL(/#journal\/index\?book=montessori-baby$/);
+    await p.locator("#guide-outline > summary").click();
+    assert.equal(await p.locator("#guide-topics a").count(), 12);
+    await p.locator('#guide-topics a[href*="theme=home"]').click();
+    await p.locator('#results a[href="#card/mb-setup-basket"]').click();
+    await p.locator("#entry summary").click();
+    await p.locator("#experience").fill("家里把换片用品集中放在一个篮子里");
+    await p.getByRole("button", { name: "关闭卡片" }).click();
+    assert.match(p.url(), /theme=home/);
+    await p.locator('#results a[href="#card/mb-setup-basket"]').waitFor();
+    await p.goto(bookURL);
+    const references = p.locator("#guide-references");
+    await references.locator("summary").click();
+    const resources = await references.locator('a[href$=".pdf"]').evaluateAll(links => links.map(link => link.href));
+    assert.equal(new Set(resources).size, 12);
+    assert.ok(resources.every(link => new URL(link).hostname === "www.hachettebookgroup.com"));
+    await p.waitForFunction(() => !!navigator.serviceWorker.controller);
+    await context.setOffline(true);
+    await p.reload();
+    await p.locator('#results a[href="#card/mb-observe-pause"]').waitFor();
+    await p.locator('[data-journal="notes"]').click();
+    await p.locator("#notes-list").getByText("家里把换片用品集中放在一个篮子里").waitFor();
     assert.deepEqual(errors, []);
     console.log(
-      "PASS 家庭设置、今日游戏、首次尝试、照片与日签、报告、备份还原、离线成长曲线。",
+      "PASS 家庭设置、今日游戏、照片日签、备份还原、离线成长曲线、读书专题、章节筛选、外部资料和本机经验。",
     );
   } finally {
     await browser?.close();

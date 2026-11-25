@@ -30,13 +30,13 @@ export function availableFilters(data) {
 const normalize = (value) =>
   String(value || "").normalize("NFKC").toLowerCase().replace(/蒙氏|蒙特梭利|montessori/g, "蒙台梭利").replace(/\s+/g, "");
 
-export function makeSearchIndex(data) {
+export function makeSearchIndex(data, collectionAliases = new Map()) {
   const stages = new Map(data.stages.map((s) => [s.id, s]));
   return data.cards.map((card) => {
     const a = card.activity || {}, stage = stages.get(card.stage);
     const groups = [
       [card.title, a.title],
-      card.aliases,
+      [...card.aliases, ...(collectionAliases.get(card.id) || [])],
       [card.topic, card.scene, a.scene, a.lens, stage.label, stage.name, a.window && ageWindow(a)],
       [a.materials, a.signal, card.reason, ...card.steps, card.observation, a.reason,
         ...(a.steps || []), a.observe, a.stop],

@@ -1,6 +1,6 @@
-const CACHE = "xiaomai-growth-d71a951b3932bf";
+const CACHE = "xiaomai-growth-b71c6172e903c8";
 const base = self.registration.scope;
-const resources = new Set(["app.js","assets/icon-180.png","assets/icon-192.png","assets/icon-512.png","assets/stage-m1.webp","assets/stage-m2.webp","assets/stage-m3.webp","assets/stage-m4.webp","assets/stage-m5.webp","assets/stage-m6.webp","assets/stage-m7.webp","assets/stage-t12.webp","assets/stage-t18.webp","assets/stage-t24.webp","assets/stage-t30.webp","assets/wheat-field.webp","cards.json","care-trends.css","care-trends.js","checkins.js","device-tools.js","diary-quick.css","diary.js","growth-dashboard.css","growth-dashboard.js","growth-store.js","growth.css","growth.js","health-data.js","health-growth.js","health.css","health.js","index.html","legacy-tasks.js","library.js","manifest.webmanifest","month-entries.js","monthly-checks.js","notes.js","styles.css"].map((name) => new URL(name, base).href));
+const resources = new Set(["app.js","assets/icon-180.png","assets/icon-192.png","assets/icon-512.png","assets/stage-m1.webp","assets/stage-m2.webp","assets/stage-m3.webp","assets/stage-m4.webp","assets/stage-m5.webp","assets/stage-m6.webp","assets/stage-m7.webp","assets/stage-t12.webp","assets/stage-t18.webp","assets/stage-t24.webp","assets/stage-t30.webp","assets/wheat-field.webp","book-guide.js","book-resources.js","cards.json","care-trends.css","care-trends.js","checkins.js","device-tools.js","diary-quick.css","diary.js","growth-dashboard.css","growth-dashboard.js","growth-store.js","growth.css","growth.js","health-data.js","health-growth.js","health.css","health.js","index.html","legacy-tasks.js","library.js","manifest.webmanifest","month-entries.js","monthly-checks.js","notes.js","styles.css"].map((name) => new URL(name, base).href));
 self.addEventListener("install", (event) => {
   event.waitUntil(
     (async () => {
@@ -28,10 +28,16 @@ self.addEventListener("activate", (event) => {
           const url = new URL(client.url);
           if (
             url.pathname === new URL(base).pathname &&
-            ["checkin", "growth", "timeline", "knowledge", "today", "journal"].includes(url.searchParams.get("open"))
+            ["checkin", "growth", "timeline", "knowledge", "today", "journal", "montessori"].includes(url.searchParams.get("open"))
           ) {
             // Navigation fetches are released once activation completes.
-            void client.navigate(client.url).catch(() => {});
+            if (url.searchParams.get("open") === "montessori" &&
+                (!url.hash || url.hash === "#growth/dashboard")) {
+              url.hash = "journal/index?book=montessori-baby";
+            }
+            // A fragment-only navigation would leave the old document running.
+            url.searchParams.set("v", CACHE.slice("xiaomai-growth-".length));
+            void client.navigate(url.href).catch(() => {});
           }
         }
       }

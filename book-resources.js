@@ -1,0 +1,88 @@
+// The publisher hosts the original English PDFs. Only link metadata is bundled here.
+export const bookResources = [
+  {
+    id: "timeline",
+    label: "0–12 个月活动时间图",
+    note: "图上把看自己的手、抓住物品、换手拿等动作和玩具放在一起。读图时可以从宝宝最近爱做的动作出发，再找一个他愿意碰的东西。月份仅供选材参考。",
+    group: "月龄与观察",
+    url: "https://www.hachettebookgroup.com/wp-content/uploads/2023/06/WorkmanPublishing-Additional-Resources-Montessori-Baby-timeline.pdf",
+  },
+  {
+    id: "observations",
+    label: "Solu 出生后 15 周的观察手记",
+    note: "在第 4 页，作者记下 Solu 一只手握摇铃、另一只手摸它。她也记下宝宝会松手，并坦言还看不出是否有意。写自家经验时，可以这样把看见的动作和自己的推测分开。",
+    group: "月龄与观察",
+    url: "https://www.hachettebookgroup.com/wp-content/uploads/2023/06/WorkmanPublishing-Additional-Resources-MB-Junnifas-observations.pdf",
+  },
+  {
+    id: "furniture",
+    label: "家里的活动材料和家具从哪来",
+    note: "作者列出利用家里已有物品、找二手材料和请当地手艺人制作的思路。",
+    group: "家庭布置",
+    url: "https://www.hachettebookgroup.com/wp-content/uploads/2023/06/WorkmanPublishing-Additional-Resources-MB-Finding-Montessori-activities-and-furniture.pdf",
+  },
+  {
+    id: "topponcino",
+    label: "传统抱垫的纸样",
+    note: "给想了解 Topponcino 构造的成人看，收录抱垫裁剪与缝制图。",
+    group: "家庭布置",
+    url: "https://www.hachettebookgroup.com/wp-content/uploads/2023/06/WorkmanPublishing-Additional-Resources-MB-Topponcino-DIY.pdf",
+  },
+  {
+    id: "munari",
+    label: "黑白几何吊饰",
+    note: "图样展示黑白平面图形如何组合成一组悬挂装饰。",
+    group: "视觉材料",
+    url: "https://www.hachettebookgroup.com/wp-content/uploads/2023/06/WorkmanPublishing-Additional-Resources-MB-Munari-mobile.pdf",
+  },
+  {
+    id: "octahedron",
+    label: "八面体吊饰",
+    note: "用立体纸模观察八面体的形状与悬挂方式。",
+    group: "视觉材料",
+    url: "https://www.hachettebookgroup.com/wp-content/uploads/2023/06/WorkmanPublishing-Additional-Resources-MB-Octahedron-mobile.pdf",
+  },
+  {
+    id: "gobbi",
+    label: "戈比渐变球吊饰",
+    note: "可以从示意图看出同色系的深浅变化和各个球的高度。",
+    group: "视觉材料",
+    url: "https://www.hachettebookgroup.com/wp-content/uploads/2023/06/WorkmanPublishing-Additional-Resources-MB-Gobbi-mobile.pdf",
+  },
+  {
+    id: "dancers",
+    label: "舞者吊饰",
+    note: "从模板看反光纸片如何拼成人形，以及各部分如何相连。",
+    group: "视觉材料",
+    url: "https://www.hachettebookgroup.com/wp-content/uploads/2023/06/WorkmanPublishing-Additional-Resources-MB-Stylized-dancers.pdf",
+  },
+  {
+    id: "grasping",
+    label: "抓握活动材料",
+    note: "展示几种抓握材料的结构，方便成人比较声音、形状和触感。",
+    group: "动作与探索",
+    url: "https://www.hachettebookgroup.com/wp-content/uploads/2023/06/WorkmanPublishing-Additional-Resources-MB-Grasping-activities.pdf",
+  },
+  {
+    id: "kicking-ball",
+    label: "布艺踢球",
+    note: "纸样展示一只分瓣布球如何缝合，供喜欢针线的家长参考。",
+    group: "动作与探索",
+    url: "https://www.hachettebookgroup.com/wp-content/uploads/2023/06/WorkmanPublishing-Additional-Resources-MB-Kicking-ball-DIY.pdf",
+  },
+  {
+    id: "permanence",
+    label: "投球盒",
+    note: "示意图展示球从盒口消失、再从出口出现的路径。",
+    group: "动作与探索",
+    url: "https://www.hachettebookgroup.com/wp-content/uploads/2023/06/WorkmanPublishing-Additional-Resources-MB-Object-permanence-box.pdf",
+  },
+  {
+    id: "ball-tracker",
+    label: "滚球轨道",
+    note: "介绍大型滚球轨道的玩法，并给有木工经验的成人提供制作线索。",
+    group: "动作与探索",
+    url: "https://www.hachettebookgroup.com/wp-content/uploads/2023/06/WorkmanPublishing-Additional-Resources-MB-Ball-tracker-DIY.pdf",
+  },
+];
+
