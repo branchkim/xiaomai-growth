@@ -197,6 +197,9 @@ export async function openEpub(input) {
   const order = elements(pkg, "spine")[0];
   valid(metadata && manifest && order);
   const title = compact(elements(metadata, "title")[0]?.textContent);
+  const declaredLanguage = compact(elements(metadata, "language")[0]?.textContent).toLowerCase().split(/[-_]/)[0];
+  const machineAssisted = elements(metadata, "meta").some(meta =>
+    meta.getAttribute("name") === "xiaomai:translation" && meta.getAttribute("content") === "machine-assisted-zh");
   valid(title);
   const assets = new Map(elements(manifest, "item").map(item => {
     const href = pathInBook(item.getAttribute("href"), opf);
@@ -230,10 +233,14 @@ export async function openEpub(input) {
     }
   }
   const documents = new Map(), pictures = new Map(), objectUrls = new Map();
+  let han = 0, latin = 0;
   for (const item of spine) {
     const bytes = read(item.href);
     const body = elements(xml(bytes), "body")[0];
     valid(body);
+    const sample = body.textContent.slice(0, 3000);
+    han += (sample.match(/[\u3400-\u9fff]/g) || []).length;
+    latin += (sample.match(/[a-z]/gi) || []).length;
     const heading = elements(body, "h1")[0] || elements(body, "h2")[0];
     const fileTitle = toc.find(entry => entry.href === item.href)?.title;
     item.title = fileTitle || compact(heading?.textContent) ||
@@ -246,7 +253,9 @@ export async function openEpub(input) {
     }
   }
   return {
-    title, spine, toc: toc.length ? toc : spine,
+    title, declaredLanguage, machineAssisted,
+    sampleLanguage: han >= 2 && han > latin * .15 ? "zh" : latin > 3 ? "en" : "",
+    spine, toc: toc.length ? toc : spine,
     async render(target, element, onNavigate = () => {}) {
       const filename = fileOf(target);
       const bytes = documents.get(filename);
@@ -298,6 +307,11 @@ function storedBook(mode, operation) {
   });
 }
 
-export const loadStoredEpub = () => storedBook("readonly", store => store.get("montessori-baby"));
-export const saveStoredEpub = blob => storedBook("readwrite", store => store.put(blob, "montessori-baby"));
-export const removeStoredEpub = () => storedBook("readwrite", store => store.delete("montessori-baby"));
+function localBookKey(language) {
+  if (language === "zh") return "montessori-baby-zh";
+  if (language === "en") return "montessori-baby";
+  throw new Error("此阅读器支持中文和英文。");
+}
+export const loadStoredEpub = (language = "en") => storedBook("readonly", store => store.get(localBookKey(language)));
+export const saveStoredEpub = (blob, language = "en") => storedBook("readwrite", store => store.put(blob, localBookKey(language)));
+export const removeStoredEpub = (language = "en") => storedBook("readwrite", store => store.delete(localBookKey(language)));

@@ -55,7 +55,8 @@ test("原书插图、表格与书内定位保留，外部资源不会装入阅�
     const file = makeZip({
       mimetype: "application/epub+zip",
       "META-INF/container.xml": '<container><rootfile full-path="Book/content.opf"/></container>',
-      "Book/content.opf": '<package><metadata><title>家庭观察手记</title></metadata><manifest>' +
+      "Book/content.opf": '<package><metadata><title>家庭观察手记</title><language>zh-CN</language>' +
+        '<meta name="xiaomai:translation" content="machine-assisted-zh"/></metadata><manifest>' +
         '<item id="a" href="pages/a.xhtml" media-type="application/xhtml+xml"/><item id="b" href="pages/b.xhtml" media-type="application/xhtml+xml"/>' +
         '<item id="img" href="art/pic.png" media-type="image/png"/><item id="toc" href="nav.ncx" media-type="application/x-dtbncx+xml"/>' +
         '</manifest><spine toc="toc"><itemref idref="a"/><itemref idref="b"/></spine></package>',
@@ -68,6 +69,9 @@ test("原书插图、表格与书内定位保留，外部资源不会装入阅�
     });
     book = await openEpub(file);
     assert.equal(book.title, "家庭观察手记");
+    assert.equal(book.declaredLanguage, "zh");
+    assert.equal(book.sampleLanguage, "zh");
+    assert.equal(book.machineAssisted, true);
     assert.equal(book.spine.length, 2);
     assert.deepEqual(book.toc, [{ href: "Book/pages/b.xhtml#item", title: "第二页" }]);
     let clicked;

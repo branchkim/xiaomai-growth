@@ -254,6 +254,10 @@
         <article id="reader-page" hidden>
           <a class="reader-back" id="reader-back-chapter" href="#journal/reader">‹ 章节介绍</a>
           <h2 id="reader-page-title"></h2>
+          <div id="reader-language" hidden>
+            <div class="reader-language-buttons" role="group" aria-label="正文语言"><button id="reader-language-zh" aria-label="阅读中文" aria-pressed="false">中文</button><button id="reader-language-en" aria-label="阅读英文" aria-pressed="false">英文</button></div>
+            <small id="reader-language-note"></small>
+          </div>
           <div class="reader-toolbar" id="reader-toolbar" hidden>
             <select id="reader-part" aria-label="选择原书位置"></select>
             <button id="reader-smaller" aria-label="缩小原文字号">A−</button><button id="reader-larger" aria-label="放大原文字号">A+</button>
@@ -265,7 +269,7 @@
         </article>
         <p id="reader-state" role="status" aria-live="polite"></p>
         <div id="reader-import" hidden>
-          <p>从手机或电脑选择自己的《The Montessori Baby》英文 EPUB，原书只保存在这台设备。</p>
+          <p id="reader-import-instruction">从手机或电脑选择自己的《蒙台梭利婴儿》中文或英文 EPUB，书只保存在这台设备。</p>
           <label class="reader-primary reader-file-label">选择本机 EPUB<input id="reader-file" type="file" accept=".epub,application/epub+zip"></label>
         </div>
         <details id="reader-management" hidden><summary>管理本机电子书</summary>

@@ -49,6 +49,12 @@
 #reader-page-title { margin:0 0 10px; font-size:clamp(1.3rem,3.2vw,1.7rem); }
 body[data-reading-book] .journal-head { display:none; }
 .reader-toolbar, .reader-pager { display:flex; align-items:center; gap:5px; }
+#reader-language { display:flex; align-items:center; flex-wrap:wrap; gap:5px 12px; margin:6px 0 10px; }
+.reader-language-buttons { display:inline-flex; gap:2px; padding:3px; border-radius:12px; background:#e8eee5; }
+.reader-language-buttons button { min-height:40px; padding:0 12px; color:#36503d; border-radius:9px; }
+.reader-language-buttons button[aria-pressed="true"] { background:white; color:#264333; font-weight:700; }
+#reader-language-note { font-size:.83rem; color:var(--grey); }
+#reader-content:lang(zh-CN) { font-family:var(--serif); line-height:1.85; }
 .reader-toolbar { background:#ebeee5; padding:5px; border-radius:12px 12px 0 0; }
 .reader-toolbar select { flex:1; min-width:0; width:100%; min-height:40px; background:var(--card); border:1px solid var(--line); border-radius:8px; }
 .reader-toolbar button, .reader-pager a, #reader-management button { min-width:44px; min-height:44px; padding:5px 8px; color:var(--leaf); }
