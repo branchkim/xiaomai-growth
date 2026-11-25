@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="./growth.css" />
     <link rel="stylesheet" href="./care-trends.css" />
     <link rel="stylesheet" href="./health.css" />
+    <link rel="stylesheet" href="./growth-dashboard.css" />
     <script type="module" src="./app.js"></script>
   </head>
   <body>
@@ -35,14 +36,10 @@
           /><span>小麦的成长计划</span></a
         >
         <nav aria-label="主导航">
-          <a href="#home" data-view="home"><i data-icon="path"></i>首页</a
-          ><a href="#index" data-view="index"
-            ><i data-icon="index"></i>知识索引</a
-          ><a href="#growth" data-view="growth"
-            ><i data-icon="sprout"></i>成长工具</a
-          ><a href="#notes" data-view="notes"
-            ><i data-icon="note"></i>我家的经验</a
-          >
+          <a href="#growth/dashboard" data-view="today"><i data-icon="path"></i>今天</a>
+          <a href="#growth" data-view="growth"><i data-icon="sprout"></i>成长</a>
+          <a href="#journal/time" data-view="journal"><i data-icon="book"></i>育儿笔记</a>
+          <a href="#checkin" data-view="home"><i data-icon="note"></i>照护打卡</a>
         </nav>
         <button class="tools" id="tools-button">
           <i data-icon="settings"></i><span>安装与备份</span>
@@ -50,7 +47,7 @@
       </div>
     </header>
     <main class="wrap">
-      <section id="home" aria-labelledby="cover-title">
+      <section id="home" aria-labelledby="cover-title" hidden>
         <header class="cover">
           <div class="cover-text">
             <span class="cover-age">出生 — 三岁</span>
@@ -137,32 +134,40 @@
             ><a href="#growth">全部工具 →</a>
           </div>
         </section>
-        <section class="timeline" aria-labelledby="timeline-title">
-          <div class="section-head">
-            <h2 id="timeline-title">成长时间线</h2>
-            <div class="arrows">
-              <button id="prev-stage" class="round" aria-label="上一个月龄阶段">
-                <i data-icon="left"></i></button
-              ><button
-                id="next-stage"
-                class="round"
-                aria-label="下一个月龄阶段"
-              >
-                <i data-icon="right"></i>
-              </button>
-            </div>
+      </section>
+      <header id="journal-head" class="journal-head" hidden>
+        <h1>育儿笔记</h1>
+        <div class="journal-segments" role="navigation" aria-label="育儿笔记栏目">
+          <a href="#journal/time" data-journal="time">月龄时间线</a>
+          <a href="#journal/index" data-journal="index">知识库</a>
+          <a href="#journal/notes" data-journal="notes">我家的经验</a>
+        </div>
+      </header>
+      <section id="timeline" class="timeline" hidden aria-labelledby="timeline-title">
+        <div class="section-head">
+          <h2 id="timeline-title">月龄时间线</h2>
+          <div class="arrows">
+            <button id="prev-stage" class="round" aria-label="上一个月龄阶段">
+              <i data-icon="left"></i></button
+            ><button
+              id="next-stage"
+              class="round"
+              aria-label="下一个月龄阶段"
+            >
+              <i data-icon="right"></i>
+            </button>
           </div>
-          <ol id="stages" class="stages" aria-label="按月龄顺序选择阶段"></ol>
-          <article id="phase" class="phase" aria-label="所选月龄的照护重点">
-            <div class="phase-intro">
-              <span class="age-tag" id="phase-age"></span>
-              <h3 id="phase-title">正在打开手账…</h3>
-              <p id="phase-focus"></p>
-              <a id="all-stage" class="phase-link">本阶段全部卡片</a>
-            </div>
-            <div class="phase-cards" id="featured"></div>
-          </article>
-        </section>
+        </div>
+        <ol id="stages" class="stages" aria-label="按月龄顺序选择阶段"></ol>
+        <article id="phase" class="phase" aria-label="所选月龄的照护重点">
+          <div class="phase-intro">
+            <span class="age-tag" id="phase-age"></span>
+            <h3 id="phase-title">正在打开手账…</h3>
+            <p id="phase-focus"></p>
+            <a id="all-stage" class="phase-link">本阶段全部卡片</a>
+          </div>
+          <div class="phase-cards" id="featured"></div>
+        </article>
       </section>
       <section id="index" hidden aria-labelledby="index-title">
         <header class="sub-head">

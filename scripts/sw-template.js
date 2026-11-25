@@ -28,7 +28,7 @@ self.addEventListener("activate", (event) => {
           const url = new URL(client.url);
           if (
             url.pathname === new URL(base).pathname &&
-            ["checkin", "growth", "timeline", "knowledge"].includes(url.searchParams.get("open"))
+            ["checkin", "growth", "timeline", "knowledge", "today", "journal"].includes(url.searchParams.get("open"))
           ) {
             // Navigation fetches are released once activation completes.
             void client.navigate(client.url).catch(() => {});

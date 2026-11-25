@@ -49,7 +49,24 @@ async function run() {
     const errors = [];
     p.on("pageerror", (e) => errors.push(e.message));
     await p.goto(url);
-    await p.locator(".today-profile").click();
+    const dashboard = p.locator(".growth-dashboard");
+    await dashboard.waitFor();
+    await dashboard.getByRole("heading", { name: "今日关注" }).waitFor();
+    await dashboard.getByRole("heading", { name: "生长曲线" }).waitFor();
+    await dashboard.locator('[data-dash-month="18"]').click();
+    await dashboard.locator('[data-dash-category="play"]').click();
+    const socksInDashboard = dashboard.locator('.dash-items a[href*="edu-sock-pairs"]').first();
+    await socksInDashboard.scrollIntoViewIfNeeded();
+    const listScroll = await p.evaluate(() => scrollY);
+    await socksInDashboard.click();
+    await p.getByRole("button", { name: "关闭卡片" }).click();
+    await p.waitForURL(/#growth\/dashboard\?month=18&category=play$/);
+    await dashboard.locator('[data-dash-month="18"][aria-pressed="true"]').waitFor();
+    assert.ok(listScroll > 0 && Math.abs(await p.evaluate(() => scrollY) - listScroll) < 16,
+      "从活动卡返回时应保留列表的阅读位置");
+    await dashboard.locator('[data-dash-metric="head"]').click();
+    assert.equal(await dashboard.locator('[data-dash-metric="head"]').getAttribute("aria-pressed"), "true");
+    await dashboard.locator('a[href="#growth/profile"]').first().click();
     await p.locator('[name="name"]').fill("测试麦穗");
     const birth = new Date();
     birth.setMonth(birth.getMonth() - 5);
@@ -60,7 +77,7 @@ async function run() {
     await p.locator("[name=members]").fill("爸爸、奶奶");
     await p.locator("[name=caregiver]").selectOption("爸爸");
     await p.getByRole("button", { name: "保存家庭设置" }).click();
-    await p.getByRole("link", { name: "首页", exact: true }).click();
+    await p.goto(url + "#home");
     await p.locator(".focus-check[aria-pressed]").click();
     assert.equal(
       await p
@@ -69,7 +86,7 @@ async function run() {
       "true",
     );
     await p.locator("#quick-checkins [data-kind=feed]").click();
-    await p.getByRole("link", { name: "成长工具", exact: true }).click();
+    await p.goto(url + "#growth");
     assert.equal(await p.locator(".tool-tile").count(), 8);
     await p.locator('a[href="#growth/play"].tool-tile').click();
     await p.locator(".play-entry a").first().click();
@@ -228,6 +245,19 @@ async function run() {
     const stage = sources.stages.find((x) => x.window[0] <= 15 && 15 < x.window[1]);
     await p.locator("#stage-" + stage.id).click();
     assert.equal(await p.locator("#all-stage").getAttribute("href"), "#index?stage=" + stage.id);
+    await p.goto(url + "?open=journal");
+    await p.getByRole("link", {name: "知识库", exact: true}).filter({visible: true}).first().click();
+    await p.locator("#search").fill("袜子");
+    await p.locator('#results a[href="#card/edu-sock-pairs"]').click();
+    await p.locator("#entry summary").click();
+    await p.locator("#experience").fill("爸爸和小麦一起把袜子放进抽屉");
+    await p.getByRole("button", {name:"关闭卡片"}).click();
+    assert.match(p.url(), /#journal\/index/);
+    await p.goto(url + "#journal/notes");
+    await p.locator("#notes-list").getByText("爸爸和小麦一起把袜子放进抽屉").waitFor();
+    await p.goto(url + "#journal/time/t18");
+    await p.locator('#stage-t18[aria-current="step"]').waitFor();
+    assert.equal(await p.locator("#checkin").isVisible(), false);
     assert.deepEqual(errors, []);
     console.log(
       "PASS 家庭设置、今日游戏、首次尝试、照片与日签、报告、备份还原、离线成长曲线。",

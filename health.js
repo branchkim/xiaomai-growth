@@ -67,7 +67,7 @@ function leads(ctx) {
   const raw = ctx.profile().leadDays;
   return raw != null && Number.isInteger(Number(raw)) ? Math.min(30,Math.max(0,Number(raw))) : 1;
 }
-function plans(ctx) {
+export function plans(ctx) {
   const birth = ctx.profile().birthday;
   const records = ctx.store.list("visit");
   const saved = new Map(records.map(x=>[x.id,x]));
@@ -99,7 +99,7 @@ function targetText(p) {
   if (p.custom) return "按门诊或家庭安排";
   return p.target ? "参考月龄日 " + p.target : stageTitle(p.month);
 }
-function visitStatus(p) {
+export function visitStatus(p) {
   if (p.actual) return "已记录 · " + p.actual;
   if (p.appointment) return "已约 · " + p.appointment;
   return targetText(p);
@@ -284,7 +284,7 @@ function customPlan(ctx,ui) {
   });
   const title = el("input",{type:"text",maxlength:70,required:true,placeholder:"项目名称，可写明第几剂"});
   const age = ctx.ageMonths();
-  const month = select("计划月龄",Array.from({length:13},(_,i)=>[i,stageTitle(i)]),Number.isInteger(age) ? Math.min(12,Math.max(0,age)) : 0);
+  const month = select("计划月龄",Array.from({length:13},(_,i)=>[i,stageTitle(i)]),ui.openCustom && /^\d+$/.test(ui.filter) ? +ui.filter : Number.isInteger(age) ? Math.min(12,Math.max(0,age)) : 0);
   const appt = dateField("",{min:ctx.profile().birthday || undefined});
   form.append(hint("自费疫苗可按接种门诊确认的产品、剂次与时间逐条添加。具体费用与本地免费政策请向门诊确认。"),
     field("选择项目",which),description,field("项目或疫苗名称",title),el("div",{class:"health-grid"},field("计划月龄",month),field("预约日期（选填）",appt)),
@@ -299,7 +299,12 @@ function customPlan(ctx,ui) {
     const ok = update(ctx,ui,()=>ctx.store.put("visit",newId("custom"),item),"新计划已保存。");
     if (!ok) ui.filter = oldFilter;
   });
-  return details("＋ 添加自费疫苗或自定义计划",form);
+  const panel=details("＋ 添加自费疫苗或自定义计划",form);
+  if (ui.openCustom) {
+    panel.open=true; ui.openCustom=false;
+    globalThis.requestAnimationFrame?.(()=>{if(panel.isConnected && panel.open) panel.scrollIntoView({block:"nearest"});});
+  }
+  return panel;
 }
 function planScreen(ctx,ui) {
   const all = plans(ctx), age = ctx.ageMonths();
@@ -325,7 +330,7 @@ function svgNode(name,attrs,content) {
   if (content!==undefined) e.textContent = content;
   return e;
 }
-function plot(ctx, metric, sex, records, allLines) {
+export function plot(ctx, metric, sex, records, allLines, compact = false) {
   const m = metrics[metric], refs = growth[sex]?.[metric], birth = ctx.profile().birthday;
   if (!refs) return hint("请在档案填写性别，或在这里选择男童或女童参考表。");
   const points = records.map(r=>({age:ageAt(birth,r.date),v:Number(r[metric]),date:r.date})).filter(p=>p.v>0 && Number.isFinite(p.v) && p.age!==null && p.age>=0 && p.age<=12).sort((a,b)=>a.age-b.age);
@@ -333,15 +338,20 @@ function plot(ctx, metric, sex, records, allLines) {
   const ceiling = Math.ceil(Math.max(...refs.map(r=>r[6]),...points.map(p=>p.v)));
   const step = Math.max(1,Math.ceil((ceiling-floor)/5));
   const min = Math.floor(floor/step)*step, max = Math.ceil(ceiling/step)*step;
-  const x = age=>34 + age/12*314, y = v=>178 - (v-min)/(max-min)*155;
-  const svg = svgNode("svg",{viewBox:"0 0 385 205",role:"img","aria-label":(sex==="male" ? "男童" : "女童")+m.title+"参考曲线，叠加 "+points.length+" 次个人测量"});
+  const baseline = compact ? 82 : 178;
+  const x = age=>34 + age/12*314, y = v=>baseline - (v-min)/(max-min)*(baseline-23);
+  const svg = svgNode("svg",{viewBox:"0 0 385 "+(baseline+27),role:"img","aria-label":(sex==="male" ? "男童" : "女童")+m.title+"参考曲线，叠加 "+points.length+" 次个人测量"});
   for (let v=min;v<=max;v+=step) {
     svg.append(svgNode("line",{x1:34,x2:350,y1:y(v),y2:y(v),class:"h-grid"}),svgNode("text",{x:28,y:y(v)+3,"text-anchor":"end"},v));
   }
-  for (let a=0;a<=12;a+=2) svg.append(svgNode("text",{x:x(a),y:196,"text-anchor":"middle"},a));
-  svg.append(svgNode("text",{x:4,y:13},m.unit),svgNode("text",{x:353,y:196},"月龄"));
+  for (let a=0;a<=12;a+=2) svg.append(svgNode("text",{x:x(a),y:baseline+18,"text-anchor":"middle"},a));
+  svg.append(svgNode("text",{x:4,y:13},m.unit),svgNode("text",{x:compact ? 358 : 353,y:baseline+18},"月龄"));
   const line = (coords,cls)=>svgNode("polyline",{points:coords.join(" "),fill:"none",class:cls});
   const indices = allLines ? [0,1,2,3,4,5,6] : [0,3,6];
+  if (compact) {
+    const band = refs.map((r,a)=>x(a)+","+y(r[0])).concat(refs.map((r,a)=>x(a)+","+y(r[6])).reverse());
+    svg.append(svgNode("polygon",{points:band.join(" "),class:"dash-chart-band"}));
+  }
   for (const idx of indices) {
     svg.append(line(refs.map((r,a)=>x(a)+","+y(r[idx])),idx===3 ? "h-median" : [0,6].includes(idx) ? "h-edge" : "h-inner"));
     if ([0,3,6].includes(idx)) svg.append(svgNode("text",{x:352,y:y(refs[12][idx])+3},"P"+percentiles[idx]));
@@ -450,9 +460,14 @@ function milestoneEditor(ctx,ui,g,id,title,record) {
     if (!date.value && !note.value.trim()) {ctx.notify("请填入首次日期或一句观察。");return;}
     update(ctx,ui,()=>ctx.store.put("milestone",key,{date:date.value,note:note.value.trim()}),"观察已保存。");
   });
-  return el("details",{class:"health-item"},el("summary",{},el("strong",{},title),el("small",{},r.date ? "首次 "+r.date : r.note ? "已有观察" : "记一笔")),form);
+  const panel = el("details",{class:"health-item"},el("summary",{},el("strong",{},title),el("small",{},r.date ? "首次 "+r.date : r.note ? "已有观察" : "记一笔")),form);
+  if (ui.openMark===key) {
+    ui.openMark=""; panel.open=true;
+    globalThis.requestAnimationFrame?.(()=>{ if (panel.isConnected && panel.open) panel.scrollIntoView({block:"nearest"}); });
+  }
+  return panel;
 }
-function urgentSigns(month) {
+export function urgentSigns(month) {
   const content=[el("strong",{},"马上就医或呼叫当地急救"),el("p",{},"任何月龄：明显呼吸费力、口唇发青、抽搐或叫不醒，都要立即寻求急救。")];
   if (month<=6) content.push(el("p",{},"未满 3 月龄测得 38°C 或以上，或 3 至未满 6 月龄测得 39°C 或以上，应立即联系儿科就医评估。"));
   return el("aside",{class:"health-urgent"},...content);
@@ -495,6 +510,15 @@ export function mountHealth(container,ctx) {
     if (ui.section==="plan") ui.filter=String(ctx.healthMonth);
     if (ui.section==="observe") ui.obsMonth=ctx.healthMonth===0 ? 0 : groupFor(ctx.healthMonth);
     ctx.healthMonth=null;
+  }
+  if (ui.section==="observe" && ctx.healthMarkId) {
+    ui.openMark=ctx.healthMarkId; ctx.healthMarkId="";
+  }
+  if (ui.section==="plan" && ctx.planAction==="custom") {
+    ui.openCustom=true; ctx.planAction="";
+  }
+  if (ui.section==="measure" && ctx.measureAction==="new") {
+    ui.editMeasure="new"; ctx.measureAction="";
   }
   if (ctx.healthVisitId) {
     const target=plans(ctx).find(p=>p.id===ctx.healthVisitId);

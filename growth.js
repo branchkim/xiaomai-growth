@@ -11,6 +11,7 @@ import { mountHealth, healthReport, healthToday } from "./health.js";
 import { mountCareTrends, careReport } from "./care-trends.js";
 import { mountDiary } from "./diary.js";
 import { includesMonth, monthOptions } from "./library.js";
+import { mountGrowthDashboard } from "./growth-dashboard.js";
 
 const $ = (id) => document.getElementById(id);
 const make = (tag, text, cls) => {
@@ -247,8 +248,13 @@ function reportView(root, ctx) {
 export function setupGrowth({ storage, checkins, data }) {
   const store = new GrowthStore(storage),
     outlet = $("growth-content");
-  let active = "",
-    messageTimer;
+  const dashboardState = {};
+  let active = "", fromDashboard = false, messageTimer;
+  outlet.addEventListener("click", (event) => {
+    const a = event.target.closest("a");
+    if (active === "dashboard" && a?.hash.startsWith("#growth/") && !a.hash.startsWith("#growth/dashboard"))
+      fromDashboard = true;
+  });
   const notify = (message) => {
     const status = $("growth-notice");
     status.textContent = message;
@@ -276,7 +282,7 @@ export function setupGrowth({ storage, checkins, data }) {
     profile: () => store.profile(),
     ageMonths: () => monthsOld(store.profile().birthday),
     refresh: () => {
-      today();
+      refreshVisible();
       syncDefaults();
     },
     notify,
@@ -404,22 +410,38 @@ export function setupGrowth({ storage, checkins, data }) {
   function render(raw = "", query = "") {
     const pane = raw === "health" ? "plan" : raw;
     active = pane;
+    const dashboard = pane === "dashboard";
+    $("growth").classList.toggle("dashboard-view", dashboard);
+    $("growth").setAttribute("aria-labelledby",dashboard ? "dashboard-title" : "growth-title");
     const selection = tabs.some(([key]) => key === pane);
     const list = $("growth-menu");
-    list.hidden = selection;
-    $("growth-back").hidden = !selection;
-    outlet.hidden = !selection;
+    list.hidden = selection || dashboard;
+    const back = $("growth-back");
+    back.hidden = !selection;
+    back.href = fromDashboard ? dashboardState.route || "#growth/dashboard" : "#growth";
+    back.textContent = fromDashboard ? "返回今日成长" : "全部工具";
+    outlet.hidden = !selection && !dashboard;
+    outlet.oninput = null;
+    if (dashboard) {
+      fromDashboard = false;
+      mountGrowthDashboard(outlet, ctx, dashboardState, query);
+      return;
+    }
     $("growth-title").textContent = selection ? "成长手账" : "成长工具";
     if (!selection) {
+      fromDashboard = false;
       outlet.replaceChildren();
       list.querySelector(".month-guide")?.remove();
       list.append(monthGuide());
       return;
     }
-    outlet.oninput = null;
     outlet.replaceChildren();
     ctx.healthSection = pane;
-    const mo = new URLSearchParams(query).get("month");
+    const params = new URLSearchParams(query);
+    ctx.healthMarkId = pane === "observe" ? params.get("mark") : null;
+    ctx.measureAction = pane === "measure" ? params.get("entry") : null;
+    ctx.planAction = pane === "plan" ? params.get("entry") : null;
+    const mo = params.get("month");
     const limit = pane === "play" ? ctx.monthOptions.length - 1 : 12;
     ctx.healthMonth = mo !== null && /^\d+$/.test(mo) && Number(mo) <= limit ? Number(mo) : null;
     ctx.healthVisitId =
@@ -502,29 +524,42 @@ export function setupGrowth({ storage, checkins, data }) {
     fold.append(summary, label, button);
     root.append(fold);
   }
-  function updateCare() {
+  function refreshVisible() {
     today();
+    if (active !== "dashboard" || $("growth").hidden) return;
+    const focused = document.activeElement;
+    const focusAttribute = focused && outlet.contains(focused) && Array.from(focused.attributes)
+      .find(a => a.name.startsWith("data-dash-") || a.name === "data-focus-action" || a.name === "href");
+    const strip = outlet.querySelector(".dash-months");
+    const scroll = strip?.scrollLeft;
+    const previousMonth = dashboardState.month;
+    mountGrowthDashboard(outlet, ctx, dashboardState);
+    if (scroll != null && previousMonth === dashboardState.month) outlet.querySelector(".dash-months").scrollLeft = scroll;
+    if (focusAttribute) outlet.querySelector("[" + focusAttribute.name + "=" + CSS.escape(focusAttribute.value) + "]")?.focus({preventScroll:true});
+  }
+  function updateCare() {
+    refreshVisible();
     if (!$("growth").hidden && active === "stats") render(active);
   }
   window.addEventListener("xiaomai-care-change", updateCare);
   window.addEventListener("storage", (e) => {
-    if (!e.key || e.key.startsWith("xiaomai/growth/v1/")) today();
+    if (!e.key || e.key.startsWith("xiaomai/growth/v1/")) refreshVisible();
   });
   function atMidnight() {
     const now = new Date(),
       next = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
     setTimeout(
       () => {
-        today();
+        refreshVisible();
         atMidnight();
       },
       +next - +now + 500,
     );
   }
   atMidnight();
-  window.addEventListener("pageshow", today);
+  window.addEventListener("pageshow", refreshVisible);
   document.addEventListener("visibilitychange", () => {
-    if (!document.hidden) today();
+    if (!document.hidden) refreshVisible();
   });
   today();
   syncDefaults();
@@ -536,7 +571,7 @@ export function setupGrowth({ storage, checkins, data }) {
     cardPractice,
     refresh: () => {
       ctx.refresh();
-      if (active && !$("growth").hidden) render(active);
+      if (active && active !== "dashboard" && !$("growth").hidden) render(active);
     },
     notify,
   };

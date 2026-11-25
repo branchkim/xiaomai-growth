@@ -11,6 +11,8 @@ import { setupGrowth } from "./growth.js";
 import { setupDeviceTools } from "./device-tools.js";
 
 const $ = (id) => document.getElementById(id);
+const native = window.xiaomaiNative;
+document.documentElement.classList.toggle("native-shell", !!native);
 function element(tag, text, cls) {
   const node = document.createElement(tag);
   if (text !== undefined) node.textContent = text;
@@ -18,6 +20,7 @@ function element(tag, text, cls) {
   return node;
 }
 const paths = {
+  book: '<path d="M12 6C8 3 5 3 2 4v15c4-1 7 0 10 2 3-2 6-3 10-2V4c-3-1-6-1-10 2Zm0 0v15"/>',
   bookmark: '<path d="M6 3h12v18l-6-4-6 4V3Z"/>',
   path: '<circle cx="5" cy="6" r="2"/><circle cx="19" cy="18" r="2"/><path d="M7 6h8a4 4 0 0 1 0 8H9a2 2 0 0 0 0 4h8"/>',
   index:
@@ -63,6 +66,7 @@ let growth,
   searchIndex,
   filterOptions,
   activeStage,
+  displayedHash,
   currentCard;
 let storage;
 try {
@@ -73,8 +77,12 @@ try {
 const checkins = new Checkins(storage);
 const refreshCheckins = setupCheckins(checkins);
 
+let journalPath = native?.surface === "journal";
+function libraryHash(path) {
+  return (journalPath ? "#journal/" : "#") + path;
+}
 function stageHash(id) {
-  return "#time/" + id;
+  return libraryHash("time/" + id);
 }
 function makeLink(text, href, cls) {
   const a = element("a", text, cls);
@@ -143,7 +151,13 @@ function setupTimeline() {
 function selectStage(id) {
   if (!stages.has(id)) return;
   history.replaceState(null, "", stageHash(id));
-  drawTimeline(id);
+  if ($("home").hidden) {
+    displayedHash = location.hash;
+    drawTimeline(id);
+    rememberJournalLink("time", location.hash);
+  } else {
+    displayRoute(location.hash);
+  }
 }
 function drawTimeline(id) {
   activeStage = id;
@@ -162,7 +176,7 @@ function drawTimeline(id) {
   $("phase-age").textContent = stage.label;
   $("phase-title").textContent = stage.name;
   $("phase-focus").textContent = stage.focus;
-  $("all-stage").href = "#index?stage=" + id;
+  $("all-stage").href = libraryHash("index?stage=" + id);
   $("all-stage").textContent =
     "查看本阶段 " + data.cards.filter((c) => c.stage === id).length + " 张";
   $("featured").replaceChildren(
@@ -256,7 +270,9 @@ function saveQuery() {
   for (const [key, value] of Object.entries(filters))
     if (value.trim()) params.set(key, value.trim());
   const query = params.toString();
-  history.replaceState(null, "", "#index" + (query ? "?" + query : ""));
+  history.replaceState(null, "", libraryHash("index" + (query ? "?" + query : "")));
+  displayedHash = location.hash;
+  rememberJournalLink("index", location.hash);
   drawIndex();
 }
 function drawIndex() {
@@ -298,7 +314,7 @@ function renderNotes() {
     box.append(
       element("h2", "还没有记录"),
       element("p", "点开卡片里的「我家的经验」，写下第一次观察。"),
-      makeLink("去选一张卡片", "#index"),
+      makeLink("去选一张卡片", libraryHash("index")),
     );
     list.append(box);
     return;
@@ -417,7 +433,7 @@ function showCard(card) {
   $("note-prompt").textContent = "这次试了什么？孩子有什么反应？";
   $("experience").value = book.entries.get(card.id)?.text || "";
   $("entry").open =
-    !!$("experience").value || history.state?.cardFrom === "#notes";
+    !!$("experience").value || ["#journal/notes", "#notes"].includes(history.state?.cardFrom);
   $("save-state").textContent = book.pending.has(card.id)
     ? "设备未保存，请在安装与备份中导出。"
     : "输入后自动保存到本机";
@@ -444,50 +460,58 @@ function showResources() {
   root.append(d);
   $("resources-dialog").showModal();
 }
-function displayRoute(hash) {
-  const [name, query = ""] = hash.slice(1).split("?");
-  const view =
-    name === "growth" || name.startsWith("growth/")
-      ? "growth"
-      : name === "index"
-        ? "index"
-        : name === "notes"
-          ? "notes"
-          : "home";
-  for (const id of ["home", "index", "notes", "growth"])
-    $(id).hidden = id !== view;
-  document.querySelectorAll("[data-view]").forEach((a) => {
-    if (a.dataset.view === view) a.setAttribute("aria-current", "page");
+function rememberJournalLink(view, hash) {
+  if (journalPath) document.querySelector('[data-journal="' + view + '"]').href = hash;
+}
+function displayRoute(hash, scroll = true) {
+  displayedHash = hash;
+  const [raw, query = ""] = hash.slice(1).split("?");
+  journalPath = raw === "journal" || raw.startsWith("journal/");
+  const name = journalPath ? raw.slice("journal/".length) || "time" : raw;
+  const section = name.split("/")[0];
+  const view = ["time", "index", "notes", "growth"].includes(section) ? section : "home";
+  const inJournal = ["time", "index", "notes"].includes(view);
+  const dashboard = name === "growth/dashboard";
+  const activeNav = dashboard ? "today" : inJournal ? "journal" : view;
+  document.body.toggleAttribute("data-dashboard", dashboard);
+  for (const id of ["home", "index", "notes", "growth"]) $(id).hidden = id !== view;
+  $("timeline").hidden = view !== "home" && view !== "time";
+  $("journal-head").hidden = !inJournal;
+  document.querySelectorAll("[data-view], [data-journal]").forEach((a) => {
+    if (a.dataset.view === activeNav || a.dataset.journal === view) a.setAttribute("aria-current", "page");
     else a.removeAttribute("aria-current");
   });
+  if (inJournal && journalPath) rememberJournalLink(view, hash);
   if (view === "index") {
+    $("index-title").textContent = journalPath ? "知识库" : "知识索引";
     setFilterValues(new URLSearchParams(query));
     drawIndex();
   } else if (view === "growth") {
     growth.render(name.split("/")[1], query);
-    window.scrollTo(0, 0);
-  } else if (view === "notes") renderNotes();
-  else {
+  } else if (view === "notes") {
+    renderNotes();
+  } else {
     const id = name.startsWith("time/") ? name.slice(5) : activeStage;
     drawTimeline(stages.has(id) ? id : data.stages[0].id);
-    if (name === "checkin") $("checkin").scrollIntoView({ block: "start" });
-    if (name === "time" || name.startsWith("time/")) $("timeline-title").scrollIntoView({ block: "start" });
   }
+  if (!scroll) return;
+  if (name === "checkin") $("checkin").scrollIntoView({ block: "start" });
+  else window.scrollTo(0, 0);
 }
 function route() {
   if (!cards) return;
-  const hash = location.hash || "#home";
+  const hash = location.hash || "#growth/dashboard";
   const id = hash.startsWith("#card/") ? hash.slice(6) : "";
   if (id && cards.has(id)) {
-    if (!currentCard) {
-      displayRoute(history.state?.cardFrom || stageHash(cards.get(id).stage));
-    }
+    const background = history.state?.cardFrom || stageHash(cards.get(id).stage);
+    if (!currentCard && displayedHash !== background) displayRoute(background);
     showCard(cards.get(id));
     return;
   }
+  const returning = !!currentCard && displayedHash === hash;
   if ($("card-dialog").open) $("card-dialog").close();
   currentCard = null;
-  displayRoute(hash);
+  displayRoute(hash, !returning);
 }
 function closeCard() {
   if (history.state?.cardFrom) history.back();
@@ -497,23 +521,35 @@ function closeCard() {
     route();
   }
 }
+function nativeDestination(hash) {
+  if (!native?.openSection) return null;
+  if (hash === "#checkin") return "checkin";
+  if (hash === "#home") return "growth/dashboard";
+  if (/^#growth\/dashboard(?:\?|$)/.test(hash)) return native.surface === "today" ? null : hash.slice(1);
+  if (/^#growth(?:[/?]|$)/.test(hash) && native.surface !== "growth") return hash.slice(1);
+  if (native.surface === "journal") return null;
+  if (hash.startsWith("#journal/") || hash.startsWith("#card/")) return hash.slice(1);
+  if (/^#(?:time|index|notes)(?:[/?]|$)/.test(hash)) return "journal/" + hash.slice(1);
+  return null;
+}
 document.addEventListener("click", (event) => {
-  const timeLink = event.target.closest('a[href^="#time"]');
-  if (timeLink && timeLink.hash === location.hash) $("timeline-title").scrollIntoView({ block: "start" });
-  const a = event.target.closest('a[href^="#card/"]');
-  if (
-    !a ||
-    event.button !== 0 ||
-    event.metaKey ||
-    event.ctrlKey ||
-    event.shiftKey ||
-    event.altKey
-  )
-    return;
-  event.preventDefault();
+  const a = event.target.closest('a[href^="#"]');
+  if (!a || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
   const hash = a.getAttribute("href");
+  const destination = nativeDestination(hash);
+  if (destination) {
+    event.preventDefault();
+    native.openSection({ hash: destination });
+    return;
+  }
+  if (!hash.startsWith("#card/")) return;
+  event.preventDefault();
   if (currentCard) history.replaceState(history.state, "", hash);
-  else history.pushState({ cardFrom: location.hash || "#home" }, "", hash);
+  else {
+    // A filter can update the current page in place without firing hashchange.
+    displayedHash = location.hash || "#growth/dashboard";
+    history.pushState({ cardFrom: displayedHash }, "", hash);
+  }
   route();
 });
 window.addEventListener("hashchange", route);
@@ -595,9 +631,8 @@ async function init() {
     });
     if (!location.hash) {
       const section = new URLSearchParams(location.search).get("open");
-      if (section === "timeline" || section === "knowledge") {
-        history.replaceState(history.state, "", section === "timeline" ? "#time" : "#index");
-      }
+      const entryPoints = { timeline: "#time", knowledge: "#index", journal: "#journal/time", checkin: "#checkin", growth: "#growth", today: "#growth/dashboard" };
+      history.replaceState(history.state, "", Object.hasOwn(entryPoints, section) ? entryPoints[section] : "#growth/dashboard");
     }
     route();
   } catch {
