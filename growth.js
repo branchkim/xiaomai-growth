@@ -412,6 +412,8 @@ export function setupGrowth({ storage, checkins, data }) {
     active = pane;
     const dashboard = pane === "dashboard";
     $("growth").classList.toggle("dashboard-view", dashboard);
+    const quickTitle = pane === "diary" ? "照片日签" : pane === "stats" ? "照护统计" : "";
+    $("growth").classList.toggle("quick-destination", Boolean(quickTitle));
     $("growth").setAttribute("aria-labelledby",dashboard ? "dashboard-title" : "growth-title");
     const selection = tabs.some(([key]) => key === pane);
     const list = $("growth-menu");
@@ -427,7 +429,7 @@ export function setupGrowth({ storage, checkins, data }) {
       mountGrowthDashboard(outlet, ctx, dashboardState, query);
       return;
     }
-    $("growth-title").textContent = selection ? "成长手账" : "成长工具";
+    $("growth-title").textContent = quickTitle || (selection ? "成长手账" : "成长工具");
     if (!selection) {
       fromDashboard = false;
       outlet.replaceChildren();

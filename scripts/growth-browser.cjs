@@ -14,6 +14,10 @@ const types = {
   json: "application/json",
   webmanifest: "application/manifest+json",
 };
+async function openDiarySection(page, title) {
+  const summary = page.locator("summary").filter({ hasText: title }).first();
+  if (!(await summary.evaluate((element) => element.parentElement.open))) await summary.click();
+}
 async function run() {
   const server = http.createServer(async (req, res) => {
     try {
@@ -56,6 +60,16 @@ async function run() {
     await dashboard.locator('[data-dash-month="18"]').click();
     await dashboard.locator('[data-dash-category="play"]').click();
     const socksInDashboard = dashboard.locator('.dash-items a[href*="edu-sock-pairs"]').first();
+    const played = dashboard.locator('[data-dash-check="play/edu-sock-pairs"]').first();
+    const selectedURL = p.url();
+    await played.click();
+    assert.equal(p.url(), selectedURL);
+    assert.equal(await played.getAttribute("aria-pressed"), "true");
+    await p.reload();
+    await dashboard.waitFor();
+    assert.equal(await played.getAttribute("aria-pressed"), "true");
+    await played.click();
+    assert.equal(await played.getAttribute("aria-pressed"), "false");
     await socksInDashboard.scrollIntoViewIfNeeded();
     const listScroll = await p.evaluate(() => scrollY);
     await socksInDashboard.click();
@@ -66,6 +80,31 @@ async function run() {
       "从活动卡返回时应保留列表的阅读位置");
     await dashboard.locator('[data-dash-metric="head"]').click();
     assert.equal(await dashboard.locator('[data-dash-metric="head"]').getAttribute("aria-pressed"), "true");
+    await dashboard.locator('[data-dash-category="develop"]').click();
+    await dashboard.locator('[data-dash-month="3"]').click();
+    assert.equal(await dashboard.locator(".dash-ranges .dash-range-row").count(), 3);
+    const milestone = dashboard.locator('[data-dash-check="develop/mark-3-head-up"]').first();
+    await milestone.click();
+    assert.equal(await milestone.getAttribute("aria-pressed"), "true");
+    await dashboard.locator('[data-dash-month="0"]').click();
+    await dashboard.locator('[data-dash-category="alert"]').click();
+    await dashboard.locator(".dash-warning.urgent").first().waitFor();
+    assert.equal(await dashboard.locator(".dash-warning button[data-dash-check]").count(), 0);
+    await dashboard.locator('[data-dash-category="plan"]').click();
+    await dashboard.locator('[data-dash-check="plan/hepb-1"]').first().click();
+    const visit = dashboard.locator(".month-visit-form");
+    const actualDate = await p.evaluate(async () => (await import("./checkins.js")).localDay());
+    await visit.locator('input[type="date"]').fill(actualDate);
+    await visit.getByRole("button", {name: "保存日期"}).click();
+    const recordedVisit = await p.evaluate(async () => {
+      const {GrowthStore} = await import("./growth-store.js");
+      return new GrowthStore(localStorage).list("visit").find((r) => r.id === "hepb-1");
+    });
+    assert.equal(recordedVisit.actual, actualDate);
+    await dashboard.locator('.dash-utilities a[href="#growth/stats"]').click();
+    await p.getByRole("button", {name:"近 30 天"}).click();
+    assert.equal(await p.getByRole("button", {name:"近 30 天"}).getAttribute("aria-pressed"), "true");
+    await p.locator("#growth-back").click();
     await dashboard.locator('a[href="#growth/profile"]').first().click();
     await p.locator('[name="name"]').fill("测试麦穗");
     const birth = new Date();
@@ -102,12 +141,14 @@ async function run() {
     await p.waitForFunction(
       () => document.querySelector("[data-week]")?.children.length === 7,
     );
+    await openDiarySection(p, "编辑日记");
     await p.locator("[data-note]").fill("和奶奶一起翻布书");
     await p
       .locator("[data-images]")
       .setInputFiles(path.join(root, "assets", "icon-192.png"));
+    await openDiarySection(p, "封面相册");
     await p.locator(".diary-thumbs img").waitFor();
-    await p.locator("[data-style]").selectOption("journal");
+    await p.locator('[data-diary-style="journal"]').click();
     await p.getByRole("button", { name: "保存日记" }).click();
     await p.getByText("已保存到本机", { exact: true }).waitFor();
     await p.getByRole("button", { name: "分享日签" }).click();
@@ -185,6 +226,7 @@ async function run() {
     await p2.getByText("成长资料备份格式有误。").waitFor();
     await p2.getByRole("button", { name: "关闭设置" }).click();
     await p2.locator('a[href="#growth/diary"].tool-tile').click();
+    await openDiarySection(p2, "封面相册");
     await p2.locator(".diary-thumbs img").waitFor();
     assert.equal(
       await p2.locator("[data-note]").inputValue(),
@@ -194,6 +236,7 @@ async function run() {
     await p2.waitForFunction(() => !!navigator.serviceWorker.controller);
     await ctx2.setOffline(true);
     await p2.reload();
+    await openDiarySection(p2, "封面相册");
     await p2.locator(".diary-thumbs img").waitFor();
     await p2.locator("#growth-back").click();
     await p2.locator('a[href="#growth/measure"].tool-tile').click();

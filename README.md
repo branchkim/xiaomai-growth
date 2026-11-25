@@ -20,3 +20,5 @@
 健康计划、出处与测量标准放在 `health-data.js` 和 `health-growth.js`。修改剂次、月龄或参考数值时请同时核对官方文件和覆盖范围。照护统计在 `care-trends.js`，照片及日签在 `diary.js`，家庭资料、备份结构及路由分别在 `growth-store.js`、`device-tools.js` 和 `growth.js`。
 
 运行 `node --test tests/*.test.mjs` 检查数据与统计。已安装 Playwright 和 Chrome 的环境也可以运行 `node scripts/growth-browser.cjs` 验证手机布局、照片、报告、备份与离线访问。
+
+「今天」的月龄清单用 `month-entries.js` 维护短标题、单步玩法、生活观察和就医提示。游戏通过卡片 ID 关联 `cards.json` 中的完整笔记，编辑短文案时保留 ID。游戏按本地日期打卡，发育观察保留首次日期，预约和实际接种分别记录。日签先展示封面，照护统计支持近 7 天与近 30 天。

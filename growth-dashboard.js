@@ -1,13 +1,15 @@
 import { localDay } from "./checkins.js";
-import { lifeDay } from "./growth-store.js";
+import { lifeDay, monthsOld } from "./growth-store.js";
 import {
   healthToday,
   plans,
   plot,
-  urgentSigns,
   visitStatus,
 } from "./health.js";
 import { metrics, observationGroups } from "./health-data.js";
+import { growth } from "./health-growth.js";
+import { canUndoRecentObservation, setObserved, setPlayed, setVisitActual } from "./monthly-checks.js";
+import { gameCopy, familyObservations, monthTip, safetyGroups, monthMaterial } from "./month-entries.js";
 import { includesMonth } from "./library.js";
 
 const categories = [
@@ -90,82 +92,30 @@ function gamesFor(ctx, m) {
   return ctx.cards.filter((c) => includesMonth(c.activity?.window, m));
 }
 
-export function dashboardItems(ctx, month) {
-  const items = plans(ctx)
-    .filter((p) => p.month === month)
-    .map((p) => ({
-      kind: "plan",
-      title: p.title,
-      note: visitStatus(p),
-      href: visitHref(p),
-      action: p.actual ? "已记录" : p.appointment ? "已预约" : "去记录",
-    }));
-  const group = observationGroups.find((g) => g.month === month);
-  if (group) {
-    const done = new Map(ctx.store.list("milestone").map((r) => [r.id, r]));
-    for (const [key, title] of group.marks) {
-      const id = "mark-" + month + "-" + key,
-        record = done.get(id);
-      items.push({
-        kind: "develop",
-        title: title,
-        note: record?.date
-          ? "首次做到 · " + record.date
-          : "满 " + month + " 月龄时，在日常活动里观察",
-        href: groupHref(month, id),
-        action: record?.date || record?.note ? "已记录" : "记观察",
-      });
-    }
+export function dashboardItems(ctx, month, day = localDay()) {
+  const items = plans(ctx).filter(p => p.month === month).map(p => ({
+    kind: "plan", id: p.id, title: p.title, visit: p, note: visitStatus(p),
+    href: visitHref(p), action: p.actual ? "已记录" : "记日期", date: p.actual,
+  }));
+  const group = observationGroups.find(g => g.month === month);
+  const marks = new Map(ctx.store.list("milestone").map(r => [r.id, r]));
+  const observations = group ? group.marks.map(([key, title]) => {
+    const id = "mark-" + month + "-" + key;
+    return { id, title, how: "在日常互动中自然看到时记下。", href: groupHref(month, id) };
+  }) : familyObservations(month, ctx.cards).map(o => ({
+    ...o, href: o.cardId ? cardHref({id: o.cardId}) : null,
+  }));
+  for (const o of observations) {
+    const record = marks.get(o.id);
+    items.push({ ...o, kind: "develop", note: o.how, date: record?.date || "",
+      action: record?.date ? "已做到" : "做到了" });
   }
-  const games = gamesFor(ctx, month);
-  if (!group) {
-    const first = games.find((c) => c.activity.observe || c.observation);
-    if (first)
-      items.push({
-        kind: "develop",
-        title: first.activity.observe || first.observation,
-        note: "家庭观察 · " + first.activity.scene,
-        href: cardHref(first),
-        action: "记经验",
-      });
+  const played = new Set(ctx.store.list("activity").filter(r => r.date === day).map(r => r.id));
+  for (const c of gamesFor(ctx, month)) {
+    const copy = gameCopy[c.id], done = played.has("day-" + day + "-" + c.id);
+    items.push({kind: "play", id: c.id, title: copy?.title || c.activity.title || c.title,
+      note: copy?.how || c.activity.steps[0], href: cardHref(c), done, action: done ? "已玩过" : "今天玩过"});
   }
-  const tried = new Set(
-    ctx.store
-      .list("activity")
-      .filter((r) => r.date)
-      .map((r) => r.cardId),
-  );
-  for (const c of games)
-    items.push({
-      kind: "play",
-      title: c.activity.title || c.title,
-      note: c.activity.materials,
-      href: cardHref(c),
-      action: tried.has(c.id) ? "已玩过" : "看玩法",
-    });
-  if (group)
-    items.push({
-      kind: "alert",
-      title: "满 " + month + " 月龄，哪些表现值得问医生？",
-      note: group.flags[0],
-      href: groupHref(month),
-      action: "看提示",
-    });
-  else if (month === 0)
-    items.push({
-      kind: "alert",
-      title: "新生儿有哪些情况要尽快就医？",
-      note: "吃奶、清醒状态和呼吸的变化",
-      href: groupHref(0),
-      action: "看提示",
-    });
-  else
-    items.push({
-      kind: "alert",
-      title: "遇到哪些情况要马上就医？",
-      note: "各月龄适用的紧急信号",
-      urgent: true,
-    });
   return items;
 }
 
@@ -185,7 +135,7 @@ export function visitTiming(p, day) {
     : "已到参考月龄 · 待核对";
 }
 
-function focusPanel(ctx, month, refresh) {
+function focusPanel(ctx, month, refresh, state) {
   const p = ctx.profile(),
     age = ctx.ageMonths(),
     day = localDay(),
@@ -215,7 +165,7 @@ function focusPanel(ctx, month, refresh) {
     ),
   );
   function row(kind, label, title, destination, action) {
-    const copy = link("", destination, "dash-focus-copy");
+    const copy = destination ? link("", destination, "dash-focus-copy") : node("span", "dash-focus-copy");
     copy.append(node("small", "", label), node("strong", "", title));
     focus.append(node("div", "dash-focus-row", badge(kind), copy, action));
   }
@@ -239,48 +189,28 @@ function focusPanel(ctx, month, refresh) {
       browse(selected?.appointment ? "查预约" : "看安排", href),
     );
   }
-  if (p.reminders.observation) {
-    const obs = next.observation,
-      id = obs?.milestoneId,
-      groupMonth = id ? Number(id.split("-")[1]) : null;
-    const card = games.find((c) => c.activity.observe || c.observation);
-    const href = obs
-      ? groupHref(groupMonth ?? 0, id)
-      : card
-        ? cardHref(card)
-        : "#growth/diary";
-    const action = id
-      ? button(
-          "做到了",
-          () => {
-            try {
-              const saved = ctx.store
-                .list("milestone")
-                .find((r) => r.id === id);
-              ctx.store.put("milestone", id, {
-                date: saved?.date || day,
-                note: saved?.note || "",
-              });
-              refresh("observation");
-              ctx.notify("已记下首次做到的日期。");
-            } catch (err) {
-              ctx.notify(err.message);
-            }
-          },
-          "dash-pill dash-mark",
-        )
-      : browse("去看看", href);
-    if (id) action.dataset.focusAction = "observation";
-    row(
-      "develop",
-      id ? "满 " + groupMonth + " 月龄观察" : "日常观察",
-      obs?.title ||
-        card?.activity?.observe ||
-        card?.observation ||
-        "记下今天宝宝的新发现",
-      href,
-      action,
-    );
+  if (p.reminders.observation && m >= 0 && m < ctx.monthOptions.length) {
+    const candidates = dashboardItems(ctx, m, day).filter(item => item.kind === "develop");
+    const prior = state.focusObservation;
+    const item = (prior?.month === m && prior.day === day && candidates.find(x => x.id === prior.id))
+      || candidates.find(x => !x.date) || candidates[0];
+    if (item) {
+      state.focusObservation = {month:m, day, id:item.id};
+      const key = "develop/" + item.id;
+      const action = button(item.action, () => {
+        try {
+          if (item.date && !canUndoRecentObservation(state.justRecorded, key, item.date) &&
+              !globalThis.confirm("撤销「" + item.title + "」在 " + item.date + " 的首次记录？原有备注会保留。")) return;
+          setObserved(ctx.store, item, !item.date, item.date, day);
+          if (item.date) state.justRecorded.delete(key); else state.justRecorded.set(key, localDay());
+          refresh("observation");
+          ctx.notify(item.date ? "已撤销这次打卡。" : "已记下首次做到的日期。");
+        } catch (err) { ctx.notify(err.message); }
+      }, "dash-pill dash-mark");
+      action.dataset.focusAction = "observation";
+      action.setAttribute("aria-pressed", String(!!item.date));
+      row("develop", item.date ? "首次做到 · " + item.date : "日常观察", item.title, item.href, action);
+    }
   }
   if (p.reminders.activity && game) {
     const href = "#card/" + encodeURIComponent(game.cardId);
@@ -290,13 +220,7 @@ function focusPanel(ctx, month, refresh) {
       done ? "已完成" : "完成",
       () => {
         try {
-          if (done) ctx.store.remove("activity", key);
-          else
-            ctx.store.put("activity", key, {
-              date: day,
-              title: game.title,
-              cardId: game.cardId,
-            });
+          setPlayed(ctx.store, game.cardId, game.title, !done, day);
           refresh("activity");
           ctx.notify(done ? "已撤销此次完成记录。" : "今日游戏已完成。");
         } catch (err) {
@@ -307,7 +231,7 @@ function focusPanel(ctx, month, refresh) {
     );
     action.dataset.focusAction = "activity";
     action.setAttribute("aria-pressed", String(done));
-    row("play", "今日游戏", game.title, href, action);
+    row("play", "今日游戏", gameCopy[game.cardId]?.title || game.title, href, action);
   } else if (
     p.reminders.activity &&
     age !== null &&
@@ -330,7 +254,7 @@ function focusPanel(ctx, month, refresh) {
   return focus;
 }
 
-function measurementPanel(ctx, state) {
+function measurementPanel(ctx, state, onReferenceChange) {
   const section = node("section", "dash-card dash-curve");
   const add = link("记录测量", "#growth/measure?entry=new", "dash-add");
   add.prepend(icon("plus"));
@@ -356,6 +280,7 @@ function measurementPanel(ctx, state) {
       choose.onchange = () => {
         state.reference = choose.value;
         draw();
+        onReferenceChange();
         graphic.querySelector("select")?.focus({ preventScroll: true });
       };
       reference.append(choose);
@@ -410,6 +335,92 @@ function measurementPanel(ctx, state) {
   return section;
 }
 
+function rangePanel(ctx, state, selectReference) {
+  const month = state.month;
+  if (month > 12) return null;
+  const profile = ctx.profile(), sex = profile.sex || state.reference;
+  const entries = ctx.store.list("measurement")
+    .filter(r => monthsOld(profile.birthday, r.date) === month)
+    .sort((a, b) => b.date.localeCompare(a.date));
+  const block = node("div", "dash-ranges");
+  const caption = node("div", "dash-range-title", node("strong", "", (month ? "满 " + month + " 个月" : "出生时") + "的参考范围"));
+  if (profile.sex) caption.append(node("span", "", sex === "male" ? "男童" : "女童"));
+  else {
+    const choose = node("select");
+    choose.setAttribute("aria-label", "月龄参考范围人群");
+    choose.add(new Option("女童参考", "female")); choose.add(new Option("男童参考", "male"));
+    choose.value = sex;
+    choose.onchange = () => selectReference(choose.value);
+    caption.append(choose);
+  }
+  block.append(caption);
+  for (const [key, metric] of Object.entries(metrics)) {
+    const row = growth[sex][key][month];
+    const [low,,, median,,, high] = row;
+    const data = entries.find(r => r[key] > 0);
+    const scale = v => 100 * (v - low) / (high - low);
+    const bar = node("div", "dash-band");
+    const center = node("i", "dash-band-mid");
+    center.style.left = scale(median) + "%";
+    bar.style.setProperty("--from", scale(row[2]) + "%");
+    bar.style.setProperty("--to", scale(row[4]) + "%");
+    bar.setAttribute("aria-hidden", "true");
+    bar.append(center);
+    block.append(node("div", "dash-range-row",
+      node("div", "dash-range-values", node("strong", "", metric.title + "　" + low + "–" + high + " " + metric.unit),
+        node("small", "", "中位 " + median)),
+      bar, data ? node("small", "dash-range-own", "本月实测 · " + data.date + " · " + data[key] + " " + metric.unit) : null));
+  }
+  block.append(node("div", "dash-range-foot", node("span", "", "P3–P97 · WS/T 423—2022"),
+    link(entries.length ? "补记本月测量" : "本月暂无测量 · 添加", "#growth/measure?entry=new")));
+  return block;
+}
+
+function safetyPanel(month) {
+  const box = node("section", "dash-warnings");
+  for (const group of safetyGroups(month)) {
+    const groupBox = node("div", "dash-warning " + group.level,
+      node("h3", "", icon(group.level === "urgent" ? "alert" : group.level === "consult" ? "care" : "leaf"), group.title));
+    const list = node("ul");
+    for (const item of group.items)
+      list.append(node("li", "", node("strong", "", item.title), node("span", "", item.how)));
+    const clinic = group.level === "consult" && observationGroups.find(g => g.month === month);
+    if (clinic) {
+      for (const flag of clinic.flags) list.append(node("li", "", node("strong", "", flag)));
+      groupBox.append(link("查看本月龄发育观察 ›", groupHref(month), "dash-source"));
+    }
+    groupBox.append(list);
+    if (group.source?.url) {
+      const source = link(group.source.title, group.source.url, "dash-source");
+      source.target = "_blank"; source.rel = "noopener noreferrer";
+      groupBox.append(source);
+    }
+    box.append(groupBox);
+  }
+  return box;
+}
+
+function visitForm(ctx, item, draft, save, close) {
+  const vaccine = ["vaccine", "optional"].includes(item.visit.kind);
+  const input = node("input");
+  input.type = "date"; input.required = true; input.max = localDay();
+  if (ctx.profile().birthday) input.min = ctx.profile().birthday;
+  input.value = draft.date;
+  input.oninput = () => { draft.date = input.value; };
+  const label = node("label", "", vaccine ? "接种证上的实种日期" : "实际完成日期", input);
+  const submit = node("button", "month-save", "保存日期"); submit.type = "submit";
+  const actions = node("div", "month-form-actions", submit, button("收起", close));
+  const form = node("form", "month-visit-form", label, actions);
+  form.onsubmit = e => {
+    e.preventDefault();
+    if (input.reportValidity()) save(input.value);
+  };
+  if (item.date) actions.append(button("撤销记录", () => {
+    if (globalThis.confirm("撤销「" + item.title + "」的实际日期？预约和备注会保留。")) save("");
+  }));
+  return form;
+}
+
 export function mountGrowthDashboard(outlet, ctx, state, query = "") {
   const params = new URLSearchParams(query);
   const age = ctx.ageMonths(),
@@ -422,6 +433,7 @@ export function mountGrowthDashboard(outlet, ctx, state, query = "") {
   state.category = categories.some(([k]) => k === params.get("category"))
     ? params.get("category")
     : state.category || "all";
+  state.justRecorded ||= new Map();
   state.metric ||= "weight";
   state.reference ||= "female";
   const dashboard = node("div", "growth-dashboard");
@@ -459,14 +471,10 @@ export function mountGrowthDashboard(outlet, ctx, state, query = "") {
   );
   top.querySelector("h1").id = "dashboard-title";
   let focus;
-  function focusDraw(key) {
-    const next = focusPanel(ctx, state.month, focusDraw);
+  function focusDraw() {
+    const next = focusPanel(ctx, state.month, (key) => { ctx.refresh(); outlet.querySelector('[data-focus-action="' + key + '"]')?.focus({preventScroll:true}); }, state);
     if (focus) focus.replaceWith(next);
     focus = next;
-    if (key)
-      focus
-        .querySelector('[data-focus-action="' + key + '"]')
-        ?.focus({ preventScroll: true });
   }
   focusDraw();
   const catRail = node("div", "dash-categories"),
@@ -477,7 +485,7 @@ export function mountGrowthDashboard(outlet, ctx, state, query = "") {
   monthRail.setAttribute("aria-label", "选择月龄");
   const monthHead = node("header", "dash-month-head");
   const items = node("div", "dash-items");
-  items.setAttribute("aria-live", "polite");
+
   function dashboardRoute() {
     const values = new URLSearchParams();
     if (state.manual) values.set("month", String(state.month));
@@ -494,92 +502,128 @@ export function mountGrowthDashboard(outlet, ctx, state, query = "") {
     )
       history.replaceState(history.state, "", state.route);
   }
-  function rows() {
-    for (const b of catRail.children)
-      b.setAttribute(
-        "aria-pressed",
-        String(b.dataset.dashCategory === state.category),
-      );
-    for (const b of monthRail.children)
-      b.setAttribute(
-        "aria-pressed",
-        String(+b.dataset.dashMonth === state.month),
-      );
-    const all = dashboardItems(ctx, state.month);
-    const shown = all.filter(
-      (x) => state.category === "all" || state.category === x.kind,
-    );
-    const headingText =
-      state.month === 0 ? "新生儿月龄事项" : "满 " + state.month + " 个月";
-    monthHead.replaceChildren(
-      node("h2", "", node("span", "dash-timeline-dot"), headingText),
-      node("span", "", shown.length + " 项"),
-    );
-    items.replaceChildren();
-    for (const item of shown) {
-      const name = node(
-        "span",
-        "dash-row-copy",
-        node("strong", "", item.title),
-        node("small", "", item.note),
-      );
-      if (item.urgent) {
-        const fold = node("details", "dash-item dash-alert-fold"),
-          summary = node(
-            "summary",
-            "",
-            badge(item.kind),
-            name,
-            node("span", "dash-row-action", "看提示", icon("arrow")),
-          );
-        fold.append(summary, urgentSigns(state.month));
-        items.append(fold);
-      } else {
-        const a = link("", item.href, "dash-item");
-        a.append(
-          badge(item.kind),
-          name,
-          node("span", "dash-row-action", item.action, icon("arrow")),
-        );
-        items.append(a);
+  function selectReference(sex) {
+    state.reference = sex;
+    ctx.refresh();
+    outlet.querySelector('.dash-ranges select')?.focus({preventScroll:true});
+  }
+  function renderItem(item) {
+    const key = item.kind + "/" + item.id;
+    const row = node("div", "month-item");
+    const line = node("div", "month-line");
+    const text = item.href ? link("", item.href, "dash-row-copy") : node("span", "dash-row-copy");
+    text.append(node("strong", "", item.title), node("small", "", item.note));
+    if (item.kind === "develop" && item.date)
+      text.append(node("small", "month-date", "首次做到 · " + item.date));
+    const checked = item.kind === "play" ? item.done : !!item.date;
+    const toggle = button(item.action, () => handle(), "month-check");
+    toggle.dataset.dashCheck = key;
+    if (item.kind === "plan") toggle.setAttribute("aria-expanded", String(state.visitDraft?.key === key));
+    else toggle.setAttribute("aria-pressed", String(checked));
+    if (checked) toggle.classList.add("is-done");
+    function refreshHere() {
+      const position = toggle.getBoundingClientRect().top;
+      ctx.refresh();
+      const next = outlet.querySelector('[data-dash-check="' + CSS.escape(key) + '"]');
+      if (next) {
+        window.scrollBy(0, next.getBoundingClientRect().top - position);
+        next.focus({preventScroll:true});
       }
     }
-    if (state.category === "plan" && state.month <= 12) {
-      const add = link(
-        "添加自费疫苗或门诊安排",
-        "#growth/plan?entry=custom&month=" + state.month,
-        "dash-plan-add",
-      );
-      add.prepend(icon("plus"));
-      items.append(add);
+    function handle() {
+      try {
+        if (item.kind === "plan") {
+          state.visitDraft = state.visitDraft?.key === key ? null : {key, date: item.date, oldDate: item.date};
+          rows();
+          const next = items.querySelector('[data-dash-check="' + CSS.escape(key) + '"]');
+          if (state.visitDraft) next?.closest(".month-item").querySelector("input")?.focus({preventScroll:true});
+          else next?.focus({preventScroll:true});
+          return;
+        }
+        if (item.kind === "play") {
+          setPlayed(ctx.store, item.id, item.title, !checked);
+        } else {
+          if (checked && !canUndoRecentObservation(state.justRecorded, key, item.date) &&
+              !globalThis.confirm("撤销「" + item.title + "」在 " + item.date + " 的首次记录？原有备注会保留。")) return;
+          setObserved(ctx.store, item, !checked, item.date);
+        }
+        if (checked) state.justRecorded.delete(key);
+        else state.justRecorded.set(key, localDay());
+        refreshHere();
+        ctx.notify(checked ? "已撤销这次打卡。" : item.kind === "play" ? "已记下今天玩过的游戏。" : "已保存首次做到的日期。");
+      } catch (err) { ctx.notify(err.message); }
     }
-    if (!shown.length)
-      items.append(
-        node(
-          "div",
-          "dash-empty",
-          node(
-            "p",
-            "",
-            state.category === "plan"
-              ? "这个月龄没有收录的固定接种或儿保项目。"
-              : "这个月龄暂未收录该类事项。",
-          ),
-          link(
-            state.category === "plan"
-              ? "查看接种与儿保计划 ›"
-              : "查看本月龄知识卡 ›",
-            state.category === "plan"
-              ? "#growth/plan"
-              : "#index?age=" + state.month,
-          ),
-        ),
-      );
+    line.append(text, toggle);
+    row.append(line);
+    const draft = state.visitDraft;
+    if (item.kind === "plan" && draft?.key === key) {
+      row.append(visitForm(ctx, item, draft, (value) => {
+        try {
+          setVisitActual(ctx, item.id, value, draft.oldDate);
+          state.visitDraft = null;
+          refreshHere();
+          ctx.notify(value ? "已保存实际日期。" : "已撤销实际日期。");
+        } catch (err) { ctx.notify(err.message); }
+      }, handle));
+    }
+    return row;
+  }
+  function rows() {
+    for (const b of catRail.children)
+      b.setAttribute("aria-pressed", String(b.dataset.dashCategory === state.category));
+    for (const b of monthRail.children)
+      b.setAttribute("aria-pressed", String(+b.dataset.dashMonth === state.month));
+    const month = state.month, title = month === 0 ? "新生儿" : month + " 月龄";
+    const range = month === 0 ? "出生至未满月" : "满 " + month + " 至未满 " + (month + 1) + " 个月";
+    monthHead.replaceChildren(node("div", "month-caption", node("h2", "", title), node("span", "", range),
+      age === month ? node("b", "", "当前") : null), node("p", "", monthTip(month)));
+    items.replaceChildren();
+    const all = dashboardItems(ctx, month);
+    for (const [kind, label] of categories.slice(1)) {
+      if (state.category !== "all" && state.category !== kind) continue;
+      if (kind === "alert") {
+        items.append(safetyPanel(month));
+        continue;
+      }
+      const group = node("section", "month-group month-" + kind);
+      const list = all.filter(item => item.kind === kind);
+      const heading = kind === "develop" && !observationGroups.some(g => g.month === month) ? "生活观察" : label;
+      group.append(node("h3", "", badge(kind), heading));
+      if (kind === "develop") {
+        const ranges = rangePanel(ctx, state, selectReference);
+        if (ranges) group.append(ranges);
+      }
+      for (const item of list) group.append(renderItem(item));
+      if (kind === "plan") {
+        if (!list.length) group.append(node("p", "month-empty", month > 12
+          ? "当前接种与儿保日程只收录至满周岁，之后请对照接种证及儿保手册。"
+          : "本月没有收录固定项目，可按门诊安排添加。"));
+        if (month <= 12) group.append(link("＋ 添加自费疫苗或门诊安排", "#growth/plan?entry=custom&month=" + month, "dash-plan-add"));
+      }
+      if (kind === "play") {
+        const supplies = [...new Set(list.map(item => gameCopy[item.id]?.material).filter(Boolean))];
+        if (supplies.length) group.append(node("details", "month-supplies",
+          node("summary", "", "游戏要用什么"), node("p", "", supplies.join("、"))));
+        const material = monthMaterial(month);
+        if (material) group.append(node("aside", "month-material",
+          node("strong", "", "家里就有 · " + material.title), node("p", "", material.how),
+          node("small", "", material.safety)));
+      }
+      items.append(group);
+    }
+    if (month < max) {
+      const next = button("下个月 · " + (month + 1) + " 月龄　›", () => {
+        monthRail.querySelector('[data-dash-month="' + (month + 1) + '"]').click();
+        monthHead.scrollIntoView({block:"start"});
+      }, "dash-next-month");
+      items.append(next);
+    }
   }
   for (const [key, label] of categories) {
     const b = button(
       "",
       () => {
+        state.visitDraft = null;
         state.category = key;
         saveFilters();
         rows();
@@ -594,6 +638,7 @@ export function mountGrowthDashboard(outlet, ctx, state, query = "") {
     const b = button(
       m === "0" ? "新生儿" : m + " 月龄",
       () => {
+        state.visitDraft = null;
         state.month = Number(m);
         state.manual = true;
         saveFilters();
@@ -618,13 +663,15 @@ export function mountGrowthDashboard(outlet, ctx, state, query = "") {
           "当前收录出生至未满 " + (max + 1) + " 个月的事项，可选月龄回看。",
         )
       : null,
-    catRail,
-    monthRail,
+    node("div", "dash-sticky", catRail, monthRail),
     monthHead,
     items,
   );
   rows();
-  dashboard.append(top, focus, measurementPanel(ctx, state), monthly);
+  const utilities = node("nav", "dash-utilities", link("照片日签", "#growth/diary"), link("照护统计", "#growth/stats"));
+  utilities.setAttribute("aria-label", "日签与统计");
+  utilities.children[0].prepend(icon("calendar")); utilities.children[1].prepend(icon("chart"));
+  dashboard.append(top, focus, utilities, measurementPanel(ctx, state, rows), monthly);
   outlet.replaceChildren(dashboard);
   const current = monthRail.querySelector('[aria-pressed="true"]');
   if (current)

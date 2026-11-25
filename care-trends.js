@@ -283,49 +283,65 @@ function chart(data, metric) {
   const meta = metrics[metric];
   const figure = el("figure", undefined, "care-chart " + meta.color);
   const top = el("figcaption");
-  top.append(el("strong", meta.label), el("span", meta.unit));
-  if (!data.stats[metric].days) top.append(el("small", "这段时间未记录"));
+  const names = {milk:"每日瓶喂奶量", sleep:"每日睡眠", stool:"每日便便"};
+  top.append(el("strong", names[metric]), el("small", metric==="sleep" ? "小时" : meta.unit));
   const plot = el("div", undefined, "care-chart-plot");
-  plot.setAttribute("aria-hidden", "true");
-  const peak = data.rows.reduce(
-    (max, row) => Math.max(max, row[metric] || 0),
-    0,
-  );
-  const high = el(
-    "span",
-    data.stats[metric].days ? decimal(peak) : "—",
-    "care-chart-high",
-  );
   const bars = el("div", undefined, "care-bars");
-  for (const row of data.rows) {
-    const value = row[metric],
-      bar = el("span", undefined, "care-bar");
-    bar.title = row.day + " " + displayValue(metric, value);
-    bar.classList.toggle("missing", value === null);
-    bar.classList.toggle("zero", value === 0);
-    if (value > 0) bar.style.height = Math.max(3, (100 * value) / peak) + "%";
-    bars.append(bar);
+  const peak = Math.max(1, ...data.rows.map(row => row[metric] || 0));
+  const longRange = data.rows.length > 7;
+  if (longRange) {
+    plot.classList.add("care-month-plot");
+    plot.tabIndex = 0;
+    plot.setAttribute("role", "region");
+    plot.setAttribute("aria-label", names[metric]+"，左右滑动查看 30 天");
   }
-  plot.append(high, bars);
-  const axis = el("div", undefined, "care-chart-axis");
-  axis.append(
-    el("span", compactDay(data.rows[0].day)),
-    el("span", compactDay(data.rows.at(-1).day)),
-  );
-  figure.append(top, plot, axis);
-  const stat = data.stats[metric];
-  if (stat.days)
-    figure.append(
-      el(
-        "small",
-        "有记录的 " +
-          stat.days +
-          " 天，日均 " +
-          displayValue(metric, stat.average),
-        "care-chart-average",
-      ),
-    );
+  for (const row of data.rows) {
+    const value = row[metric];
+    const column = el("div", undefined, "care-bar-column");
+    column.title = row.day + " · " + displayValue(metric,value);
+    column.setAttribute("role","img");
+    column.setAttribute("aria-label",column.title);
+    const track = el("div",undefined,"care-bar-track");
+    const bar = el("span",undefined,"care-bar");
+    bar.classList.toggle("missing",value===null);
+    bar.classList.toggle("zero",value===0);
+    if (value>0) bar.style.height=Math.max(3,value/peak*100)+"%";
+    const units = metric==="sleep" && value!==null ? value/60 : value;
+    // Keep tiny but real sleep durations distinct from a confirmed zero.
+    const valueText = units===null ? "—" : units>0 && units<0.05 ? "<0.1" : decimal(units);
+    const label=el("span",valueText,"care-bar-value");
+    bar.append(label);
+    track.append(bar);
+    const day = new Date(row.day+"T12:00:00");
+    column.append(track,el("span", longRange ? (day.getMonth()+1)+"/"+day.getDate() : "日一二三四五六"[day.getDay()],"care-bar-day"));
+    bars.append(column);
+  }
+  plot.append(bars);
+  figure.append(top,plot);
+  if (longRange) requestAnimationFrame(() => {
+    plot.scrollLeft = plot.scrollWidth - plot.clientWidth;
+  });
   return figure;
+}
+
+function summaryCards(data) {
+  const grid=el("div",undefined,"care-summary-grid");
+  function add(name, value, details) {
+    const card=el("div",undefined,"care-summary-stat");
+    card.append(el("span",name),el("strong",value),el("small",details));
+    grid.append(card);
+  }
+  for (const [key,label] of [["milk","日均瓶喂奶量"],["sleep","日均睡眠"],["interval","平均喂奶间隔"],["stool","日均便便"]]) {
+    if(key==="interval") {
+      add(label,data.meanInterval===null ? "—" : duration(data.meanInterval),
+        data.intervalCount ? data.intervalCount+" 段间隔" : "需两次有效喂养");
+    } else {
+      const stat=data.stats[key];
+      add(label,stat.average===null ? "—" : displayValue(key,stat.average),
+        stat.days ? "按已记 "+stat.days+" 天" : "尚无可统计记录");
+    }
+  }
+  return grid;
 }
 
 function table(data) {
@@ -361,7 +377,7 @@ function touchesDay(item, row) {
 
 function handoff(data, ctx, state) {
   const section = el("section", undefined, "care-handoff");
-  section.append(el("h3", "交班给家人"));
+
   if (!data.records.length) {
     section.append(
       el("p", "有照护记录后，就能勾选要交接的内容。", "care-subtle"),
@@ -498,7 +514,7 @@ export function mountCareTrends(container, ctx) {
     const data = careStats(ctx.checkins, state.days);
     const fragment = document.createDocumentFragment();
     const header = el("div", undefined, "care-trends-heading");
-    header.append(el("h3", "照护趋势"));
+    header.append(el("h2", "照护统计"));
     const ranges = el("div", undefined, "care-range");
     ranges.setAttribute("role", "group");
     ranges.setAttribute("aria-label", "统计时段");
@@ -529,35 +545,10 @@ export function mountCareTrends(container, ctx) {
     );
     const charts = el("div", undefined, "care-chart-grid");
     for (const key of Object.keys(metrics)) charts.append(chart(data, key));
-    const guide = el(
-      "p",
-      "空心点表示未记录，短横表示已记为 0。睡眠按本机日期拆分，仅计已结束的时段。",
-      "care-subtle",
-    );
-    const info = el(
-      "p",
-      "喂养 " +
-        data.feedCount +
-        " 次 · " +
-        (data.meanInterval === null
-          ? "平均间隔数据不足"
-          : "平均间隔 " +
-            duration(data.meanInterval) +
-            "（" +
-            data.intervalCount +
-            " 段）"),
-      "care-feeds-summary",
-    );
-    if (!data.feedCount) info.textContent = "这段时间没有喂养记录。";
-    fragment.append(
-      header,
-      counts,
-      charts,
-      guide,
-      info,
-      table(data),
-      handoff(data, ctx, state),
-    );
+    const guide = el("p","— 表示未记录，0 表示当天已记录为零。睡眠按当天已结束的时段计算。","care-subtle care-chart-guide");
+    const extra = el("details",undefined,"care-daily-table care-fold-handoff");
+    extra.append(el("summary","交班给家人"),handoff(data,ctx,state));
+    fragment.append(header,summaryCards(data),counts,charts,guide,table(data),extra);
     const wrapper = el("div", undefined, "care-trends");
     wrapper.append(fragment);
     container.replaceChildren(wrapper);

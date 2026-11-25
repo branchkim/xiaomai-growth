@@ -5,7 +5,7 @@ const styles = {
   journal: "杂志",
   instant: "拍立得",
   calendar: "日签",
-  photo: "照片",
+  photo: "胶片",
   plain: "极简",
 };
 const verses = [
@@ -159,18 +159,97 @@ function fitText(g, text, width) {
   lines.push(line);
   return lines;
 }
+async function coverImage(blob) {
+  if (blob) return loadImage(blob);
+  const img = new Image();
+  img.src = "./assets/wheat-field.webp";
+  return new Promise((resolve) => {
+    if (img.complete) resolve(img);
+    else img.onload = img.onerror = () => resolve(img);
+  });
+}
+
+function coverCrop(g, image, x, y, w, h) {
+  if (!image.naturalWidth || !image.naturalHeight) return;
+  const scale = Math.max(w / image.naturalWidth, h / image.naturalHeight);
+  const sw = w / scale, sh = h / scale;
+  g.drawImage(image, (image.naturalWidth - sw) / 2, (image.naturalHeight - sh) / 2, sw, sh, x, y, w, h);
+}
+
+function calendarPoster(g, source, r, profile, day, checkins) {
+  const date = new Date(r.day + "T12:00:00");
+  const number = String(day ?? date.getDate());
+  const text = (value, x, y, font, color, width = 625) => {
+    g.fillStyle = color;
+    g.font = font;
+    g.fillText(value, x, y, width);
+  };
+  g.fillStyle = "#faf7f0";
+  g.fillRect(0, 0, 720, 920);
+  text(date.getFullYear() + " 年  ·  " + (date.getMonth() + 1) + " 月  ·  星期" + "日一二三四五六"[date.getDay()], 42, 57, "600 20px sans-serif", "#736d62");
+  g.textAlign = "right";
+  text(day ? "NO." + number.padStart(3, "0") : (date.getMonth()+1) + " / " + number, 678, 57, "600 22px serif", "#736d62");
+  g.textAlign = "left";
+  g.fillStyle = "#d8d2c5";
+  g.fillRect(42, 80, 636, 2);
+  const x=325, y=128, w=353, h=460, radius=w/2;
+  g.save();
+  g.beginPath();
+  g.moveTo(x, y+h);
+  g.lineTo(x, y+radius);
+  g.arc(x+radius, y+radius, radius, Math.PI, 2*Math.PI);
+  g.lineTo(x+w, y+h);
+  g.closePath();
+  g.clip();
+  coverCrop(g, source, x, y, w, h);
+  g.restore();
+  text(number, 40, 316, "186px Georgia, serif", "#332c23", 255);
+  text(day ? "出 生 天 数" : (date.getMonth()+1) + " 月", 48, 370, "600 23px sans-serif", "#716751", 245);
+  fitTextAfterFont(profile.name, "44px serif", 245).slice(0, 2)
+    .forEach((line,i) => text(line, 48, 490+i*55, "44px serif", "#3d362a", 245));
+  text("成 长 日 签", 48, 576, "18px sans-serif", "#8b806d", 230);
+  const lines=fitTextAfterFont(r.note || verses[0], "32px serif", 625);
+  lines.slice(0,2).forEach((line,i) => text(i===1 && lines.length>2 ? line.replace(/.$/u,"…") : line,44,658+i*45,"32px serif","#393229"));
+  const data = careStats(checkins, 7, new Date(), date).rows.at(-1);
+  const summary = [
+    ["奶量", data.milk == null ? "—" : data.milk+" mL", "#eddbcb"],
+    ["睡眠", data.sleep == null ? "—" : Math.round(data.sleep)+" 分钟", "#e4dfed"],
+    ["便便", data.stool == null ? "—" : data.stool+" 次", "#dce7da"],
+  ];
+  summary.forEach(([label,val,bg],i) => {
+    const left=44+i*215;
+    g.fillStyle=bg;
+    g.fillRect(left,758,5,63);
+    text(val,left+14,785,"600 28px sans-serif","#393329",180);
+    text(label,left+14,817,"20px sans-serif","#6d685d",180);
+  });
+  g.fillStyle="#d8d2c5";
+  g.fillRect(42,852,636,1);
+  text("小麦的成长计划",44,888,"18px sans-serif","#766e61");
+  g.textAlign="right";
+  text(r.day,677,888,"18px serif","#766e61");
+  g.textAlign="left";
+  function fitTextAfterFont(value, font, width) {
+    g.font=font;
+    return fitText(g,value,width);
+  }
+}
+
 async function paint(canvas, r, profile, checkins) {
-  const photo = r.photos[r.cover] ? await loadImage(r.photos[r.cover]) : null;
+  const photo = await coverImage(r.photos[r.cover]);
   const width = 720,
     height = 920;
   canvas.width = width;
   canvas.height = height;
   const g = canvas.getContext("2d"),
     day = lifeDay(profile.birthday, r.day);
+  if (r.style === "calendar") {
+    calendarPoster(g, photo, r, profile, day, checkins);
+    return;
+  }
   const colors = {
     journal: ["#f5ecd7", "#342c21"],
     instant: ["#fff8ed", "#574840"],
-    calendar: ["#e9efdf", "#214c3a"],
     photo: ["#243b34", "#fffaf1"],
     plain: ["#f9f8f0", "#333c31"],
   };
@@ -178,7 +257,7 @@ async function paint(canvas, r, profile, checkins) {
   g.fillStyle = paper;
   g.fillRect(0, 0, width, height);
   const isPhoto = r.style === "photo",
-    top = r.style === "instant" ? 30 : r.style === "calendar" ? 182 : 115;
+    top = r.style === "instant" ? 30 : 115;
   const x = isPhoto ? 0 : 44,
     y = isPhoto ? 0 : top,
     w = width - 2 * x,
@@ -189,41 +268,7 @@ async function paint(canvas, r, profile, checkins) {
         : r.style === "instant"
           ? 590
           : 424;
-  if (photo) {
-    const scale = Math.max(w / photo.naturalWidth, h / photo.naturalHeight);
-    g.drawImage(
-      photo,
-      (photo.naturalWidth - w / scale) / 2,
-      (photo.naturalHeight - h / scale) / 2,
-      w / scale,
-      h / scale,
-      x,
-      y,
-      w,
-      h,
-    );
-  } else {
-    const art = new Image();
-    art.src = "./assets/wheat-field.webp";
-    await new Promise((resolve) => {
-      if (art.complete) resolve();
-      else art.onload = art.onerror = resolve;
-    });
-    if (art.naturalWidth) {
-      const scale = Math.max(w / art.naturalWidth, h / art.naturalHeight);
-      g.drawImage(
-        art,
-        (art.naturalWidth - w / scale) / 2,
-        (art.naturalHeight - h / scale) / 2,
-        w / scale,
-        h / scale,
-        x,
-        y,
-        w,
-        h,
-      );
-    }
-  }
+  coverCrop(g, photo, x, y, w, h);
   if (isPhoto) {
     const fade = g.createLinearGradient(0, 350, 0, 920);
     fade.addColorStop(0, "rgba(12,25,17,0)");
@@ -236,7 +281,7 @@ async function paint(canvas, r, profile, checkins) {
   const heading = day ? "出生第 " + day + " 天" : r.day;
   if (!isPhoto && r.style !== "instant") {
     g.font = "bold 50px serif";
-    g.fillText(heading, 42, r.style === "calendar" ? 88 : 76, 630);
+    g.fillText(heading, 42, 76, 630);
   }
   const after = isPhoto ? 680 : y + h + 68;
   g.font = "bold 38px serif";
@@ -281,15 +326,56 @@ async function paint(canvas, r, profile, checkins) {
   }
 }
 export function mountDiary(root, ctx) {
-  root.innerHTML =
-    '<div class="tool-heading"><h2>照片日记</h2><label>记录日期 <input type="date" data-day></label></div><p data-streak class="muted"></p><div data-week class="diary-week" aria-label="所选日期前七天"></div><div class="diary-layout"><form class="growth-form" data-editor><label>写一句今天的事<textarea maxlength="1000" rows="3" data-note placeholder="今天发生了什么？"></textarea></label><div class="growth-actions"><button type="button" data-verse>换一句</button><label class="file-btn">选照片 / 换封面<input type="file" multiple accept="image/*" data-images></label></div><div class="diary-thumbs" data-thumbs></div><label>日签样式<select data-style></select></label><div class="growth-actions"><button class="solid" type="submit">保存日记</button><button type="button" data-share>分享日签</button><button type="button" data-remove>删除这天日记</button></div><p class="muted" data-state role="status"></p></form><canvas class="daily-poster" aria-label="照片日签预览"></canvas></div><details class="growth-fold"><summary>以前的日记</summary><div class="diary-history" data-history></div></details>';
+  root.classList.add("quick-diary");
+  root.innerHTML = `
+    <header class="diary-top"><h2>照片日签</h2><div class="diary-capture">
+      <button type="button" data-today hidden>写今天</button>
+      <label class="file-btn">拍照<input type="file" accept="image/*" capture="environment" data-camera aria-label="拍照"></label>
+      <label class="file-btn">选照片<input type="file" multiple accept="image/*" data-images aria-label="选照片"></label>
+    </div></header>
+    <div class="diary-byline"><strong data-caption></strong><span data-streak></span></div>
+    <canvas width="720" height="920" class="daily-poster" aria-label="照片日签预览" role="img"></canvas>
+    <div class="diary-styles" data-styles role="group" aria-label="日签样式"></div>
+    <div class="diary-toolbar">
+      <button type="button" data-verse>换一句</button>
+      <button type="button" data-cover>换封面</button>
+      <button type="button" data-share>分享日签</button>
+    </div>
+    <form class="growth-form" data-editor>
+      <details class="diary-fold" data-diary-edit>
+        <summary>编辑日记</summary>
+        <label>记录日期<input type="date" data-day></label>
+        <div data-week class="diary-week" aria-label="所选日期前七天"></div>
+        <label>写一句今天的事<textarea maxlength="1000" rows="3" data-note placeholder="今天发生了什么？"></textarea></label>
+        <button type="button" data-remove hidden>删除这天日记</button>
+      </details>
+      <details class="diary-fold" data-covers hidden>
+        <summary>封面相册</summary>
+        <div class="diary-thumbs" data-thumbs></div>
+      </details>
+      <div class="diary-save" data-save hidden><button class="solid" type="submit">保存日记</button></div>
+      <p class="muted" data-state role="status"></p>
+    </form>
+    <details class="diary-fold"><summary>以前的日记</summary><div class="diary-history" data-history></div></details>`;
   const q = (s) => root.querySelector(s),
-    select = q("[data-style]"),
     picker = q("[data-day]"),
     note = q("[data-note]"),
     status = q("[data-state]");
-  for (const [id, label] of Object.entries(styles))
-    select.add(new Option(label, id));
+  for (const [id,label] of Object.entries(styles)) {
+    const b=document.createElement("button");
+    b.type="button"; b.dataset.diaryStyle=id; b.textContent=label;
+    b.onclick=()=>{
+      if (!record || record.style===id) return;
+      record.style=id;
+      updateStyles();
+      changed();
+    };
+    q("[data-styles]").append(b);
+  }
+  function updateStyles() {
+    for (const b of q("[data-styles]").children)
+      b.setAttribute("aria-pressed", String(b.dataset.diaryStyle===record.style));
+  }
   picker.value = picker.max = localDay();
   let record,
     savedStamp,
@@ -302,6 +388,7 @@ export function mountDiary(root, ctx) {
   function changed() {
     pending = true;
     revision++;
+    q("[data-save]").hidden = false;
     status.textContent = "尚未保存";
     draw();
   }
@@ -324,6 +411,7 @@ export function mountDiary(root, ctx) {
   function thumbnails() {
     const list = q("[data-thumbs]");
     list.replaceChildren();
+    q("[data-covers]").hidden = !record.photos.length;
     record.photos.forEach((blob, i) => {
       const wrap = document.createElement("span"),
         b = document.createElement("button"),
@@ -416,6 +504,7 @@ export function mountDiary(root, ctx) {
     try {
       const existing = await getDay(day);
       if (token !== generation || !root.isConnected) return;
+      picker.value = day;
       savedStamp = existing?.updated;
       record = existing || {
         day,
@@ -425,7 +514,13 @@ export function mountDiary(root, ctx) {
         style: "calendar",
       };
       note.value = record.note;
-      select.value = record.style;
+      updateStyles();
+      q("[data-today]").hidden = day === localDay();
+      const selectedDate = new Date(day+"T12:00:00");
+      q("[data-caption]").textContent = (day===localDay() ? "今天" : "日记") + " · " +
+        (selectedDate.getMonth()+1) + " 月 " + selectedDate.getDate() + " 日";
+      q("[data-save]").hidden = true;
+      q("[data-covers]").open = false;
       pending = false;
       revision++;
       status.textContent = "";
@@ -457,19 +552,27 @@ export function mountDiary(root, ctx) {
       changed();
     }
   };
-  select.onchange = () => {
-    if (record) {
-      record.style = select.value;
-      changed();
-    }
+  q("[data-today]").onclick = () => {
+    picker.value = localDay();
+    changeDay();
+  };
+  q("[data-cover]").onclick = () => {
+    if (!record) return;
+    if (record.photos.length < 2) { q("[data-images]").click(); return; }
+    const covers = q("[data-covers]");
+    covers.open = true;
+    covers.scrollIntoView({block:"nearest"});
+    covers.querySelector('[aria-pressed="true"]')?.focus({preventScroll:true});
   };
   q("[data-verse]").onclick = () => {
     if (record) {
-      record.note = note.value = verses[verse++ % verses.length];
+      const index = verses.indexOf(record.note || verses[0]);
+      verse = index >= 0 ? (index + 1) % verses.length : (verse + 1) % verses.length;
+      record.note = note.value = verses[verse];
       changed();
     }
   };
-  q("[data-images]").onchange = async (e) => {
+  async function addImages(e) {
     if (!record || importing) return;
     importing = true;
     const target = record,
@@ -487,7 +590,8 @@ export function mountDiary(root, ctx) {
       e.target.value = "";
       importing = false;
     }
-  };
+  }
+  q("[data-images]").onchange = q("[data-camera]").onchange = addImages;
   q("[data-editor]").onsubmit = async (e) => {
     e.preventDefault();
     if (!record || importing) return;
@@ -529,6 +633,7 @@ export function mountDiary(root, ctx) {
         savedStamp = draft.updated;
         if (rev === revision) {
           pending = false;
+          q("[data-save]").hidden = true;
           status.textContent = "已保存到本机";
         }
         q("[data-remove]").hidden = false;
@@ -605,5 +710,8 @@ export function mountDiary(root, ctx) {
       if (e.name !== "AbortError") status.textContent = e.message;
     }
   };
-  load(picker.value);
+  // Start with the newest saved day. This key cursor avoids loading old photos.
+  transact("readonly", (s) => s.openKeyCursor(null,"prev")).then((cursor) => {
+    if (root.isConnected && !generation) load(cursor?.key || localDay());
+  }).catch((e) => { status.textContent=e.message; });
 }

@@ -164,6 +164,11 @@ export function healthReport(ctx) {
     const r = marks.get(simpleMark(g.month,id));
     if (r?.date || r?.note) obs.push([title,r.date && "首次 "+r.date,r.note].filter(Boolean).join(" · "));
   }
+  const clinical = new Set(observationGroups.flatMap(g => g.marks.map(([key]) => simpleMark(g.month,key))));
+  for (const r of marks.values()) {
+    if (!clinical.has(r.id) && r.title && (r.date || r.note))
+      obs.push(["家庭观察 · " + r.title, r.date && "首次 " + r.date, r.note].filter(Boolean).join(" · "));
+  }
   lines.push(...(obs.length ? obs : ["未记录"]));
   return lines.join("\n");
 }
@@ -208,6 +213,17 @@ function update(ctx,ui,work,message) {
 }
 function dateField(value,attrs={}) { return el("input",{type:"date",value:value || "",...attrs}); }
 function details(title,...children) {return el("details",{class:"health-details"},el("summary",{},title),...children);}
+// Each open editor owns a snapshot; changes from another tab must be reviewed before a full-form write.
+function editorIsCurrent(ctx,ui,type,id,expected,openKey) {
+  const saved = ctx.store.list(type).find(r => r.id === id);
+  const before = expected || {}, now = saved || {};
+  const keys = new Set([...Object.keys(before), ...Object.keys(now)]);
+  if ([...keys].every(key => before[key] === now[key])) return true;
+  ui[openKey] = id;
+  ui.draw();
+  ctx.notify("这条记录已在另一处更新，已显示最新内容，请重新核对。");
+  return false;
+}
 function visitEditor(ctx,ui,p) {
   const birth = ctx.profile().birthday;
   const panel = el("details",{class:"health-item"});
@@ -234,7 +250,9 @@ function visitEditor(ctx,ui,p) {
   }
   if (course) form.append(field("乙脑疫苗制剂",course));
   form.append(el("div",{class:"health-grid"},field("预约日期",appt),field(actualLabel,actual)),field("备注（选填）",note));
+  const current = () => editorIsCurrent(ctx,ui,"visit",p.id,p.record,"openVisit");
   function save(appointment,actualDate,newCourse) {
+    if (!current()) return;
     if (p.id==="je-1" && newCourse!=="inactive" && plans(ctx).some(x=>x.id==="je-2" && (x.actual || x.appointment || x.record.note))) {
       ctx.notify("第 2 剂已有记录，请先核对并清空第 2 剂记录，再更改制剂。"); return;
     }
@@ -251,14 +269,15 @@ function visitEditor(ctx,ui,p) {
   if (p.appointment) actions.append(btn("撤销预约",()=>save("",p.actual,course?.value)));
   if (p.actual) actions.append(btn("撤销完成记录",()=>save(p.appointment,"",course?.value)));
   if (p.custom) actions.append(btn("删除这项计划",()=>{
-    if (!globalThis.confirm("删除这项自定义计划及其日期记录？")) return;
+    if (!current() || !globalThis.confirm("删除这项自定义计划及其日期记录？")) return;
     const ok = update(ctx,ui,()=>ctx.store.remove("visit",p.id),"计划已删除。");
     if (ok && ctx.cancelReminder) Promise.resolve().then(()=>ctx.cancelReminder(p.id)).catch(()=>ctx.notify("计划已删除。请到系统中核对旧提醒。"));
   }));
   form.append(actions);
   if (p.appointment && !p.actual) {
-    const reminderButtons = row(btn("导出日历提醒",()=>calendar(ctx,p)));
+    const reminderButtons = row(btn("导出日历提醒",()=>{ if (current()) calendar(ctx,p); }));
     if (ctx.remind && p.appointment >= today() && ctx.profile().reminders?.plan !== false) reminderButtons.append(btn("设置手机提醒",async()=>{
+      if (!current()) return;
       try {
         await ctx.remind({id:p.id,title:p.title,date:p.appointment,leadDays:leads(ctx)});
         ctx.notify("已提交手机提醒。");
@@ -446,17 +465,19 @@ function measureScreen(ctx,ui) {
 }
 function milestoneEditor(ctx,ui,g,id,title,record) {
   const key=simpleMark(g.month,id), r=record || {};
+  const current = () => editorIsCurrent(ctx,ui,"milestone",key,record,"openMark");
   const date=dateField(r.date,{min:ctx.profile().birthday || undefined,max:today()});
   const note=el("textarea",{rows:2,maxlength:500,placeholder:"例如谁在场、当时在做什么"},r.note || "");
   const form=el("form",{class:"health-form"});
   const actions=row(el("button",{type:"submit",class:"health-primary"},"保存观察"));
   if (record) actions.append(btn("清除这条观察",()=>{
-    if (!globalThis.confirm("清除这项的首次日期和观察文字？")) return;
+    if (!current() || !globalThis.confirm("清除这项的首次日期和观察文字？")) return;
     update(ctx,ui,()=>ctx.store.remove("milestone",key),"这条观察已清除。");
   }));
   form.append(field("首次做到日期（选填）",date),field("观察记录（选填）",note),actions);
   form.addEventListener("submit",e=>{
     e.preventDefault();
+    if (!current()) return;
     if (!date.value && !note.value.trim()) {ctx.notify("请填入首次日期或一句观察。");return;}
     update(ctx,ui,()=>ctx.store.put("milestone",key,{date:date.value,note:note.value.trim()}),"观察已保存。");
   });
